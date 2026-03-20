@@ -131,6 +131,7 @@ export function Hero() {
   return (
     <section
       ref={rootRef}
+      data-opening-hero
       className="hero-height relative overflow-clip border-b border-border-faint"
       aria-labelledby="hero-heading"
     >
@@ -143,7 +144,10 @@ export function Hero() {
       <Container width="wide" className="relative h-full">
         <div className="editorial-grid h-full items-end pb-10 pt-28 sm:pb-14 sm:pt-32 lg:pb-16 lg:pt-0 xl:pb-20">
           <div className="relative z-10 col-span-12 flex flex-col justify-end lg:col-span-5 lg:col-start-2 xl:col-span-4">
-            <div className="max-w-[33rem] lg:max-w-[27rem] xl:max-w-[28.5rem]">
+            <div
+              data-opening-hero-content
+              className="max-w-[33rem] lg:max-w-[27rem] xl:max-w-[28.5rem]"
+            >
               <Eyebrow className="mb-5 inline-flex items-center gap-2.5 text-text-muted/90 sm:mb-6 lg:mb-5">
                 <span>Zaw Htike Aung</span>
                 <span
@@ -209,9 +213,13 @@ export function Hero() {
           <div className="relative col-span-12 hidden h-full min-h-[28rem] lg:col-span-5 lg:col-start-8 xl:col-span-6 xl:col-start-7 lg:block">
             <div
               ref={atmosphereRef}
+              data-opening-atmosphere
               className="absolute inset-y-[12%] right-[2%] left-[16%] overflow-hidden opacity-100"
             >
-              <div className="absolute inset-y-[2%] right-[0%] left-[20%] overflow-hidden rounded-xs bg-surface-1">
+              <div
+                data-opening-hero-portrait
+                className="absolute inset-y-[2%] right-[0%] left-[20%] overflow-hidden rounded-xs bg-surface-1"
+              >
                 <Image
                   src={heroImage}
                   alt="Portrait of Zaw Htike Aung"
