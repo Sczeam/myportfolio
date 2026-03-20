@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type ContainerWidth = "default" | "wide" | "reading";
+export type ContainerWidth = "default" | "wide" | "reading";
 
 type ContainerProps<T extends ElementType> = {
   as?: T;

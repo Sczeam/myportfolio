@@ -1,15 +1,14 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
+import type { ContainerWidth } from "@/components/ui/container";
+import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 
-import { Container } from "@/components/ui/container";
-
 type SectionTone = "default" | "tight";
-type SectionWidth = "default" | "wide" | "reading";
 
 type SectionProps = ComponentPropsWithoutRef<"section"> & {
   children: ReactNode;
-  width?: SectionWidth;
+  width?: ContainerWidth;
   tone?: SectionTone;
   containerClassName?: string;
 };
