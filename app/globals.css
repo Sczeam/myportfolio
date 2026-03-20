@@ -285,9 +285,9 @@
 
   .wide-container {
     width: 100%;
-    max-width: 104rem;
+    max-width: 96rem;
     margin-inline: auto;
-    padding-inline: clamp(1.5rem, 5vw, 4rem);
+    padding-inline: 2rem;
   }
 
   .reading-measure {

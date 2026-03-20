@@ -12,7 +12,7 @@ const navItems = [
 export function Navbar() {
   return (
     <header
-      className="sticky top-0 z-50 border-b border-border-faint/80 bg-[rgba(14,15,17,0.8)] backdrop-blur-[12px]"
+      className="fixed inset-x-0 top-0 z-50 border-b border-border-faint/80 bg-[rgba(14,15,17,0.8)] backdrop-blur-[12px]"
       data-node-id="1:167"
     >
       <Container width="wide" className="relative">
