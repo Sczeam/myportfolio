@@ -18,10 +18,10 @@ export function SelectedWorkIntroMotion() {
     const section = document.querySelector<HTMLElement>(
       "[data-selected-work-intro]",
     );
+    const index = document.querySelector<HTMLElement>("[data-selected-work-index]");
     const title = document.querySelector<HTMLElement>("[data-selected-work-title]");
-    const note = document.querySelector<HTMLElement>("[data-selected-work-note]");
 
-    if (!section || !title || !note) {
+    if (!section || !index || !title) {
       return;
     }
 
@@ -34,19 +34,19 @@ export function SelectedWorkIntroMotion() {
       },
       (context) => {
         if (context.conditions?.reduceMotion) {
-          gsap.set([title, note], {
+          gsap.set([index, title], {
             clearProps: "all",
           });
           return;
         }
 
+        gsap.set(index, {
+          opacity: 0,
+          y: 24,
+        });
         gsap.set(title, {
           opacity: 0,
-          y: context.conditions?.mobile ? 14 : 18,
-        });
-        gsap.set(note, {
-          opacity: 0,
-          y: context.conditions?.mobile ? 10 : 12,
+          y: 24,
         });
 
         const introReveal = gsap.timeline({
@@ -55,13 +55,13 @@ export function SelectedWorkIntroMotion() {
           },
           scrollTrigger: {
             trigger: section,
-            start: context.conditions?.mobile ? "top 92%" : "top 88%",
+            start: context.conditions?.mobile ? "top 85%" : "top 82%",
             toggleActions: "play none none reverse",
           },
         });
 
         introReveal.to(
-          title,
+          index,
           {
             opacity: 1,
             y: 0,
@@ -71,18 +71,18 @@ export function SelectedWorkIntroMotion() {
         );
 
         introReveal.to(
-          note,
+          title,
           {
             opacity: 1,
             y: 0,
-            duration: 0.42,
+            duration: 0.56,
           },
-          0.1,
+          0.15,
         );
 
         return () => {
           introReveal.kill();
-          gsap.set([title, note], {
+          gsap.set([index, title], {
             clearProps: "all",
           });
         };
