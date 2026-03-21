@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
@@ -14,22 +14,21 @@ const processLensEasePrimary = CustomEase.create(
 );
 
 export function ProcessLensMotion() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = document.querySelector<HTMLElement>("[data-process-lens]");
-    const kicker = document.querySelector<HTMLElement>("[data-process-lens-kicker]");
-    const title = document.querySelector<HTMLElement>("[data-process-lens-title]");
-    const rule = document.querySelector<HTMLElement>("[data-process-lens-rule]");
-    const items = gsap.utils.toArray<HTMLElement>("[data-process-lens-item]");
+    if (!section) {
+      return;
+    }
+
+    const kicker = section.querySelector<HTMLElement>("[data-process-lens-kicker]");
+    const title = section.querySelector<HTMLElement>("[data-process-lens-title]");
+    const rule = section.querySelector<HTMLElement>("[data-process-lens-rule]");
+    const items = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll<HTMLElement>("[data-process-lens-item]"),
+    );
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (
-      !section ||
-      !kicker ||
-      !title ||
-      !rule ||
-      items.length === 0 ||
-      reduceMotion.matches
-    ) {
+    if (!kicker || !title || !rule || items.length === 0 || reduceMotion.matches) {
       return;
     }
 
@@ -56,6 +55,7 @@ export function ProcessLensMotion() {
     reset();
 
     let hasPlayed = false;
+    let reveal: gsap.core.Timeline | null = null;
 
     const play = () => {
       if (hasPlayed) {
@@ -64,7 +64,7 @@ export function ProcessLensMotion() {
 
       hasPlayed = true;
 
-      const reveal = gsap.timeline({
+      reveal = gsap.timeline({
         defaults: {
           ease: processLensEasePrimary,
         },
@@ -121,6 +121,8 @@ export function ProcessLensMotion() {
 
     return () => {
       trigger.kill();
+      reveal?.kill();
+      reveal = null;
       reset();
     };
   }, []);
