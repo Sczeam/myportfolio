@@ -2,6 +2,8 @@ import {
   FeaturedProject,
 } from "@/components/home/featured-project";
 import { FeaturedProjectMotion } from "@/components/home/featured-project-motion";
+import { ClosingInvitation } from "@/components/home/closing-invitation";
+import { ClosingInvitationMotion } from "@/components/home/closing-invitation-motion";
 import { Hero } from "@/components/home/hero";
 import { OpeningSequenceMotion } from "@/components/home/opening-sequence-motion";
 import { PersonalFrame } from "@/components/home/personal-frame";
@@ -29,6 +31,7 @@ export default function Home() {
       <PersonalFrameMotion />
       <ValueFrameMotion />
       <SignatureMomentMotion />
+      <ClosingInvitationMotion />
       <Hero />
       <ThesisSection />
       <SelectedWorkIntro />
@@ -39,6 +42,7 @@ export default function Home() {
       <PersonalFrame />
       <ValueFrame />
       <SignatureMoment />
+      <ClosingInvitation />
     </main>
   );
 }
