@@ -4,27 +4,17 @@ import { Container } from "@/components/ui/container";
 
 const contactLinks = [
   {
-    label: "hello@zhtike.aung",
-    href: "mailto:hello@zhtike.aung",
-  },
-  {
     label: "GitHub",
     href: "https://github.com/Sczeam",
   },
   {
     label: "LinkedIn",
-    href: "https://www.linkedin.com/",
-  },
-] as const;
-
-const footerNavigation = [
-  { label: "Work", href: "#selected-work" },
-  { label: "Stack", href: "#stack" },
-  { label: "Security", href: "#process" },
+    href: "https://www.linkedin.com/in/zaw-htike-aung",
+    },
 ] as const;
 
 const footerSocial = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/zaw-htike-aung" },
   { label: "GitHub", href: "https://github.com/Sczeam" },
   { label: "Mail", href: "mailto:hello@zhtike.aung" },
 ] as const;
@@ -76,7 +66,7 @@ export function ClosingInvitation() {
         />
 
         <footer
-          className="grid gap-10 pb-2 pt-10 sm:gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.55fr)_minmax(0,0.55fr)_auto] lg:items-end lg:gap-[4rem] lg:pt-[3.75rem]"
+          className="grid gap-10 pb-2 pt-10 sm:gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.55fr)_auto] lg:items-end lg:gap-[4rem] lg:pt-[3.75rem]"
           data-closing-invitation-fade
         >
           <div>
@@ -86,19 +76,6 @@ export function ClosingInvitation() {
             <p className="mt-5 font-display text-[1.55rem] italic leading-[1.3] tracking-[-0.02em] text-accent">
               Full-stack craft with architectural intent.
             </p>
-          </div>
-
-          <div>
-            <p className="type-label text-text-subtle">Navigation</p>
-            <ul className="mt-4 space-y-2.5">
-              {footerNavigation.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className={footerLinkClassName}>
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
           </div>
 
           <div>
