@@ -112,7 +112,7 @@ export function SignatureMomentMotion() {
     });
 
     const parallax = gsap.to(atmosphere, {
-      y: 120,
+      y: 220,
       ease: "none",
       scrollTrigger: {
         trigger: section,
