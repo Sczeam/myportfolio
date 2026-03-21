@@ -12,6 +12,8 @@ import { SelectedWorkIntro } from "@/components/home/selected-work-intro";
 import { SelectedWorkIntroMotion } from "@/components/home/selected-work-intro-motion";
 import { ThesisSection } from "@/components/home/thesis-section";
 import { ThesisSectionMotion } from "@/components/home/thesis-section-motion";
+import { ValueFrame } from "@/components/home/value-frame";
+import { ValueFrameMotion } from "@/components/home/value-frame-motion";
 import { featuredProjects } from "@/data/projects";
 
 export default function Home() {
@@ -23,6 +25,7 @@ export default function Home() {
       <FeaturedProjectMotion />
       <ProcessLensMotion />
       <PersonalFrameMotion />
+      <ValueFrameMotion />
       <Hero />
       <ThesisSection />
       <SelectedWorkIntro />
@@ -31,6 +34,7 @@ export default function Home() {
       ))}
       <ProcessLens />
       <PersonalFrame />
+      <ValueFrame />
     </main>
   );
 }
