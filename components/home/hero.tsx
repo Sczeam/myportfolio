@@ -1,7 +1,7 @@
 import { Container } from "@/components/ui/container";
 
 const desktopLineClassName =
-  "lg:absolute lg:text-[9rem] lg:leading-none lg:tracking-[-0.05em]";
+  "lg:absolute lg:leading-[0.95] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
 
 export function Hero() {
   return (
@@ -13,31 +13,30 @@ export function Hero() {
     >
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,22,26,0.06)_0%,rgba(14,15,17,0)_28%,rgba(14,15,17,0.94)_100%)]" />
-        <div className="absolute right-[-14rem] top-[16%] h-[37.5rem] w-[37.5rem] rounded-full bg-accent/14 blur-[60px] opacity-30" />
-        <div className="absolute inset-0 opacity-[0.02] [background-image:radial-gradient(rgba(243,240,234,0.8)_0.7px,transparent_0.7px)] [background-position:0_0] [background-size:14px_14px]" />
+        <div className="absolute right-[-6rem] top-1/2 h-[56rem] w-[56rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(243,240,234,0.16)_0%,rgba(214,220,230,0.12)_20%,rgba(170,178,190,0.08)_38%,rgba(120,128,140,0.035)_56%,rgba(14,15,17,0)_76%)] blur-[34px]" />
       </div>
 
-      <Container width="wide" className="relative">
-        <div className="flex min-h-[100svh] flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-32 lg:pt-24">
-          <div className="grid items-end gap-10 lg:grid-cols-[56.5rem_17.5rem] lg:justify-center lg:gap-4">
+      <Container width="wide" className="relative lg:px-[8.5rem]">
+        <div className="flex min-h-[100svh] flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-28 lg:pt-28">
+          <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-14">
             <div
-              className="lg:relative lg:h-[27rem] lg:w-[56.5rem]"
+              className="lg:relative lg:min-h-[23rem] lg:max-w-[42rem]"
               data-node-id="1:5"
             >
               <h1
                 id="hero-heading"
                 className="font-display text-text-primary [text-shadow:0_0_30px_rgba(243,240,234,0.1)]"
               >
-                <span className="block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.94] tracking-[-0.05em] lg:mt-0 lg:leading-none lg:text-[9rem] lg:tracking-[-0.05em]">
+                <span className="block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] lg:mt-0 lg:leading-[0.95] lg:text-[5.25rem] xl:text-[7rem] lg:tracking-[-0.04em]">
                   Curating
                 </span>
                 <span
-                  className={`mt-[-0.08em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.94] tracking-[-0.05em] italic lg:left-[12rem] lg:top-[9rem] ${desktopLineClassName}`}
+                  className={`mt-[-0.05em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] italic lg:left-[21.25%] lg:top-[33.33%] ${desktopLineClassName}`}
                 >
                   Atmospheric
                 </span>
                 <span
-                  className={`mt-[-0.08em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.94] tracking-[-0.05em] lg:left-0 lg:top-[18rem] ${desktopLineClassName}`}
+                  className={`mt-[-0.05em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] lg:left-0 lg:top-[66.66%] ${desktopLineClassName}`}
                 >
                   Digital Space.
                 </span>

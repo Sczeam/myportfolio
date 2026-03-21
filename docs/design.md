@@ -1,95 +1,109 @@
-````markdown
-# Design System Specification
+# Design System: Architectural Editorial
 
-## 1. Overview & Creative North Star: The Silent Curator
+## 1. Creative North Star: "The Monolith Editorial"
 
-This design system is built upon the philosophy of **The Silent Curator**. It rejects the noisy, hyper-interfaced nature of modern SaaS in favor of a cinematic, editorial experience. The goal is to create a digital environment that feels like an architectural walkthrough—where space, light (tonality), and structure (typography) do the heavy lifting.
+This design system is built upon the intersection of brutalist structural integrity and high-fashion editorial grace. It rejects the "busy" nature of modern SaaS interfaces in favor of a "Monolith" approach: large, singular focal points, intentional voids of negative space, and a structural framing system that feels like a blueprint for a premium physical space.
 
-To break the "template" look, we employ **Intentional Asymmetry**. Large-scale serif display type should often be offset from the main body grid, creating a sense of rhythmic tension. We avoid centered layouts unless they are used for high-impact "Signature Moments." The interface should feel "composed" rather than "assembled."
-
----
-
-### 2. Colors & Tonal Logic
-
-The palette is rooted in obsidian depths and parchment highlights. It is essential to avoid pure `#000000` or `#FFFFFF`.
-
-**Core Palette Tokens:**
-
-- **Background:** `#0E0F11` (The foundational canvas)
-- **Surface 1:** `#14161A` (Primary container level)
-- **Surface 2:** `#1B1E24` (Elevated components/navigation)
-- **Main Accent:** `#7C8A9A` (Muted slate blue for primary actions)
-- **Warm Support:** `#A3937E` (Used sparingly for humanizing elements or secondary highlights)
-
-**The "No-Line" Rule:**
-Standard 1px solid borders are prohibited for sectioning. Boundaries must be defined through background color shifts. For example, a `surface-container-low` section should sit against the `background` to create a natural edge.
-
-**The "Glass & Gradient" Rule:**
-To provide visual "soul," use subtle linear gradients on main CTAs, transitioning from `primary` (`#7C8A9A`) to `deep-accent` (`#5E6977`) at a 145-degree angle. For floating overlays, utilize **Glassmorphism**: apply `surface-2` at 80% opacity with a `24px` backdrop blur.
+The goal is to move beyond "user interface" and into "digital architecture." We achieve this through extreme typographic scale, asymmetrical balance that challenges the center-aligned status quo, and a motion system that feels like a camera lens slowly pulling focus.
 
 ---
 
-### 3. Typography: The Editorial Voice
+## 2. Color & Material System
 
-The system relies on the interplay between a sharp, historical serif and a functional, mid-century sans-serif.
+The palette is rooted in deep obsidian and bone-whites, creating a high-contrast environment that feels authoritative yet sophisticated.
 
-- **Display & Headline (PP Editorial New):** Used for "Signature Moments" and storytelling. Use `display-lg` (3.5rem) with tight letter-spacing (-0.02em) to create an authoritative, editorial feel.
-- **Body & Utility (Neue Haas Grotesk):** Used for all functional data. It is the "architectural" element—clean, reliable, and secondary to the display type.
-- **Case Logic:** Sentence case is the default for all headings and body text to maintain a calm, conversational tone. All-caps is reserved strictly for `label-sm` (e.g., small metadata or category tags) with a +5% letter-spacing.
+### Palette Tokens
 
----
+- **Surface (Background):** `#0E0F11` – The "void." Used for the base canvas.
+- **On-Surface (Primary Text):** `#F3F0EA` – Warm parchment white. High legibility against dark depths.
+- **Primary (Accent/Action):** `#7C8A9A` – Muted slate blue. Used for focus, interactive states, and architectural highlights.
+- **Outline-Variant:** `#44474C` – The structural hairline color.
 
-### 4. Elevation & Depth
+### Material Hierarchy (The Layering Principle)
 
-In this system, depth is a product of light and layering, not artificial shadows.
+Instead of traditional drop shadows, depth is achieved through three distinct architectural levels:
 
-- **The Layering Principle:** Stacking determines hierarchy. Use the `surface-container` tiers (Lowest to Highest) to create "nested" depth. An inner module should always be one tier higher than its parent container to feel "placed" rather than "pasted."
-- **Ambient Shadows:** Floating elements (modals, dropdowns) use an extra-diffused shadow: `0 20px 40px rgba(0, 0, 0, 0.4)`. The shadow color must never be grey; it should be a deep, transparent version of the `background` color.
-- **The "Ghost Border" Fallback:** If a border is required for accessibility, use a "Ghost Border"—the `outline-variant` token at 15% opacity. High-contrast, 100% opaque borders are strictly forbidden as they break the cinematic flow.
+- **Level 0 (The Canvas):** Base `#0E0F11`. The ground upon which all elements sit.
+- **Level 1 (Lifted Surface):** `surface_container_low` (`#1B1C1E`). Used for subtle differentiation of large content blocks.
+- **Level 2 (Framed Inset):** `surface_container` (`#1F2022`). Used for interactive components like cards and inputs.
 
----
-
-### 5. Components
-
-#### Buttons
-
-- **Primary:** Gradient fill (`Main Accent` to `Deep Accent`). No border. `md` (10px) radius.
-- **Secondary:** Surface 2 background with a Ghost Border. Text in `Primary Text`.
-- **Tertiary:** Text only in `Secondary Text`. On hover, transition to `Primary Text` with a subtle 2px underline offset.
-
-#### Input Fields
-
-- **Styling:** Understated. Use `Surface 1` as the fill. Instead of a 4-sided border, use a 1px solid `Border` token (`#20242B`) only on the bottom edge to mimic architectural drafting lines.
-- **Focus State:** Transition the bottom border to `Main Accent`.
-
-#### Cards & Lists
-
-- **Rule:** Forbid the use of divider lines between list items.
-- **Execution:** Use vertical white space (`spacing-6` or `2rem`) to separate content groups. For cards, use a subtle background shift (`Surface 1` on `Background`) rather than a stroke.
-
-#### Chips
-
-- **Action Chips:** `sm` (6px) radius. `Surface 2` background. All-caps `label-sm` typography.
+**The "Ghost Border" Rule:**
+Structural framing is achieved through 1px borders using `outline_variant` at 20% opacity. Forbid 100% opaque borders. Boundaries should feel like light catching the edge of a glass pane, not a box drawn with a pen.
 
 ---
 
-### 6. Do’s and Don’ts
+## 3. Typography: The Editorial Scale
 
-**Do:**
+Typography is our primary design element. We use a "High-Contrast" scale to create a sense of drama and hierarchy.
 
-- **Embrace Negative Space:** Use the `spacing-16` (5.5rem) and `spacing-20` (7rem) tokens to let high-end typography breathe.
-- **Use Subtle Transitions:** All hover states should have a minimum `300ms` ease-in-out duration to maintain the "calm" personality.
-- **Align to a Baseline:** Ensure all Neue Haas Grotesk body text sits on a strict 4px baseline grid to maintain architectural rigor.
+| Role              | Size (Range) | Font Family | Tracking     | Leading |
+| :---------------- | :----------- | :---------- | :----------- | :------ |
+| **Hero Display**  | 84px – 112px | Newsreader  | -0.04em      | 0.95    |
+| **Major Title**   | 48px – 64px  | Newsreader  | -0.02em      | 1.1     |
+| **Subheadline**   | 20px – 24px  | Manrope     | 0.02em       | 1.4     |
+| **Body (Large)**  | 16px – 20px  | Manrope     | 0em          | 1.6     |
+| **Label/Caption** | 11px – 12px  | Manrope     | 0.1em (Caps) | 1.2     |
 
-**Don’t:**
-
-- **Don't Use Pure White:** It breaks the "mysterious" and "refined" atmosphere. Always default to `Primary Text` (`#F3F0EA`).
-- **Don't Use Heavy Shadows:** If a component needs to stand out, use color contrast or a background shift before reaching for a shadow.
-- **Don't Use Center-Alignment for Long Form:** Keep the "Editorial" feel by left-aligning text blocks, using wide margins to create a bespoke, non-web look.
+**Editorial Intent:** Hero displays should often be asymmetrical—pushed to the far left or right of a container—to create a sense of "dynamic tension" against the negative space.
 
 ---
 
-### 7. Director's Note
+## 4. Grid, Spacing & Framing
 
-The success of this system depends on **restraint**. Every element must feel intentional. If a decorative element doesn't serve the hierarchy or the "Architectural" metaphor, remove it. We are building a gallery, not a billboard.```
-````
+This system utilizes an **Asymmetrical 12-Column Grid** with heavy outer margins.
+
+- **Outer Margins:** Minimum `8.5rem` (Token 24) on Desktop to force focus toward the center or specific off-center focal points.
+- **The "Structural Framing" Rule:** Use `1px` structural lines (`outline_variant`) to bisect the screen horizontally or vertically, mimicking architectural drafting lines.
+- **Negative Space:** Forbid "compact" layouts. Sections must have a minimum vertical gutter of `7rem` (Token 20).
+
+### Radius Scale
+
+- **Large (16px):** Main content containers and image masks.
+- **Medium (10px):** Primary buttons, cards, and input fields.
+- **Small (6px):** Chips, tooltips, and small UI triggers.
+
+---
+
+## 5. Motion: Cinematic Reveal
+
+Motion in this system is not a utility; it is a transition of state. We use "Cinematic Easing" to mimic the heavy, smooth movement of a physical camera.
+
+- **Easing Token:** `cubic-bezier(0.16, 1, 0.3, 1)`
+- **Timing Tokens:**
+- **Hero Reveal:** 920ms (The slow entrance of the primary statement).
+- **Signature Reveal:** 1100ms (Delayed, sweeping entrance of accent elements).
+- **Content Reveal:** 560ms (Standard interaction feedback).
+
+**Reveal Rules:**
+All text elements must enter using a **Mask/Clip Reveal**. Elements should animate from a `Y-offset` of `20px` to `28px` while simultaneously transitioning from `opacity: 0` to `opacity: 1`. The effect should look like the text is emerging from behind a structural floor.
+
+---
+
+## 6. Components
+
+### Buttons & Inputs
+
+- **Primary CTA:** Semi-transparent `surface_tint` with a `backdrop-blur` of 12px. The text is `on_surface`. No solid background.
+- **Secondary:** Ghost style. 1px border (`outline_variant` at 20%) with a hover state that increases border opacity to 60%.
+- **Input Fields:** Level 2 Inset (`#1F2022`). Only a bottom-border reveal on focus.
+
+### Cards & Lists
+
+- **The "No-Divider" Rule:** Forbid the use of horizontal divider lines in lists. Use `1.7rem` (Spacing 5) of vertical padding and subtle background shifts (Surface to Surface-Container-Low) to define list items.
+- **Media Cards:** Images must use a "Ken Burns" zoom effect (1.0 to 1.05 scale) on hover over 1200ms.
+
+---
+
+## 7. Do's & Don'ts
+
+### Do
+
+- **Do** embrace "uncomfortable" white space. It signals luxury.
+- **Do** align text to the grid, but vary the column starting points for different sections (e.g., Header starts at Col 1, Body starts at Col 4).
+- **Do** use Glassmorphism for floating navigation bars to allow the "monolithic" content to scroll beneath.
+
+### Don't
+
+- **Don't** use standard drop shadows. If depth is needed, use Tonal Layering (Surface → Surface-Low).
+- **Don't** use 100% opaque, high-contrast borders. They "trap" the design and make it feel like a template.
+- **Don't** use "Pop" animations. Motion must be slow, eased, and intentional.
