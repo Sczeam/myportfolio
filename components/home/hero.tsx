@@ -47,7 +47,11 @@ export function Hero() {
               className="max-w-[20rem] lg:mb-0 lg:w-[17.5rem] lg:self-end"
               data-node-id="1:12"
             >
-              <p className="type-label text-accent/95" data-node-id="1:13">
+              <p
+                className="type-label"
+                style={{ color: "var(--color-accent)" }}
+                data-node-id="1:13"
+              >
                 Based in Yangon / Remote
               </p>
 
@@ -57,7 +61,7 @@ export function Hero() {
               />
 
               <p
-                className="mt-6 max-w-[17.5rem] text-[1.125rem] leading-[1.45] font-normal tracking-[-0.015em] text-[#c4c6cc]"
+                className="type-body-lg mt-6 max-w-[17.5rem] text-text-secondary"
                 data-node-id="1:16"
               >
                 Multidisciplinary designer weaving architectural intent into the
