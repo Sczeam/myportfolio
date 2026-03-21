@@ -1,7 +1,19 @@
 import type { Metadata } from "next";
+import { Manrope, Newsreader } from "next/font/google";
 import "./globals.css";
 
 import { Navbar } from "@/components/layout/navbar";
+
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   title: "Zaw Htike Aung",
@@ -14,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html
+      lang="en"
+      className={`${newsreader.variable} ${manrope.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col bg-canvas font-sans text-text-primary">
         <Navbar />
         {children}

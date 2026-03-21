@@ -12,7 +12,7 @@ const navItems = [
 export function Navbar() {
   return (
     <header
-      className="sticky top-0 z-50 border-b border-border-faint/80 bg-[rgba(14,15,17,0.8)] backdrop-blur-[12px]"
+      className="fixed inset-x-0 top-0 z-50 border-b border-border-soft bg-[rgba(14,15,17,0.8)] backdrop-blur-[12px]"
       data-node-id="1:167"
     >
       <Container width="wide" className="relative">
@@ -52,7 +52,7 @@ export function Navbar() {
 
             <a
               href="mailto:zawhtikeaung.dev@gmail.com"
-              className="type-nav inline-flex min-h-10 items-center justify-center rounded-[8px] bg-[linear-gradient(160deg,var(--color-accent)_0%,var(--color-accent-deep)_100%)] px-6 py-2.5 text-text-primary transition-ui hover:-translate-y-px hover:brightness-110 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+              className="type-button inline-flex min-h-10 items-center justify-center rounded-[8px] border border-border-soft bg-[rgba(31,32,34,0.42)] px-6 py-2.5 text-text-primary backdrop-blur-[12px] transition-ui hover:-translate-y-px hover:border-border-strong hover:bg-[rgba(31,32,34,0.56)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
               data-node-id="1:180"
             >
               Let&apos;s Talk
