@@ -40,11 +40,11 @@ export function ThesisSectionMotion() {
 
         gsap.set(lines, {
           opacity: 0,
-          yPercent: 100,
+          yPercent: 140,
         });
         gsap.set(note, {
           opacity: 0,
-          y: 12,
+          y: 24,
         });
 
         const thesisReveal = gsap.timeline({
@@ -53,7 +53,7 @@ export function ThesisSectionMotion() {
           },
           scrollTrigger: {
             trigger: section,
-            start: context.conditions?.mobile ? "top 88%" : "top 82%",
+            start: context.conditions?.mobile ? "top 92%" : "top 86%",
             toggleActions: "play none none reverse",
           },
         });
@@ -63,8 +63,8 @@ export function ThesisSectionMotion() {
           {
             opacity: 1,
             yPercent: 0,
-            duration: 0.56,
-            stagger: 0.08,
+            duration: 0.72,
+            stagger: 0.12,
           },
           0,
         );
@@ -74,9 +74,9 @@ export function ThesisSectionMotion() {
           {
             opacity: 1,
             y: 0,
-            duration: 0.42,
+            duration: 0.56,
           },
-          0.16,
+          0.28,
         );
 
         return () => {
