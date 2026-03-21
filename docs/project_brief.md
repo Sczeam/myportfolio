@@ -2,15 +2,15 @@
 
 ## 1. Overall creative direction summary
 
-This portfolio should feel like a premium, design led digital experience with strong authorship.
+This portfolio should feel like a premium, design-led digital experience with strong authorship.
 
-It is not a generic developer portfolio. It should feel like the intersection of a high end editorial website, a cinematic product experience, and a creative developer portfolio.
+It is not a generic developer portfolio. It should feel like the intersection of a high-end editorial website, a cinematic product experience, and a creative developer portfolio.
 
 The site should communicate that Zaw Htike Aung is:
 
 1. A premium frontend developer
 2. A creative developer
-3. A design aware builder
+3. A design-aware builder
 4. Someone who understands both visual design and engineering
 5. Someone who can create digital work with atmosphere, structure, and polish
 
@@ -27,7 +27,7 @@ The overall emotional tone should be:
 
 The website should feel expensive through restraint, composition, typography, spacing, and motion control.
 
-It should not feel loud, trendy, playful, flashy, or startup templated.
+It should not feel loud, trendy, playful, flashy, or startup-templated.
 
 The experience should feel authored from beginning to end.
 

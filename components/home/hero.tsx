@@ -1,7 +1,10 @@
 import { Container } from "@/components/ui/container";
 
-const desktopLineClassName =
-  "lg:absolute lg:leading-[0.95] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
+const baseLineClassName =
+  "block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em]";
+const desktopTypographyClassName =
+  "lg:leading-[0.95] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
+const desktopLineClassName = `lg:absolute ${desktopTypographyClassName}`;
 
 export function Hero() {
   return (
@@ -27,16 +30,18 @@ export function Hero() {
                 id="hero-heading"
                 className="font-display text-text-primary [text-shadow:0_0_30px_rgba(243,240,234,0.1)]"
               >
-                <span className="block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] lg:mt-0 lg:leading-[0.95] lg:text-[5.25rem] xl:text-[7rem] lg:tracking-[-0.04em]">
+                <span
+                  className={`${baseLineClassName} lg:mt-0 ${desktopTypographyClassName}`}
+                >
                   Curating
                 </span>
                 <span
-                  className={`mt-[-0.05em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] italic lg:left-[21.25%] lg:top-[33.33%] ${desktopLineClassName}`}
+                  className={`mt-[-0.05em] ${baseLineClassName} italic lg:left-[21.25%] lg:top-[33.33%] ${desktopLineClassName}`}
                 >
                   Atmospheric
                 </span>
                 <span
-                  className={`mt-[-0.05em] block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em] lg:left-0 lg:top-[66.66%] ${desktopLineClassName}`}
+                  className={`mt-[-0.05em] ${baseLineClassName} lg:left-0 lg:top-[66.66%] ${desktopLineClassName}`}
                 >
                   Digital Space.
                 </span>
@@ -47,11 +52,7 @@ export function Hero() {
               className="max-w-[20rem] lg:mb-0 lg:w-[17.5rem] lg:self-end"
               data-node-id="1:12"
             >
-              <p
-                className="type-label"
-                style={{ color: "var(--color-accent)" }}
-                data-node-id="1:13"
-              >
+              <p className="type-label !text-accent" data-node-id="1:13">
                 Based in Yangon / Remote
               </p>
 

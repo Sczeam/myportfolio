@@ -3,8 +3,8 @@
 :root {
   color-scheme: dark;
 
-  --font-display-family: var(--font-newsreader), Georgia, serif;
-  --font-sans-family: var(--font-manrope), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display-family: var(--font-newsreader), georgia, serif;
+  --font-sans-family: var(--font-manrope), "Helvetica Neue", helvetica, arial, sans-serif;
 
   --motion-ease-primary: cubic-bezier(0.22, 1, 0.36, 1);
   --motion-ease-secondary: cubic-bezier(0.4, 0, 0.2, 1);
