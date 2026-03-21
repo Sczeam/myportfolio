@@ -106,7 +106,7 @@ export function SignatureMomentMotion() {
 
     const trigger = ScrollTrigger.create({
       trigger: section,
-      start: "top 40%",
+      start: "top 20%",
       invalidateOnRefresh: true,
       onEnter: play,
     });
