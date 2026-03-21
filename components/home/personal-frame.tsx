@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Container } from "@/components/ui/container";
 
 export function PersonalFrame() {
@@ -14,14 +16,13 @@ export function PersonalFrame() {
             className="relative aspect-[0.78] overflow-hidden rounded-[4px] border border-[rgba(68,71,76,0.28)] bg-[#d7d4ce]"
             data-personal-frame-media
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.72)_0%,rgba(231,228,222,0.88)_32%,rgba(187,184,179,0.94)_72%,rgba(161,158,154,1)_100%)]" />
-            <div className="absolute inset-0 opacity-[0.16] mix-blend-multiply bg-[radial-gradient(rgba(120,116,110,0.32)_0.8px,transparent_0.8px)] [bg-size:10px_10px]" />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0)_18%,rgba(0,0,0,0.05)_100%)]" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-[10px] border border-black/10 text-[3.2rem] text-black/16">
-                <span aria-hidden="true">⊞</span>
-              </div>
-            </div>
+            <Image
+              src="/images/hero1.jpg"
+              alt="Portrait-style studio image for the personal frame"
+              fill
+              sizes="(max-width: 1024px) 100vw, 28rem"
+              className="object-cover brightness-75"
+            />
           </div>
 
           <div className="max-w-[30rem]" data-personal-frame-copy>
