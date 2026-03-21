@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
@@ -10,10 +14,29 @@ const navItems = [
 ] as const;
 
 export function Navbar() {
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setHasScrolled(window.scrollY > 50);
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <header
-      className="fixed inset-x-0 top-0 z-50 border-b border-border-soft bg-[rgba(14,15,17,0.8)] backdrop-blur-[12px]"
+      className={[
+        "fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+        hasScrolled
+          ? "border-[#20242B] bg-[rgba(14,15,17,0.8)] backdrop-blur-[20px]"
+          : "border-transparent bg-transparent backdrop-blur-0",
+      ].join(" ")}
       data-node-id="1:167"
+      data-opening-nav
     >
       <Container width="wide" className="relative">
         <div className="flex min-h-[5.5rem] flex-col justify-center py-4 sm:py-5">
@@ -22,6 +45,7 @@ export function Navbar() {
               href="/"
               className="font-display text-[1.5rem] leading-8 tracking-[-0.05em] text-text-primary transition-ui hover:text-text-secondary"
               data-node-id="1:169"
+              data-opening-nav-brand
             >
               Zaw Htike Aung
             </Link>
@@ -37,11 +61,10 @@ export function Navbar() {
                     <Link
                       href={href}
                       className={[
-                        "type-nav inline-flex border-b pb-[0.3125rem] uppercase transition-ui",
-                        active
-                          ? "border-accent text-text-primary"
-                          : "border-transparent text-accent hover:border-accent/40 hover:text-text-secondary",
+                        "type-nav nav-link uppercase",
+                        active ? "nav-link-active" : "",
                       ].join(" ")}
+                      data-opening-nav-item
                     >
                       {label}
                     </Link>
@@ -52,10 +75,13 @@ export function Navbar() {
 
             <a
               href="mailto:zawhtikeaung.dev@gmail.com"
-              className="type-button inline-flex min-h-10 items-center justify-center rounded-[8px] border border-border-soft bg-[rgba(31,32,34,0.42)] px-6 py-2.5 text-text-primary backdrop-blur-[12px] transition-ui hover:-translate-y-px hover:border-border-strong hover:bg-[rgba(31,32,34,0.56)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+              className="type-button group inline-flex min-h-10 items-center justify-center rounded-[8px] border border-border-soft bg-[rgba(27,28,30,0.82)] px-6 py-2.5 text-text-primary backdrop-blur-[12px] transition-[background-color,border-color] duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-border-strong hover:bg-[rgba(27,28,30,0.87)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-text-primary/20 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
               data-node-id="1:180"
+              data-opening-nav-cta
             >
-              Let&apos;s Talk
+              <span className="transition-transform duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-px">
+                Let&apos;s Talk
+              </span>
             </a>
           </div>
 
@@ -66,10 +92,8 @@ export function Navbar() {
                   <Link
                     href={href}
                     className={[
-                      "type-nav inline-flex border-b pb-1 uppercase transition-ui",
-                      active
-                        ? "border-accent text-text-primary"
-                        : "border-transparent text-accent hover:border-accent/40 hover:text-text-secondary",
+                      "type-nav nav-link pb-1 uppercase",
+                      active ? "nav-link-active" : "",
                     ].join(" ")}
                   >
                     {label}

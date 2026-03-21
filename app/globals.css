@@ -205,6 +205,49 @@
     letter-spacing: 0.06em;
   }
 
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: 0.3125rem;
+    color: var(--color-text-secondary);
+    transition-property: color;
+    transition-duration: var(--motion-duration-micro);
+    transition-timing-function: var(--motion-ease-primary);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: translateX(-50%);
+    transition-property: width;
+    transition-duration: 800ms;
+    transition-timing-function: var(--motion-ease-cinematic);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-text-primary);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    width: 100%;
+  }
+
+  .nav-link-active {
+    color: var(--color-text-primary);
+  }
+
+  .nav-link-active::after {
+    width: 100%;
+  }
+
   .page-container {
     width: 100%;
     max-width: 90rem;

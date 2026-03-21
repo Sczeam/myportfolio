@@ -4,195 +4,140 @@ import { useEffect } from "react";
 
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(CustomEase, ScrollTrigger);
+gsap.registerPlugin(CustomEase);
 
 const openingEasePrimary = CustomEase.create(
   "opening-ease-primary",
   "0.22,1,0.36,1",
 );
-const openingEaseSecondary = CustomEase.create(
-  "opening-ease-secondary",
-  "0.4,0,0.2,1",
+const openingEaseCinematic = CustomEase.create(
+  "opening-ease-cinematic",
+  "0.16,1,0.3,1",
 );
 
 export function OpeningSequenceMotion() {
   useEffect(() => {
-    const hero = document.querySelector<HTMLElement>("[data-opening-hero]");
-    const heroContent = document.querySelector<HTMLElement>(
-      "[data-opening-hero-content]",
-    );
+    const nav = document.querySelector<HTMLElement>("[data-opening-nav]");
     const heroAtmosphere = document.querySelector<HTMLElement>(
-      "[data-opening-atmosphere]",
+      "[data-opening-hero-atmosphere]",
     );
-    const heroPortrait = document.querySelector<HTMLElement>(
-      "[data-opening-hero-portrait]",
+    const heroLines = gsap.utils.toArray<HTMLElement>(
+      "[data-opening-hero-line]",
     );
-    const thesis = document.querySelector<HTMLElement>("[data-opening-thesis]");
-    const thesisLabel = document.querySelector<HTMLElement>(
-      "[data-opening-thesis-label]",
+    const heroCopy = document.querySelector<HTMLElement>(
+      "[data-opening-hero-copy]",
     );
-    const thesisStatement = document.querySelector<HTMLElement>(
-      "[data-opening-thesis-statement]",
-    );
-    const thesisNote = document.querySelector<HTMLElement>(
-      "[data-opening-thesis-note]",
+    const heroGlow = document.querySelector<HTMLElement>(
+      "[data-opening-hero-glow]",
     );
 
-    if (!hero || !thesis || !heroContent || !thesisStatement || !thesisNote) {
+    if (!nav || !heroAtmosphere || heroLines.length === 0 || !heroCopy || !heroGlow) {
       return;
     }
 
-    const media = gsap.matchMedia();
-    const thesisTargets = [thesisLabel, thesisStatement, thesisNote].filter(
-      Boolean,
-    ) as HTMLElement[];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const resetMotionState = () => {
-      gsap.set(thesisTargets, {
-        clearProps: "all",
+    if (reduceMotion.matches) {
+      return;
+    }
+
+    const context = gsap.context(() => {
+      gsap.set(nav, {
+        y: -10,
+        opacity: 0,
       });
-      gsap.set(heroContent, {
-        clearProps: "all",
+      gsap.set(heroLines, {
+        y: 28,
+        opacity: 0,
       });
-      if (heroAtmosphere) {
-        gsap.set(heroAtmosphere, {
-          clearProps: "all",
-        });
-      }
-      if (heroPortrait) {
-        gsap.set(heroPortrait, {
-          clearProps: "all",
-        });
-      }
-    };
+      gsap.set(heroLines, {
+        clipPath: "inset(0 0 100% 0)",
+      });
+      gsap.set(heroCopy, {
+        y: 16,
+        opacity: 0,
+      });
+      gsap.set(heroAtmosphere, {
+        opacity: 0,
+        scale: 1.05,
+        transformOrigin: "center center",
+      });
 
-    media.add(
-      {
-        reduceMotion: "(prefers-reduced-motion: reduce)",
-        mobile: "(max-width: 767px)",
-      },
-      (context) => {
-        if (context.conditions?.reduceMotion) {
-          resetMotionState();
-          return;
-        }
+      const timeline = gsap.timeline({
+        defaults: {
+          ease: openingEaseCinematic,
+        },
+      });
 
-        resetMotionState();
+      timeline.to(
+        heroAtmosphere,
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 1.2,
+          ease: openingEaseCinematic,
+        },
+        0,
+      );
 
-        gsap.set(thesisTargets, {
-          opacity: 0,
-        });
-        if (thesisLabel) {
-          gsap.set(thesisLabel, {
-            y: 4,
-          });
-        }
-        gsap.set(thesisStatement, {
-          y: context.conditions?.mobile ? 14 : 18,
-        });
-        gsap.set(thesisNote, {
-          y: context.conditions?.mobile ? 10 : 14,
-        });
+      timeline.to(
+        heroLines,
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.92,
+          stagger: 0.1,
+          ease: openingEaseCinematic,
+        },
+        0,
+      );
 
-        const heroRelease = gsap.timeline({
-          defaults: {
-            ease: openingEaseSecondary,
-          },
-          scrollTrigger: {
-            trigger: hero,
-            start: "top top",
-            end: "bottom top",
-            scrub: context.conditions?.mobile ? 0.8 : 0.9,
-          },
-        });
+      timeline.to(
+        heroLines,
+        {
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.92,
+          stagger: 0.1,
+          ease: openingEaseCinematic,
+        },
+        0,
+      );
 
-        heroRelease.to(
-          heroContent,
-          {
-            y: context.conditions?.mobile ? -10 : -18,
-            opacity: context.conditions?.mobile ? 0.84 : 0.72,
-          },
-          0,
-        );
+      timeline.to(
+        nav,
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.92,
+          ease: openingEaseCinematic,
+        },
+        0.2,
+      );
 
-        if (heroAtmosphere) {
-          heroRelease.to(
-            heroAtmosphere,
-            {
-              y: context.conditions?.mobile ? 0 : -10,
-              opacity: context.conditions?.mobile ? 0.72 : 0.58,
-            },
-            0,
-          );
-        }
+      timeline.to(
+        heroCopy,
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.56,
+          ease: openingEasePrimary,
+        },
+        0.64,
+      );
 
-        if (heroPortrait && !context.conditions?.mobile) {
-          heroRelease.to(
-            heroPortrait,
-            {
-              y: -8,
-              opacity: 0.82,
-            },
-            0,
-          );
-        }
+      timeline.to(
+        heroGlow,
+        {
+          opacity: 1,
+          duration: 1.2,
+          ease: openingEaseCinematic,
+        },
+        0,
+      );
+    });
 
-        const thesisReveal = gsap.timeline({
-          defaults: {
-            ease: openingEasePrimary,
-          },
-          scrollTrigger: {
-            trigger: thesis,
-            start: context.conditions?.mobile ? "top 92%" : "top 88%",
-            toggleActions: "play none none reverse",
-          },
-        });
-
-        if (thesisLabel) {
-          thesisReveal.to(
-            thesisLabel,
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.34,
-            },
-            0,
-          );
-        }
-
-        thesisReveal.to(
-          thesisStatement,
-          {
-            opacity: 1,
-            y: 0,
-            duration: context.conditions?.mobile ? 0.68 : 0.82,
-          },
-          0.06,
-        );
-
-        thesisReveal.to(
-          thesisNote,
-          {
-            opacity: 1,
-            y: 0,
-            duration: context.conditions?.mobile ? 0.52 : 0.62,
-          },
-          0.16,
-        );
-
-        return () => {
-          heroRelease.kill();
-          thesisReveal.kill();
-          resetMotionState();
-        };
-      },
-    );
-
-    return () => {
-      media.revert();
-    };
+    return () => context.revert();
   }, []);
 
   return null;
