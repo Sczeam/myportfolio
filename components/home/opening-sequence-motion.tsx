@@ -28,6 +28,12 @@ export function OpeningSequenceMotion() {
       "[data-opening-hero-content]",
     );
     const thesis = document.querySelector<HTMLElement>("[data-opening-thesis]");
+    const thesisContent = document.querySelector<HTMLElement>(
+      "[data-opening-thesis-content]",
+    );
+    const selectedWorkIntro = document.querySelector<HTMLElement>(
+      "[data-selected-work-intro]",
+    );
     const heroLines = gsap.utils.toArray<HTMLElement>(
       "[data-opening-hero-line]",
     );
@@ -44,6 +50,8 @@ export function OpeningSequenceMotion() {
       !heroAtmosphere ||
       !heroContent ||
       !thesis ||
+      !thesisContent ||
+      !selectedWorkIntro ||
       heroLines.length === 0 ||
       !heroCopy ||
       !heroGlow
@@ -119,6 +127,14 @@ export function OpeningSequenceMotion() {
         0,
       );
 
+      timeline.set(
+        heroLines,
+        {
+          clearProps: "clipPath",
+        },
+        0.96,
+      );
+
       timeline.to(
         nav,
         {
@@ -167,6 +183,17 @@ export function OpeningSequenceMotion() {
         ease: "none",
         scrollTrigger: {
           trigger: thesis,
+          start: "top 85%",
+          end: "top 35%",
+          scrub: 0.8,
+        },
+      });
+
+      gsap.to(thesisContent, {
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: selectedWorkIntro,
           start: "top 85%",
           end: "top 35%",
           scrub: 0.8,

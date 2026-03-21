@@ -20,77 +20,72 @@ export function SelectedWorkIntroMotion() {
     );
     const index = document.querySelector<HTMLElement>("[data-selected-work-index]");
     const title = document.querySelector<HTMLElement>("[data-selected-work-title]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!section || !index || !title) {
+    if (!section || !index || !title || reduceMotion.matches) {
       return;
     }
 
-    const media = gsap.matchMedia();
+    const reset = () => {
+      gsap.set(index, {
+        opacity: 0,
+        y: 24,
+      });
+      gsap.set(title, {
+        opacity: 0,
+        y: 24,
+      });
+    };
 
-    media.add(
-      {
-        reduceMotion: "(prefers-reduced-motion: reduce)",
-        mobile: "(max-width: 767px)",
-      },
-      (context) => {
-        if (context.conditions?.reduceMotion) {
-          gsap.set([index, title], {
-            clearProps: "all",
-          });
-          return;
-        }
+    reset();
 
-        gsap.set(index, {
-          opacity: 0,
-          y: 24,
-        });
-        gsap.set(title, {
-          opacity: 0,
-          y: 24,
-        });
+    let hasPlayed = false;
 
-        const introReveal = gsap.timeline({
-          defaults: {
-            ease: selectedWorkEasePrimary,
-          },
-          scrollTrigger: {
-            trigger: section,
-            start: context.conditions?.mobile ? "top 85%" : "top 82%",
-            toggleActions: "play none none reverse",
-          },
-        });
+    const play = () => {
+      if (hasPlayed) {
+        return;
+      }
 
-        introReveal.to(
-          index,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.56,
-          },
-          0,
-        );
+      hasPlayed = true;
 
-        introReveal.to(
-          title,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.56,
-          },
-          0.15,
-        );
+      const introReveal = gsap.timeline({
+        defaults: {
+          ease: selectedWorkEasePrimary,
+        },
+      });
 
-        return () => {
-          introReveal.kill();
-          gsap.set([index, title], {
-            clearProps: "all",
-          });
-        };
-      },
-    );
+      introReveal.to(
+        index,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.56,
+        },
+        0,
+      );
+
+      introReveal.to(
+        title,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.56,
+        },
+        0.15,
+      );
+    };
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top 78%",
+      invalidateOnRefresh: true,
+      onEnter: play,
+      onEnterBack: play,
+    });
 
     return () => {
-      media.revert();
+      trigger.kill();
+      reset();
     };
   }, []);
 

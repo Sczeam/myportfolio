@@ -1,9 +1,9 @@
 import { Container } from "@/components/ui/container";
 
 const baseLineClassName =
-  "block text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[0.95] tracking-[-0.04em]";
+  "block overflow-visible pb-[0.08em] text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[1.02] tracking-[-0.04em]";
 const desktopTypographyClassName =
-  "lg:leading-[0.95] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
+  "lg:leading-[1.01] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
 const desktopLineClassName = `lg:absolute ${desktopTypographyClassName}`;
 
 export function Hero() {
@@ -29,12 +29,12 @@ export function Hero() {
         >
           <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-14">
             <div
-              className="lg:relative lg:min-h-[23rem] lg:max-w-[42rem]"
+              className="lg:relative lg:min-h-[25.5rem] lg:max-w-[42rem]"
               data-node-id="1:5"
             >
               <h1
                 id="hero-heading"
-                className="font-display text-text-primary [text-shadow:0_0_30px_rgba(243,240,234,0.1)]"
+                className="overflow-visible font-display text-text-primary lg:pb-[0.35em] [text-shadow:0_0_30px_rgba(243,240,234,0.1)]"
                 data-opening-hero-heading
               >
                 <span
