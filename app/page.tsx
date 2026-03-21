@@ -1,9 +1,14 @@
+import {
+  FeaturedProject,
+} from "@/components/home/featured-project";
+import { FeaturedProjectMotion } from "@/components/home/featured-project-motion";
 import { Hero } from "@/components/home/hero";
 import { OpeningSequenceMotion } from "@/components/home/opening-sequence-motion";
 import { SelectedWorkIntro } from "@/components/home/selected-work-intro";
 import { SelectedWorkIntroMotion } from "@/components/home/selected-work-intro-motion";
 import { ThesisSection } from "@/components/home/thesis-section";
 import { ThesisSectionMotion } from "@/components/home/thesis-section-motion";
+import { featuredProjects } from "@/data/projects";
 
 export default function Home() {
   return (
@@ -11,9 +16,13 @@ export default function Home() {
       <OpeningSequenceMotion />
       <ThesisSectionMotion />
       <SelectedWorkIntroMotion />
+      <FeaturedProjectMotion />
       <Hero />
       <ThesisSection />
       <SelectedWorkIntro />
+      {featuredProjects.map((project, index) => (
+        <FeaturedProject key={project.slug} project={project} index={index} />
+      ))}
     </main>
   );
 }

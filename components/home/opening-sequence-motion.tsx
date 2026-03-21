@@ -7,7 +7,6 @@ import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(CustomEase, ScrollTrigger);
-
 const openingEasePrimary = CustomEase.create(
   "opening-ease-primary",
   "0.22,1,0.36,1",
@@ -28,6 +27,12 @@ export function OpeningSequenceMotion() {
       "[data-opening-hero-content]",
     );
     const thesis = document.querySelector<HTMLElement>("[data-opening-thesis]");
+    const thesisContent = document.querySelector<HTMLElement>(
+      "[data-opening-thesis-content]",
+    );
+    const selectedWorkIntro = document.querySelector<HTMLElement>(
+      "[data-selected-work-intro]",
+    );
     const heroLines = gsap.utils.toArray<HTMLElement>(
       "[data-opening-hero-line]",
     );
@@ -44,6 +49,8 @@ export function OpeningSequenceMotion() {
       !heroAtmosphere ||
       !heroContent ||
       !thesis ||
+      !thesisContent ||
+      !selectedWorkIntro ||
       heroLines.length === 0 ||
       !heroCopy ||
       !heroGlow
@@ -65,9 +72,7 @@ export function OpeningSequenceMotion() {
       gsap.set(heroLines, {
         y: 28,
         opacity: 0,
-      });
-      gsap.set(heroLines, {
-        clipPath: "inset(0 0 100% 0)",
+        force3D: true,
       });
       gsap.set(heroCopy, {
         y: 16,
@@ -104,17 +109,7 @@ export function OpeningSequenceMotion() {
           duration: 0.92,
           stagger: 0.1,
           ease: openingEaseCinematic,
-        },
-        0,
-      );
-
-      timeline.to(
-        heroLines,
-        {
-          clipPath: "inset(0 0 0% 0)",
-          duration: 0.92,
-          stagger: 0.1,
-          ease: openingEaseCinematic,
+          clearProps: "transform,opacity",
         },
         0,
       );
@@ -167,6 +162,17 @@ export function OpeningSequenceMotion() {
         ease: "none",
         scrollTrigger: {
           trigger: thesis,
+          start: "top 85%",
+          end: "top 35%",
+          scrub: 0.8,
+        },
+      });
+
+      gsap.to(thesisContent, {
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: selectedWorkIntro,
           start: "top 85%",
           end: "top 35%",
           scrub: 0.8,

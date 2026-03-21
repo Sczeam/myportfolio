@@ -18,78 +18,73 @@ export function ThesisSectionMotion() {
     const section = document.querySelector<HTMLElement>("[data-opening-thesis]");
     const lines = gsap.utils.toArray<HTMLElement>("[data-thesis-line-inner]");
     const note = document.querySelector<HTMLElement>("[data-opening-thesis-note]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!section || lines.length === 0 || !note) {
+    if (!section || lines.length === 0 || !note || reduceMotion.matches) {
       return;
     }
 
-    const media = gsap.matchMedia();
+    const reset = () => {
+      gsap.set(lines, {
+        opacity: 0,
+        yPercent: 140,
+      });
+      gsap.set(note, {
+        opacity: 0,
+        y: 24,
+      });
+    };
 
-    media.add(
-      {
-        reduceMotion: "(prefers-reduced-motion: reduce)",
-        mobile: "(max-width: 767px)",
-      },
-      (context) => {
-        if (context.conditions?.reduceMotion) {
-          gsap.set([...lines, note], {
-            clearProps: "all",
-          });
-          return;
-        }
+    reset();
 
-        gsap.set(lines, {
-          opacity: 0,
-          yPercent: 140,
-        });
-        gsap.set(note, {
-          opacity: 0,
-          y: 24,
-        });
+    let hasPlayed = false;
 
-        const thesisReveal = gsap.timeline({
-          defaults: {
-            ease: thesisEasePrimary,
-          },
-          scrollTrigger: {
-            trigger: section,
-            start: context.conditions?.mobile ? "top 92%" : "top 86%",
-            toggleActions: "play none none reverse",
-          },
-        });
+    const play = () => {
+      if (hasPlayed) {
+        return;
+      }
 
-        thesisReveal.to(
-          lines,
-          {
-            opacity: 1,
-            yPercent: 0,
-            duration: 0.72,
-            stagger: 0.12,
-          },
-          0,
-        );
+      hasPlayed = true;
 
-        thesisReveal.to(
-          note,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.56,
-          },
-          0.28,
-        );
+      const thesisReveal = gsap.timeline({
+        defaults: {
+          ease: thesisEasePrimary,
+        },
+      });
 
-        return () => {
-          thesisReveal.kill();
-          gsap.set([...lines, note], {
-            clearProps: "all",
-          });
-        };
-      },
-    );
+      thesisReveal.to(
+        lines,
+        {
+          opacity: 1,
+          yPercent: 0,
+          duration: 0.72,
+          stagger: 0.12,
+        },
+        0,
+      );
+
+      thesisReveal.to(
+        note,
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.56,
+        },
+        0.28,
+      );
+    };
+
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top 75%",
+      invalidateOnRefresh: true,
+      onEnter: play,
+      onEnterBack: play,
+    });
 
     return () => {
-      media.revert();
+      trigger.kill();
+      reset();
     };
   }, []);
 
