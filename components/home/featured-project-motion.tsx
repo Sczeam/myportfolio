@@ -15,91 +15,98 @@ const featuredProjectEase = CustomEase.create(
 
 export function FeaturedProjectMotion() {
   useEffect(() => {
-    const section = document.querySelector<HTMLElement>("[data-featured-project]");
-    const card = document.querySelector<HTMLElement>("[data-featured-project-card]");
-    const image = document.querySelector<HTMLElement>("[data-featured-project-image]");
-    const meta = document.querySelector<HTMLElement>("[data-featured-project-meta]");
+    const sections = gsap.utils.toArray<HTMLElement>("[data-featured-project]");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!section || !card || !image || !meta || reduceMotion.matches) {
+    if (sections.length === 0 || reduceMotion.matches) {
       return;
     }
 
-    const reset = () => {
-      gsap.set(card, {
-        opacity: 0,
-        y: 24,
+    const context = gsap.context(() => {
+      sections.forEach((section) => {
+        const card = section.querySelector<HTMLElement>("[data-featured-project-card]");
+        const image = section.querySelector<HTMLElement>("[data-featured-project-image]");
+        const meta = section.querySelector<HTMLElement>("[data-featured-project-meta]");
+
+        if (!card || !image || !meta) {
+          return;
+        }
+
+        const reset = () => {
+          gsap.set(card, {
+            opacity: 0,
+            y: 24,
+          });
+          gsap.set(meta, {
+            opacity: 0,
+            y: 24,
+          });
+          gsap.set(image, {
+            clipPath: "inset(50% 50% 50% 50%)",
+            scale: 1.015,
+            transformOrigin: "center center",
+          });
+        };
+
+        reset();
+
+        let hasPlayed = false;
+
+        const play = () => {
+          if (hasPlayed) {
+            return;
+          }
+
+          hasPlayed = true;
+
+          const reveal = gsap.timeline({
+            defaults: {
+              ease: featuredProjectEase,
+            },
+          });
+
+          reveal.to(
+            card,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.78,
+            },
+            0,
+          );
+
+          reveal.to(
+            image,
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              scale: 1,
+              duration: 0.78,
+            },
+            0,
+          );
+
+          reveal.to(
+            meta,
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.56,
+            },
+            0.15,
+          );
+        };
+
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 78%",
+          invalidateOnRefresh: true,
+          onEnter: play,
+        });
       });
-      gsap.set(meta, {
-        opacity: 0,
-        y: 24,
-      });
-      gsap.set(image, {
-        clipPath: "inset(50% 50% 50% 50%)",
-        scale: 1.015,
-        transformOrigin: "center center",
-      });
-    };
-
-    reset();
-
-    let hasPlayed = false;
-
-    const play = () => {
-      if (hasPlayed) {
-        return;
-      }
-
-      hasPlayed = true;
-
-      const reveal = gsap.timeline({
-        defaults: {
-          ease: featuredProjectEase,
-        },
-      });
-
-      reveal.to(
-        card,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.78,
-        },
-        0,
-      );
-
-      reveal.to(
-        image,
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          scale: 1,
-          duration: 0.78,
-        },
-        0,
-      );
-
-      reveal.to(
-        meta,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.56,
-        },
-        0.15,
-      );
-    };
-
-    const trigger = ScrollTrigger.create({
-      trigger: section,
-      start: "top 78%",
-      invalidateOnRefresh: true,
-      onEnter: play,
-      onEnterBack: play,
     });
 
     return () => {
-      trigger.kill();
-      reset();
+      context.revert();
     };
   }, []);
 

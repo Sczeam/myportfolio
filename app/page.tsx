@@ -1,6 +1,5 @@
 import {
   FeaturedProject,
-  type FeaturedProjectData,
 } from "@/components/home/featured-project";
 import { FeaturedProjectMotion } from "@/components/home/featured-project-motion";
 import { Hero } from "@/components/home/hero";
@@ -9,15 +8,7 @@ import { SelectedWorkIntro } from "@/components/home/selected-work-intro";
 import { SelectedWorkIntroMotion } from "@/components/home/selected-work-intro-motion";
 import { ThesisSection } from "@/components/home/thesis-section";
 import { ThesisSectionMotion } from "@/components/home/thesis-section-motion";
-
-const featuredProjects: FeaturedProjectData[] = [
-  {
-    slug: "project-lumen",
-    category: "Architectural Visualization",
-    title: "Project\nLumen",
-    href: "#",
-  },
-];
+import { featuredProjects } from "@/data/projects";
 
 export default function Home() {
   return (
