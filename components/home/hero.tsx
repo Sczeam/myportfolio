@@ -14,9 +14,12 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative overflow-clip"
     >
-      <div className="absolute inset-0">
+      <div className="absolute inset-0" data-opening-hero-atmosphere>
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,22,26,0.06)_0%,rgba(14,15,17,0)_28%,rgba(14,15,17,0.94)_100%)]" />
-        <div className="absolute right-[-6rem] top-1/2 h-[56rem] w-[56rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(243,240,234,0.16)_0%,rgba(214,220,230,0.12)_20%,rgba(170,178,190,0.08)_38%,rgba(120,128,140,0.035)_56%,rgba(14,15,17,0)_76%)] blur-[34px]" />
+        <div
+          className="absolute right-[-6rem] top-1/2 h-[56rem] w-[56rem] -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(243,240,234,0.16)_0%,rgba(214,220,230,0.12)_20%,rgba(170,178,190,0.08)_38%,rgba(120,128,140,0.035)_56%,rgba(14,15,17,0)_76%)] blur-[34px]"
+          data-opening-hero-glow
+        />
       </div>
 
       <Container width="wide" className="relative lg:px-[8.5rem]">
@@ -29,19 +32,23 @@ export function Hero() {
               <h1
                 id="hero-heading"
                 className="font-display text-text-primary [text-shadow:0_0_30px_rgba(243,240,234,0.1)]"
+                data-opening-hero-heading
               >
                 <span
                   className={`${baseLineClassName} lg:mt-0 ${desktopTypographyClassName}`}
+                  data-opening-hero-line
                 >
                   Curating
                 </span>
                 <span
                   className={`mt-[-0.05em] ${baseLineClassName} italic lg:left-[21.25%] lg:top-[33.33%] ${desktopLineClassName}`}
+                  data-opening-hero-line
                 >
                   Atmospheric
                 </span>
                 <span
                   className={`mt-[-0.05em] ${baseLineClassName} lg:left-0 lg:top-[66.66%] ${desktopLineClassName}`}
+                  data-opening-hero-line
                 >
                   Digital Space.
                 </span>
@@ -51,6 +58,7 @@ export function Hero() {
             <div
               className="max-w-[20rem] lg:mb-0 lg:w-[17.5rem] lg:self-end"
               data-node-id="1:12"
+              data-opening-hero-copy
             >
               <p className="type-label !text-accent" data-node-id="1:13">
                 Based in Yangon / Remote
