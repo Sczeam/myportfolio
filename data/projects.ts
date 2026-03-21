@@ -6,5 +6,7 @@ export const featuredProjects: FeaturedProjectData[] = [
     category: "Architectural Visualization",
     title: "Project\nLumen",
     href: "#",
+    imageSrc: "/images/projects/moesilkandcotton.png",
+    imageAlt: "Featured preview for Project Lumen",
   },
 ];

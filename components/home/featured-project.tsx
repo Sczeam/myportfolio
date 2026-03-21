@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
@@ -9,6 +10,7 @@ export type FeaturedProjectData = {
   href: string;
   summary?: string;
   imageAlt?: string;
+  imageSrc?: string;
 };
 
 type FeaturedProjectProps = {
@@ -24,7 +26,7 @@ type ProjectMetaProps = {
 function ProjectMeta({ project, className }: ProjectMetaProps) {
   return (
     <div
-      className={["flex h-full flex-col lg:min-h-[19rem]", className]
+      className={["flex h-full flex-col lg:min-h-76", className]
         .filter(Boolean)
         .join(" ")}
       data-featured-project-meta
@@ -46,7 +48,7 @@ function ProjectMeta({ project, className }: ProjectMetaProps) {
       </div>
 
       {project.summary ? (
-        <p className="type-body mt-6 max-w-[13rem] text-text-secondary">
+        <p className="type-body mt-6 max-w-52 text-text-secondary">
           {project.summary}
         </p>
       ) : null}
@@ -86,10 +88,7 @@ function ProjectMeta({ project, className }: ProjectMetaProps) {
   );
 }
 
-export function FeaturedProject({
-  project,
-  index = 0,
-}: FeaturedProjectProps) {
+export function FeaturedProject({ project, index = 0 }: FeaturedProjectProps) {
   const isMirrored = index % 2 === 1;
   const sanitizedTitle = project.title.replace(/\s+/g, " ").trim();
 
@@ -122,23 +121,30 @@ export function FeaturedProject({
             data-featured-project-card
           >
             <div className="relative aspect-[1.72/1] overflow-hidden rounded-[4px] border border-[rgba(68,71,76,0.28)] bg-[#d7d4ce]">
-              <div
-                className="absolute inset-0 scale-[1.015] bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.72)_0%,rgba(231,228,222,0.88)_32%,rgba(187,184,179,0.94)_72%,rgba(161,158,154,1)_100%)] transition-transform duration-[160ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-                data-featured-project-image
-              />
-              <div className="absolute inset-0 opacity-[0.16] mix-blend-multiply bg-[radial-gradient(rgba(120,116,110,0.32)_0.8px,transparent_0.8px)] [background-size:10px_10px]" />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0)_18%,rgba(0,0,0,0.05)_100%)]" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-[10px] border border-black/10 text-[3.2rem] text-black/16">
-                  <span aria-hidden="true">⊞</span>
-                </div>
-              </div>
+              {project.imageSrc ? (
+                <Image
+                  src={project.imageSrc}
+                  alt={project.imageAlt ?? `${sanitizedTitle} preview`}
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 1024px) 100vw, 72rem"
+                  className="scale-[1.015] object-cover object-center transition-transform duration-[160ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                  data-featured-project-image
+                />
+              ) : (
+                <>
+                  <div
+                    className="absolute inset-0 scale-[1.015] bg-[radial-gradient(circle_at_50%_8%,rgba(255,255,255,0.72)_0%,rgba(231,228,222,0.88)_32%,rgba(187,184,179,0.94)_72%,rgba(161,158,154,1)_100%)] transition-transform duration-[160ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                    data-featured-project-image
+                  />
+                  <div className="absolute inset-0 opacity-[0.16] mix-blend-multiply bg-[radial-gradient(rgba(120,116,110,0.32)_0.8px,transparent_0.8px)] [background-size:10px_10px]" />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.32)_0%,rgba(255,255,255,0)_18%,rgba(0,0,0,0.05)_100%)]" />
+                </>
+              )}
             </div>
           </Link>
 
-          {!isMirrored ? (
-            <ProjectMeta project={project} />
-          ) : null}
+          {!isMirrored ? <ProjectMeta project={project} /> : null}
         </div>
       </Container>
     </section>

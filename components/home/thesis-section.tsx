@@ -46,10 +46,10 @@ export function ThesisSection() {
               className="max-w-[19rem] border-l border-border-soft pl-6 lg:ml-auto"
             >
               <p className="type-body-lg text-text-secondary">
-                The &quot;Silent Curator&quot; approach rejects the
-                hyper-stimulated SaaS aesthetic. Instead, we embrace rhythmic
-                tension, negative space, and typographic authority to build
-                products that feel composed, not just assembled.
+                Technical craft shouldn&apos;t compromise the aesthetic
+                experience. I bridge the gap between heavy-duty engineering and
+                editorial finesse, ensuring that what&apos;s under the hood is
+                as elegant as the interface.
               </p>
             </div>
           </div>
