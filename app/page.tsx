@@ -10,6 +10,8 @@ import { ProcessLens } from "@/components/home/process-lens";
 import { ProcessLensMotion } from "@/components/home/process-lens-motion";
 import { SelectedWorkIntro } from "@/components/home/selected-work-intro";
 import { SelectedWorkIntroMotion } from "@/components/home/selected-work-intro-motion";
+import { SignatureMoment } from "@/components/home/signature-moment";
+import { SignatureMomentMotion } from "@/components/home/signature-moment-motion";
 import { ThesisSection } from "@/components/home/thesis-section";
 import { ThesisSectionMotion } from "@/components/home/thesis-section-motion";
 import { ValueFrame } from "@/components/home/value-frame";
@@ -26,6 +28,7 @@ export default function Home() {
       <ProcessLensMotion />
       <PersonalFrameMotion />
       <ValueFrameMotion />
+      <SignatureMomentMotion />
       <Hero />
       <ThesisSection />
       <SelectedWorkIntro />
@@ -35,6 +38,7 @@ export default function Home() {
       <ProcessLens />
       <PersonalFrame />
       <ValueFrame />
+      <SignatureMoment />
     </main>
   );
 }
