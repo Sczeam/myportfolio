@@ -4,6 +4,8 @@ import {
 import { FeaturedProjectMotion } from "@/components/home/featured-project-motion";
 import { Hero } from "@/components/home/hero";
 import { OpeningSequenceMotion } from "@/components/home/opening-sequence-motion";
+import { PersonalFrame } from "@/components/home/personal-frame";
+import { PersonalFrameMotion } from "@/components/home/personal-frame-motion";
 import { ProcessLens } from "@/components/home/process-lens";
 import { ProcessLensMotion } from "@/components/home/process-lens-motion";
 import { SelectedWorkIntro } from "@/components/home/selected-work-intro";
@@ -20,6 +22,7 @@ export default function Home() {
       <SelectedWorkIntroMotion />
       <FeaturedProjectMotion />
       <ProcessLensMotion />
+      <PersonalFrameMotion />
       <Hero />
       <ThesisSection />
       <SelectedWorkIntro />
@@ -27,6 +30,7 @@ export default function Home() {
         <FeaturedProject key={project.slug} project={project} index={index} />
       ))}
       <ProcessLens />
+      <PersonalFrame />
     </main>
   );
 }
