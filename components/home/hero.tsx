@@ -1,10 +1,9 @@
 import { Container } from "@/components/ui/container";
 
 const baseLineClassName =
-  "block overflow-visible pb-[0.08em] text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[1.02] tracking-[-0.04em]";
+  "block overflow-visible text-[clamp(3.75rem,9.2vw,6.5rem)] leading-[1.02] tracking-[-0.04em]";
 const desktopTypographyClassName =
   "lg:leading-[1.01] lg:tracking-[-0.04em] lg:text-[5.25rem] xl:text-[7rem]";
-const desktopLineClassName = `lg:absolute ${desktopTypographyClassName}`;
 
 export function Hero() {
   return (
@@ -22,9 +21,9 @@ export function Hero() {
         />
       </div>
 
-      <Container width="wide" className="relative lg:px-[8.5rem]">
+      <Container width="wide" className="relative lg:px-34">
         <div
-          className="flex min-h-[100svh] flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-28 lg:pt-28"
+          className="flex min-h-svh flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-28 lg:pt-28"
           data-opening-hero-content
         >
           <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-14">
@@ -38,22 +37,37 @@ export function Hero() {
                 data-opening-hero-heading
               >
                 <span
-                  className={`${baseLineClassName} lg:mt-0 ${desktopTypographyClassName}`}
-                  data-opening-hero-line
+                  className="block overflow-hidden pb-3 lg:mt-0 lg:pb-7"
+                  data-opening-hero-line-mask
                 >
-                  Curating
+                  <span
+                    className={`${baseLineClassName} ${desktopTypographyClassName}`}
+                    data-opening-hero-line
+                  >
+                    Curating
+                  </span>
                 </span>
                 <span
-                  className={`mt-[-0.05em] ${baseLineClassName} italic lg:left-[21.25%] lg:top-[33.33%] ${desktopLineClassName}`}
-                  data-opening-hero-line
+                  className="mt-[-0.5rem] block overflow-hidden pb-3 lg:absolute lg:left-[21.25%] lg:top-[33.33%] lg:pb-7"
+                  data-opening-hero-line-mask
                 >
-                  Atmospheric
+                  <span
+                    className={`${baseLineClassName} italic ${desktopTypographyClassName}`}
+                    data-opening-hero-line
+                  >
+                    Atmospheric
+                  </span>
                 </span>
                 <span
-                  className={`mt-[-0.05em] ${baseLineClassName} lg:left-0 lg:top-[66.66%] ${desktopLineClassName}`}
-                  data-opening-hero-line
+                  className="mt-[-0.5rem] block overflow-hidden pb-3 lg:absolute lg:left-0 lg:top-[66.66%] lg:pb-7"
+                  data-opening-hero-line-mask
                 >
-                  Digital Space.
+                  <span
+                    className={`${baseLineClassName} ${desktopTypographyClassName}`}
+                    data-opening-hero-line
+                  >
+                    Digital Space.
+                  </span>
                 </span>
               </h1>
             </div>

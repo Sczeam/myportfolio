@@ -7,7 +7,6 @@ import { CustomEase } from "gsap/CustomEase";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(CustomEase, ScrollTrigger);
-
 const openingEasePrimary = CustomEase.create(
   "opening-ease-primary",
   "0.22,1,0.36,1",
@@ -73,9 +72,7 @@ export function OpeningSequenceMotion() {
       gsap.set(heroLines, {
         y: 28,
         opacity: 0,
-      });
-      gsap.set(heroLines, {
-        clipPath: "inset(0 0 100% 0)",
+        force3D: true,
       });
       gsap.set(heroCopy, {
         y: 16,
@@ -112,27 +109,9 @@ export function OpeningSequenceMotion() {
           duration: 0.92,
           stagger: 0.1,
           ease: openingEaseCinematic,
+          clearProps: "transform,opacity",
         },
         0,
-      );
-
-      timeline.to(
-        heroLines,
-        {
-          clipPath: "inset(0 0 0% 0)",
-          duration: 0.92,
-          stagger: 0.1,
-          ease: openingEaseCinematic,
-        },
-        0,
-      );
-
-      timeline.set(
-        heroLines,
-        {
-          clearProps: "clipPath",
-        },
-        0.96,
       );
 
       timeline.to(

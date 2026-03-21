@@ -50,8 +50,8 @@ export function FeaturedProject({
                   id={`featured-project-${project.slug}`}
                   className="mt-3 font-display text-[clamp(1.9rem,2.4vw,2.7rem)] leading-[0.96] tracking-[-0.04em] text-text-primary"
                 >
-                  {project.title.split("\n").map((line) => (
-                    <span key={line} className="block">
+                  {project.title.split("\n").map((line, lineIndex) => (
+                    <span key={`${lineIndex}-${line}`} className="block">
                       {line}
                     </span>
                   ))}
@@ -135,8 +135,8 @@ export function FeaturedProject({
                   id={`featured-project-${project.slug}`}
                   className="mt-3 font-display text-[clamp(1.9rem,2.4vw,2.7rem)] leading-[0.96] tracking-[-0.04em] text-text-primary"
                 >
-                  {project.title.split("\n").map((line) => (
-                    <span key={line} className="block">
+                  {project.title.split("\n").map((line, lineIndex) => (
+                    <span key={`${lineIndex}-${line}`} className="block">
                       {line}
                     </span>
                   ))}
