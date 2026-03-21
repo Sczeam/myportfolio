@@ -90,8 +90,8 @@ export function Hero() {
                 className="type-body-lg mt-6 max-w-[17.5rem] text-text-secondary"
                 data-node-id="1:16"
               >
-                Multidisciplinary designer weaving architectural intent into the
-                fabric of the modern web.
+                Full-stack developer architecting bespoke digital experiences
+                with secure, reliable backend foundations.
               </p>
             </div>
           </div>
