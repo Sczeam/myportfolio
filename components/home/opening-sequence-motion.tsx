@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
@@ -17,9 +17,12 @@ const openingEaseCinematic = CustomEase.create(
 );
 
 export function OpeningSequenceMotion() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const hero = document.querySelector<HTMLElement>("[data-opening-hero]");
-    const nav = document.querySelector<HTMLElement>("[data-opening-nav]");
+    const brandMask = document.querySelector<HTMLElement>("[data-opening-brand-mask]");
+    const brandText = document.querySelector<HTMLElement>("[data-opening-brand-text]");
+    const navItems = gsap.utils.toArray<HTMLElement>("[data-opening-nav-item]");
+    const navCta = document.querySelector<HTMLElement>("[data-opening-nav-cta]");
     const heroAtmosphere = document.querySelector<HTMLElement>(
       "[data-opening-hero-atmosphere]",
     );
@@ -36,6 +39,9 @@ export function OpeningSequenceMotion() {
     const heroLines = gsap.utils.toArray<HTMLElement>(
       "[data-opening-hero-line]",
     );
+    const heroLineMasks = gsap.utils.toArray<HTMLElement>(
+      "[data-opening-hero-line-mask]",
+    );
     const heroCopy = document.querySelector<HTMLElement>(
       "[data-opening-hero-copy]",
     );
@@ -45,15 +51,18 @@ export function OpeningSequenceMotion() {
 
     if (
       !hero ||
-      !nav ||
+      !brandMask ||
+      !brandText ||
       !heroAtmosphere ||
       !heroContent ||
       !thesis ||
       !thesisContent ||
       !selectedWorkIntro ||
       heroLines.length === 0 ||
+      heroLineMasks.length !== heroLines.length ||
       !heroCopy ||
-      !heroGlow
+      !heroGlow ||
+      !navCta
     ) {
       return;
     }
@@ -64,15 +73,21 @@ export function OpeningSequenceMotion() {
       return;
     }
 
+    const openingWaveTexts = [brandText, ...heroLines];
+    const openingWaveMasks = [brandMask, ...heroLineMasks];
+    const openingWaveClearAt = 0.92 + 0.1 * (openingWaveMasks.length - 1) + 0.08;
+
     const context = gsap.context(() => {
-      gsap.set(nav, {
-        y: -10,
-        opacity: 0,
-      });
-      gsap.set(heroLines, {
+      gsap.set(openingWaveTexts, {
         y: 28,
         opacity: 0,
-        force3D: true,
+      });
+      gsap.set(openingWaveMasks, {
+        clipPath: "inset(0 0 100% 0)",
+      });
+      gsap.set([...navItems, navCta], {
+        y: -10,
+        opacity: 0,
       });
       gsap.set(heroCopy, {
         y: 16,
@@ -102,20 +117,46 @@ export function OpeningSequenceMotion() {
       );
 
       timeline.to(
-        heroLines,
+        openingWaveTexts,
         {
           y: 0,
           opacity: 1,
           duration: 0.92,
           stagger: 0.1,
           ease: openingEaseCinematic,
-          clearProps: "transform,opacity",
         },
         0,
       );
 
       timeline.to(
-        nav,
+        openingWaveMasks,
+        {
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.92,
+          stagger: 0.1,
+          ease: openingEaseCinematic,
+        },
+        0,
+      );
+
+      timeline.set(
+        openingWaveMasks,
+        {
+          clearProps: "clipPath",
+        },
+        openingWaveClearAt,
+      );
+
+      timeline.set(
+        openingWaveTexts,
+        {
+          clearProps: "transform,opacity",
+        },
+        openingWaveClearAt,
+      );
+
+      timeline.to(
+        [...navItems, navCta],
         {
           y: 0,
           opacity: 1,
