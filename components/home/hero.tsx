@@ -23,7 +23,10 @@ export function Hero() {
       </div>
 
       <Container width="wide" className="relative lg:px-[8.5rem]">
-        <div className="flex min-h-[100svh] flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-28 lg:pt-28">
+        <div
+          className="flex min-h-[100svh] flex-col justify-end pb-10 pt-28 sm:pb-12 sm:pt-32 lg:pb-28 lg:pt-28"
+          data-opening-hero-content
+        >
           <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_17.5rem] lg:gap-14">
             <div
               className="lg:relative lg:min-h-[23rem] lg:max-w-[42rem]"
@@ -61,7 +64,7 @@ export function Hero() {
               data-opening-hero-copy
             >
               <p className="type-label !text-accent" data-node-id="1:13">
-                Based in Yangon / Remote
+                Based in Manchester / Remote
               </p>
 
               <div

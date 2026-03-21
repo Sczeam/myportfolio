@@ -4,8 +4,9 @@ import { useEffect } from "react";
 
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(CustomEase);
+gsap.registerPlugin(CustomEase, ScrollTrigger);
 
 const openingEasePrimary = CustomEase.create(
   "opening-ease-primary",
@@ -18,10 +19,15 @@ const openingEaseCinematic = CustomEase.create(
 
 export function OpeningSequenceMotion() {
   useEffect(() => {
+    const hero = document.querySelector<HTMLElement>("[data-opening-hero]");
     const nav = document.querySelector<HTMLElement>("[data-opening-nav]");
     const heroAtmosphere = document.querySelector<HTMLElement>(
       "[data-opening-hero-atmosphere]",
     );
+    const heroContent = document.querySelector<HTMLElement>(
+      "[data-opening-hero-content]",
+    );
+    const thesis = document.querySelector<HTMLElement>("[data-opening-thesis]");
     const heroLines = gsap.utils.toArray<HTMLElement>(
       "[data-opening-hero-line]",
     );
@@ -32,7 +38,16 @@ export function OpeningSequenceMotion() {
       "[data-opening-hero-glow]",
     );
 
-    if (!nav || !heroAtmosphere || heroLines.length === 0 || !heroCopy || !heroGlow) {
+    if (
+      !hero ||
+      !nav ||
+      !heroAtmosphere ||
+      !heroContent ||
+      !thesis ||
+      heroLines.length === 0 ||
+      !heroCopy ||
+      !heroGlow
+    ) {
       return;
     }
 
@@ -135,6 +150,28 @@ export function OpeningSequenceMotion() {
         },
         0,
       );
+
+      gsap.to(heroAtmosphere, {
+        y: 96,
+        ease: "none",
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.8,
+        },
+      });
+
+      gsap.to(heroContent, {
+        opacity: 0.3,
+        ease: "none",
+        scrollTrigger: {
+          trigger: thesis,
+          start: "top 85%",
+          end: "top 35%",
+          scrub: 0.8,
+        },
+      });
     });
 
     return () => context.revert();
