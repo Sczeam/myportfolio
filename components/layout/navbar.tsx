@@ -47,7 +47,11 @@ export function Navbar() {
               data-node-id="1:169"
               data-opening-nav-brand
             >
-              Zaw Htike Aung
+              <span className="block overflow-hidden" data-opening-brand-mask>
+                <span className="block" data-opening-brand-text>
+                  Zaw Htike Aung
+                </span>
+              </span>
             </Link>
 
             <nav
@@ -95,6 +99,7 @@ export function Navbar() {
                       "type-nav nav-link pb-1 uppercase",
                       active ? "nav-link-active" : "",
                     ].join(" ")}
+                    data-opening-nav-item
                   >
                     {label}
                   </Link>
