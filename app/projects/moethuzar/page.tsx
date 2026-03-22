@@ -3,6 +3,8 @@ import { MoethuzarOpeningFrame } from "@/components/projects/moethuzar-opening-f
 import { MoethuzarOpeningFrameMotion } from "@/components/projects/moethuzar-opening-frame-motion";
 import { MoethuzarOverview } from "@/components/projects/moethuzar-overview";
 import { MoethuzarOverviewMotion } from "@/components/projects/moethuzar-overview-motion";
+import { MoethuzarArchitecture } from "@/components/projects/moethuzar-architecture";
+import { MoethuzarArchitectureMotion } from "@/components/projects/moethuzar-architecture-motion";
 import { MoethuzarWhatIBuilt } from "@/components/projects/moethuzar-what-i-built";
 import { MoethuzarWhatIBuiltMotion } from "@/components/projects/moethuzar-what-i-built-motion";
 
@@ -14,6 +16,7 @@ export default function MoethuzarPage() {
       <MoethuzarOpeningFrameMotion />
       <MoethuzarOverviewMotion />
       <MoethuzarWhatIBuiltMotion />
+      <MoethuzarArchitectureMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -28,6 +31,13 @@ export default function MoethuzarPage() {
         label={project_case_study.what_i_built.label}
         title={project_case_study.what_i_built.title}
         pillars={project_case_study.what_i_built.pillars}
+      />
+      <MoethuzarArchitecture
+        label={project_case_study.architecture.label}
+        title={project_case_study.architecture.title}
+        body={project_case_study.architecture.body}
+        principles={project_case_study.architecture.principles}
+        layers={project_case_study.architecture.layers}
       />
     </main>
   );
