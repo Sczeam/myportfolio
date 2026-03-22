@@ -5,7 +5,7 @@ export const featuredProjects: FeaturedProjectData[] = [
     slug: "project-lumen",
     category: "Architectural Visualization",
     title: "Project\nLumen",
-    href: "#",
+    href: "/projects/moethuzar",
     imageSrc: "/images/projects/moesilkandcotton.png",
     imageAlt: "Featured preview for Project Lumen",
   },
