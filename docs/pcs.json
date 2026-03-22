@@ -1,0 +1,345 @@
+{
+  "project_case_study": {
+    "slug": "moethuzar",
+    "seo": {
+      "title": "Moethuzar | Zaw Htike Aung",
+      "description": "Moethuzar is a production oriented fullstack fashion ecommerce platform built as a modular monolith, combining premium storefront UX with dependable backend workflows for catalog, checkout, promotions, admin operations, customer accounts, and replay safe wishlist processing."
+    },
+    "hero": {
+      "title": "Moethuzar",
+      "summary": "A production oriented fashion ecommerce platform built as a modular monolith, combining a premium storefront experience with dependable backend workflows for catalog, checkout, promotions, admin operations, customer accounts, and replay safe wishlist processing.",
+      "intro": "Moethuzar was built as a complete commerce product, not just a storefront UI. The project brought together customer facing shopping flows, operator facing admin tooling, and the backend systems needed to support real world commerce constraints such as guest identity, local payment handling, inventory logic, promotions, order operations, and asynchronous workflows. My goal was to create a product that felt refined on the surface and reliable underneath.",
+      "metadata": {
+        "role_label": "Role",
+        "role_value": "Fullstack Developer",
+        "type_label": "Project type",
+        "type_value": "Fashion ecommerce platform",
+        "stack_label": "Stack",
+        "stack_value": "Next.js, TypeScript, Prisma, PostgreSQL, Supabase Auth, Cloudflare R2, Upstash QStash"
+      }
+    },
+    "overview": {
+      "label": "Overview",
+      "title": "A fullstack commerce system, not just a storefront",
+      "body": "Moethuzar was designed as a production oriented ecommerce platform with both customer and operational workflows in mind. On the frontend, it needed to feel clear, premium, and easy to navigate. On the backend, it needed to support the realities of commerce, including product variants, inventory, promotions, guest and authenticated users, manual payment flows, order tracking, and admin operations.\n\nRather than treating the project as a collection of pages and forms, I approached it as a full product system. That meant designing the customer experience, shaping internal tools, and building the backend architecture that made the whole platform stable, maintainable, and ready for real usage."
+    },
+    "my_role": {
+      "label": "My role",
+      "title": "Fullstack ownership across the product surface",
+      "body": "I worked across the entire product surface, from user experience and frontend architecture to backend service design and operational workflows. This included customer facing commerce pages, authenticated account flows, admin tooling, domain modeling, checkout and order workflows, asynchronous wishlist processing, and infrastructure choices around storage, auth, and queue delivery.",
+      "items": [
+        "Product and interface implementation across customer and admin surfaces",
+        "Fullstack architecture using a modular monolith approach",
+        "Domain modeling for catalog, cart, orders, payments, promotions, and wishlist",
+        "Backend service design for checkout, order creation, catalog operations, and projections",
+        "Authentication and customer account flows",
+        "Async architecture for wishlist durability and projection updates",
+        "Reliability, security, and operational safeguards such as rate limiting, request tracing, and replay or rollback aware design"
+      ]
+    },
+    "problem_context": {
+      "label": "Context",
+      "title": "What the platform needed to solve",
+      "body": "The challenge was not simply to build an online store. The platform needed to support the full lifecycle of a commerce product across both customer and operator needs.\n\nOn the customer side, the experience had to support browsing, product discovery, variants, cart management, checkout, promotions, accounts, and wishlist behavior. On the operations side, the system needed tools for managing catalog content, inventory, orders, payment methods, and promotions. At the same time, the backend needed to remain reliable under real product conditions, including guest flows, idempotent order creation, local payment handling, and asynchronous processing that could recover safely if delivery failed.",
+      "requirements": [
+        "Customer storefront with product browsing, variants, cart, checkout, and accounts",
+        "Premium but simple user experience appropriate for fashion commerce",
+        "Admin workflows for catalog management, inventory updates, promotions, and operations",
+        "Guest and authenticated user support across shopping and account journeys",
+        "Localized checkout rules with payment and shipping constraints",
+        "Durable async processing for wishlist workflows",
+        "Stable, maintainable architecture that could evolve without collapsing into a tangled codebase"
+      ]
+    },
+    "what_i_built": {
+      "label": "What I built",
+      "title": "A complete commerce system organized around business capabilities",
+      "intro": "I built Moethuzar as a complete commerce system organized around business capabilities rather than isolated pages or generic CRUD layers.",
+      "pillars": [
+        {
+          "title": "Customer storefront",
+          "body": "A customer facing shopping experience covering product listing, product detail, cart, checkout, wishlist, and account flows. The frontend was designed to feel refined and calm while keeping interactions practical and predictable."
+        },
+        {
+          "title": "Checkout and payment workflow",
+          "body": "A full checkout flow that handled cart validation, stock checks, shipping resolution, promo application, and idempotent order creation. This was one of the strongest backend parts of the project because it required multiple business rules to work together safely."
+        },
+        {
+          "title": "Admin operations and catalog tooling",
+          "body": "An internal admin surface for managing products, variants, inventory, promotions, payment methods, and broader operations. I treated these tools as first class product surfaces rather than afterthoughts."
+        },
+        {
+          "title": "Async wishlist system",
+          "body": "A replay safe wishlist architecture built around canonical write data, a derived read model, durable outbox events, and queue based delivery using QStash. This part of the system showed how I approached asynchronous workflows and production reliability."
+        }
+      ]
+    },
+    "architecture": {
+      "label": "Architecture",
+      "title": "Modular monolith with practical clean architecture boundaries",
+      "body": "I structured the backend as a domain oriented modular monolith. The goal was to keep the system cohesive and practical while still maintaining clear boundaries between transport concerns, business workflows, domain logic, and specialized persistence.\n\nAPI routes stayed thin and focused on request parsing, auth or session resolution, validation, and error mapping. Services owned use case orchestration and transactional behavior. Domain modules captured important rule logic in isolation. Repositories were used selectively where persistence complexity actually justified an abstraction rather than being applied everywhere by habit.\n\nThis approach kept the codebase maintainable without overclaiming patterns that the project did not need.",
+      "principles": [
+        "Requirements driven architecture rather than pattern driven architecture",
+        "Thin transport layer, rich use case services",
+        "Canonical truth first for important business domains",
+        "Selective CQRS style separation only where complexity justified it",
+        "Operational realism over idealized architecture",
+        "Clear boundaries without turning the system into unnecessary abstraction"
+      ],
+      "layers": [
+        {
+          "title": "Transport layer",
+          "location": "app/api/*",
+          "purpose": "Request parsing, validation, auth or session context, rate limiting, delegation to services, stable API responses"
+        },
+        {
+          "title": "Use case and service layer",
+          "location": "server/services/*",
+          "purpose": "Business workflow orchestration, transaction coordination, use case logic, integration across rules and data sources"
+        },
+        {
+          "title": "Domain rule modules",
+          "location": "server/domain/*",
+          "purpose": "Pure business logic, isolated rule modeling, deterministic logic where appropriate"
+        },
+        {
+          "title": "Persistence boundaries",
+          "location": "server/repositories/*",
+          "purpose": "Specialized query logic, projections, and selected data access complexity where abstraction actually added value"
+        }
+      ]
+    },
+    "backend_design": {
+      "label": "Backend design",
+      "title": "Backend workflows built for real commerce conditions",
+      "body": "The backend was built to support real commerce workflows rather than simple database reads and writes. Important domains were modeled explicitly, transaction boundaries were treated seriously, and critical workflows were designed for reliability and recovery.\n\nA strong example is checkout and order creation. This was not a single endpoint that saved a record. It coordinated cart validation, stock checks, pricing snapshots, promo evaluation, shipping fee resolution, payment policy selection, customer identity handling, and idempotent order creation inside a stable backend flow.\n\nAnother important backend design decision was separating durability from async delivery in the wishlist pipeline. Rather than relying on queue delivery alone, I used the database as the durable source of truth through an outbox pattern, then handled asynchronous projection updates through QStash. That created a safer, more replayable model.",
+      "highlights": [
+        "Domain oriented service design rather than generic CRUD wrappers",
+        "Transactional workflows for order creation and related operations",
+        "Idempotency support through order keys and controlled write paths",
+        "Durable outbox pattern for wishlist event processing",
+        "Projection based read model for wishlist performance and resilience",
+        "Selective repository usage where read complexity or projection logic justified it",
+        "Structured error handling and request tracing for operational clarity"
+      ]
+    },
+    "database_modeling": {
+      "label": "Database and domain modeling",
+      "title": "A schema shaped by commerce behavior, not demo app simplicity",
+      "body": "The database design was one of the strongest parts of the project because it reflected real commerce behavior rather than a toy schema. The platform was modeled in PostgreSQL through Prisma with clear domain entities for customer journeys, catalog structure, order lifecycle, promotions, inventory, and asynchronous processing.\n\nFor example, inventory was modeled at the product variant level, which is the correct level for apparel commerce where size and color matter. Orders included operational detail beyond simple transaction state, such as payment status, shipping information, history, and idempotency keys. The wishlist domain separated canonical write data from a derived view model, supported by an outbox ledger for recovery and replay.",
+      "core_domains": [
+        "Customer and authentication",
+        "Catalog, products, variants, and images",
+        "Cart and checkout",
+        "Orders and order history",
+        "Promotions and discount rules",
+        "Shipping rules and payment transfer methods",
+        "Inventory logs and operational records",
+        "Wishlist write model, read model, and event outbox"
+      ],
+      "strong_decisions": [
+        "Canonical inventory lives at the variant level",
+        "Wishlist has separate write and read models",
+        "Async durability is explicitly modeled in the database",
+        "Order state captures operational reality, not just payment completion",
+        "Schema supports both customer experience and internal operations"
+      ]
+    },
+    "frontend_architecture": {
+      "label": "Frontend architecture",
+      "title": "Server first, feature first, progressively interactive",
+      "body": "On the frontend, I used Next.js App Router with Server Components by default and Client Components only where interaction state truly required them. This helped keep route composition and data loading server side while isolating client interactivity into focused areas.\n\nI also organized the frontend in a feature first way rather than letting everything collapse into one large components folder. Shared UI primitives, layout shell pieces, and feature specific logic each had their own role. This made the product easier to evolve while keeping the user experience clean and consistent.\n\nA good example of this approach was the account registration flow. I redesigned the journey into a more refined staged experience without destabilizing the backend auth foundation underneath it. That is the kind of fullstack product work I care about, improving UX while preserving stable contracts behind it.",
+      "principles": [
+        "Server Components by default",
+        "Client interactivity only where needed",
+        "Feature first structure",
+        "Progressive enhancement without unnecessary rewrites",
+        "UX evolution built on stable backend contracts"
+      ]
+    },
+    "deep_dives": [
+      {
+        "label": "Deep dive",
+        "title": "Checkout and order creation",
+        "body": "Checkout was one of the most important backend workflows in the platform because it had to coordinate multiple domain rules safely. This was not a simple form submission that saved an order row. The flow had to validate the cart, confirm stock availability, resolve shipping logic, apply promotions correctly, determine payment rules by zone, and create the order in an idempotent way.\n\nThat made checkout one of the clearest examples of fullstack engineering in the project. The experience had to feel clean and straightforward to the customer, while the backend handled the complexity required to make it dependable.",
+        "points": [
+          "Guest and signed in customer handling",
+          "Cart validation before order creation",
+          "Inventory validation before finalizing an order",
+          "Shipping fee and shipping rule resolution",
+          "Promo code evaluation and discount application",
+          "Payment policy selection based on shipping zone and method",
+          "Idempotent order creation to reduce duplicate writes and unsafe retries"
+        ],
+        "why_it_matters": "This flow shows that the project was built as a real system, not just a storefront interface. It demonstrates backend orchestration, transactional thinking, and careful handling of business logic under conditions that matter in production."
+      },
+      {
+        "label": "Deep dive",
+        "title": "Replay safe wishlist architecture",
+        "body": "The wishlist pipeline was one of the strongest architecture stories in the codebase because it moved beyond simple CRUD. I treated wishlist actions as a domain that justified asynchronous projection and durable delivery design.\n\nWhen wishlist writes occur, the system updates canonical data and records a durable outbox event in the same transactional boundary. Delivery to the projection path is then handled asynchronously through QStash. If queue delivery fails or needs to be retried, the source of truth still exists in the database, and the derived view can be replayed or rebuilt safely.\n\nThis is a strong example of using more advanced architecture only where the problem actually justified it.",
+        "points": [
+          "WishlistItem as canonical write model",
+          "WishlistItemView as derived read model",
+          "EventOutbox as durable async ledger",
+          "QStash as delivery mechanism",
+          "Projector service designed to be idempotent",
+          "Rebuild and replay path retained for recovery"
+        ],
+        "why_it_matters": "This system separated durability from delivery, which is a much stronger production approach than assuming the queue alone is the source of truth. It shows system design maturity, async workflow thinking, and operational awareness."
+      },
+      {
+        "label": "Deep dive",
+        "title": "Admin tools as product surfaces",
+        "body": "Many portfolio ecommerce projects focus almost entirely on the storefront and treat internal tools as an afterthought. I wanted Moethuzar to feel more complete than that.\n\nThe admin side of the platform covered catalog authoring, inventory updates, dashboard visibility, promo management, and operations. I designed those tools as real product surfaces because they shape how the business actually runs, not just how the customer browses.\n\nThis was important both technically and product wise. It meant the codebase had to support not only customer interaction but also operator workflows in a maintainable way.",
+        "points": [
+          "Catalog and product variant management",
+          "Inventory updates and visibility",
+          "Promo management",
+          "Transfer method and payment configuration",
+          "Dashboard and operations support"
+        ],
+        "why_it_matters": "This broadens the project from a frontend storefront into a real fullstack product. It also shows that I can design for internal operators, not only customer facing UI."
+      }
+    ],
+    "engineering_principles": {
+      "label": "Engineering principles",
+      "title": "How I approached system design",
+      "body": "I did not try to force one architectural style across the entire system. Instead, I used stronger patterns where the domain actually demanded them and kept simpler flows straightforward where complexity was lower. That balance made the codebase easier to maintain while still supporting more advanced behavior where it mattered.",
+      "items": [
+        "Canonical truth over duplicated state",
+        "Patterns only where complexity justifies them",
+        "Thin transport, rich use case services",
+        "Server first rendering with isolated client interactivity",
+        "Operational reliability designed in, not bolted on",
+        "UX upgrades without destabilizing backend contracts",
+        "Internal tools treated as product surfaces, not afterthoughts"
+      ]
+    },
+    "delivery_methodology": {
+      "label": "Delivery methodology",
+      "title": "How the project was developed",
+      "body": "This project was developed as a set of vertical slices rather than as separate frontend and backend tracks. That kept product features coherent and helped ensure that interface decisions, backend contracts, and operational workflows evolved together.\n\nI also used architecture documents and QA notes to keep implementation grounded as the system grew. Testing was focused around service logic, failure prone boundaries, and security sensitive flows rather than trying to test everything superficially.",
+      "items": [
+        "Vertical slice delivery by business capability",
+        "Risk first design for critical workflows",
+        "Documentation backed implementation",
+        "Business critical testing over shallow coverage",
+        "Infrastructure decisions made pragmatically from actual platform constraints",
+        "Rollback and replay paths preserved for async features"
+      ]
+    },
+    "reliability_security": {
+      "label": "Reliability and security",
+      "title": "Trust built into the flows",
+      "body": "One of the most important goals in this project was making the backend trustworthy, not just functional. That meant designing critical workflows with clear boundaries, handling abusive or duplicate behavior carefully, and keeping recovery paths available for asynchronous features.",
+      "security_points": [
+        "Request level rate limiting",
+        "Guest and authenticated identity boundaries",
+        "Sanitized redirect handling",
+        "Minimal auth payloads",
+        "Abuse controls around account precheck flows"
+      ],
+      "reliability_points": [
+        "Idempotent order creation",
+        "Transactional order workflows",
+        "Durable outbox pattern for async events",
+        "Idempotent projection updates",
+        "Rebuild path for derived wishlist state",
+        "Structured error envelopes and request IDs",
+        "Rollback aware async delivery planning"
+      ],
+      "closing": "These are the details that separate a polished demo from a system that was designed with real usage in mind."
+    },
+    "key_challenges": {
+      "label": "Key challenges",
+      "title": "What made the project complex",
+      "body": "The project included several challenges that pushed it beyond simple ecommerce implementation. The most important ones were about identity, backend workflow complexity, operational flexibility, and maintaining system stability while evolving UX.",
+      "items": [
+        "Supporting both guest and authenticated user journeys cleanly",
+        "Handling localized payment flows and manual verification constraints",
+        "Designing a replay safe async wishlist pipeline",
+        "Extending admin capability without damaging maintainability",
+        "Improving authentication and registration UX without redesigning auth foundations"
+      ]
+    },
+    "solutions": {
+      "label": "Solutions",
+      "title": "How I approached the hard parts",
+      "body": "I approached each challenge by treating the system as a product with both experience and operational layers. Some solutions were architectural, some were domain modeling choices, and some were interface decisions built on top of stable contracts.",
+      "items": [
+        "Clear service boundaries for checkout, order, catalog, and wishlist domains",
+        "Canonical database models for critical truth sources",
+        "Durable outbox and projector design for wishlist processing",
+        "Feature first frontend architecture with server first rendering",
+        "Admin tooling designed as a first class part of the platform",
+        "UX refinement layered onto existing auth foundations rather than destabilizing them",
+        "Operational guardrails such as rate limiting, request tracing, and replay planning"
+      ]
+    },
+    "outcome": {
+      "label": "Outcome",
+      "title": "A production oriented fullstack commerce platform",
+      "body": "Moethuzar became a production oriented fullstack commerce platform with broad feature coverage, stable architectural foundations, and room for future growth. The final product combined customer storefront UX, admin operations, backend workflows, and asynchronous reliability in one coherent codebase.\n\nEven without public scale metrics, the project demonstrates real fullstack depth. It shows customer experience design, backend orchestration, domain modeling, internal tooling, asynchronous processing, and production minded reliability working together in one system.",
+      "points": [
+        "Customer, admin, and operational workflows designed in one coherent platform",
+        "Stable domain model for catalog, checkout, orders, promotions, and wishlist",
+        "Strong backend depth through checkout, idempotency, and async pipeline design",
+        "Internal tools treated as serious product surfaces",
+        "Maintainable fullstack foundation for future evolution"
+      ]
+    },
+    "learnings": {
+      "label": "What I learned",
+      "title": "What this project sharpened for me",
+      "body": "This project reinforced that architecture should follow domain complexity, not fashion. Simple flows should stay simple. Complex flows should get the structure they need. It also reinforced that durability and delivery should not be treated as the same thing, especially once asynchronous workflows enter the product.\n\nOn the frontend side, it confirmed that good UX changes do not always require backend rewrites if the underlying contracts are sound. On the product side, it strengthened my belief that internal tools deserve the same care as customer facing experiences.",
+      "items": [
+        "Architecture should follow domain complexity, not trends",
+        "Durability and delivery should be separated in async systems",
+        "Internal tools are part of the product, not support debris",
+        "Strong UX evolution depends on stable backend foundations",
+        "Fullstack quality comes from joining surface experience and system reliability"
+      ]
+    },
+    "final_frame": {
+      "label": "Final note",
+      "title": "What this project represents",
+      "body": "Moethuzar is the strongest example in my portfolio of what I want my work to represent: not just polished interfaces, and not just backend functionality, but complete digital products where the experience feels considered and the systems underneath are dependable."
+    },
+    "next_project": {
+      "label": "Next project",
+      "title": "Continue to the next case study",
+      "cta": "View next project"
+    },
+    "technical_claims": {
+      "title": "Core technical claims",
+      "items": [
+        "Built a modular monolith ecommerce platform with Next.js, TypeScript, Prisma, and PostgreSQL",
+        "Designed customer, admin, and operational workflows in one coherent codebase",
+        "Modeled apparel commerce at the variant level with inventory, pricing, and imagery support",
+        "Built checkout with stock validation, shipping resolution, promo application, payment policy selection, and idempotent order creation",
+        "Implemented guest and authenticated account journeys, including wishlist merge behavior",
+        "Designed a replay safe async wishlist pipeline using durable outbox records, projection models, and QStash delivery",
+        "Built admin facing catalog and operations capabilities alongside the storefront",
+        "Applied rate limiting, structured errors, request tracing, and rollback aware delivery design",
+        "Used Server Components by default and isolated client interactivity where needed"
+      ]
+    },
+    "diagrams": {
+      "title": "Suggested diagrams",
+      "items": [
+        "System architecture diagram showing customer UI, admin UI, Next.js app, Prisma and PostgreSQL, Supabase Auth, Cloudflare R2, and QStash",
+        "Wishlist async flow diagram showing wishlist write, outbox event creation, QStash delivery, projection handling, read model update, and replay or rebuild path"
+      ]
+    },
+    "screenshots": {
+      "title": "Suggested screenshot groups",
+      "groups": [
+        "Customer storefront and product browsing",
+        "Product detail, cart, and checkout flows",
+        "Account and wishlist experience",
+        "Admin catalog and operations surfaces",
+        "Promo and payment management flows"
+      ]
+    }
+  }
+}
