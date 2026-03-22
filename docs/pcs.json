@@ -52,25 +52,25 @@
       ]
     },
     "what_i_built": {
-      "label": "What I built",
-      "title": "A complete commerce system organized around business capabilities",
-      "intro": "I built Moethuzar as a complete commerce system organized around business capabilities rather than isolated pages or generic CRUD layers.",
+      "label": "Capabilities",
+      "title": "Organized around business capabilities rather than isolated pages",
+      "intro": "Moethuzar was built as a full commerce product system organized around business capabilities rather than isolated pages or generic CRUD layers.",
       "pillars": [
         {
-          "title": "Customer storefront",
-          "body": "A customer facing shopping experience covering product listing, product detail, cart, checkout, wishlist, and account flows. The frontend was designed to feel refined and calm while keeping interactions practical and predictable."
+          "title": "Customer\nstorefront",
+          "body": "A refined shopping environment covering product discovery, refined detail views, and seamless cart interactions. Built for clarity and a calm browsing pace."
         },
         {
-          "title": "Checkout and payment workflow",
-          "body": "A full checkout flow that handled cart validation, stock checks, shipping resolution, promo application, and idempotent order creation. This was one of the strongest backend parts of the project because it required multiple business rules to work together safely."
+          "title": "Checkout &\npayment workflow",
+          "body": "A mission-critical orchestration handling real-time stock verification, shipping resolution, and idempotent order creation with manual payment reconciliation."
         },
         {
-          "title": "Admin operations and catalog tooling",
-          "body": "An internal admin surface for managing products, variants, inventory, promotions, payment methods, and broader operations. I treated these tools as first class product surfaces rather than afterthoughts."
+          "title": "Admin operations",
+          "body": "Internal management surface for catalog control and promotion logic. Treated as a first-class product interface, not a utility afterthought."
         },
         {
-          "title": "Async wishlist system",
-          "body": "A replay safe wishlist architecture built around canonical write data, a derived read model, durable outbox events, and queue based delivery using QStash. This part of the system showed how I approached asynchronous workflows and production reliability."
+          "title": "Async wishlist",
+          "body": "A replay-safe architecture built around canonical write data and queue-based delivery using QStash for production-grade reliability."
         }
       ]
     },
