@@ -7,6 +7,8 @@ import { MoethuzarArchitecture } from "@/components/projects/moethuzar-architect
 import { MoethuzarArchitectureMotion } from "@/components/projects/moethuzar-architecture-motion";
 import { MoethuzarCheckoutOrder } from "@/components/projects/moethuzar-checkout-order";
 import { MoethuzarCheckoutOrderMotion } from "@/components/projects/moethuzar-checkout-order-motion";
+import { MoethuzarWishlistArchitecture } from "@/components/projects/moethuzar-wishlist-architecture";
+import { MoethuzarWishlistArchitectureMotion } from "@/components/projects/moethuzar-wishlist-architecture-motion";
 import { MoethuzarWhatIBuilt } from "@/components/projects/moethuzar-what-i-built";
 import { MoethuzarWhatIBuiltMotion } from "@/components/projects/moethuzar-what-i-built-motion";
 
@@ -20,6 +22,7 @@ export default function MoethuzarPage() {
       <MoethuzarWhatIBuiltMotion />
       <MoethuzarArchitectureMotion />
       <MoethuzarCheckoutOrderMotion />
+      <MoethuzarWishlistArchitectureMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -47,7 +50,12 @@ export default function MoethuzarPage() {
         title={project_case_study.deep_dives[0].title}
         body={project_case_study.deep_dives[0].body}
         logicPoints={project_case_study.deep_dives[0].logic_points}
-        whyItMatters={project_case_study.deep_dives[0].why_it_matters}
+      />
+      <MoethuzarWishlistArchitecture
+        label={project_case_study.deep_dives[1].label}
+        title={project_case_study.deep_dives[1].title}
+        body={project_case_study.deep_dives[1].body}
+        logicPoints={project_case_study.deep_dives[1].logic_points}
       />
     </main>
   );

@@ -10,7 +10,6 @@ type MoethuzarCheckoutOrderProps = {
   title: string;
   body: string;
   logicPoints: LogicPoint[];
-  whyItMatters: string;
 };
 
 function LogicPointItem({ title, body, className }: LogicPoint & { className?: string }) {
@@ -31,9 +30,8 @@ export function MoethuzarCheckoutOrder({
   title,
   body,
   logicPoints,
-  whyItMatters,
 }: MoethuzarCheckoutOrderProps) {
-  const [summary, detail] = body.split("\n\n");
+  const [summary] = body.split("\n\n");
   const steps = [
     { step: "Step 01", title: "Cart validation", bar: "w-[70%]" },
     { step: "Step 02", title: "Inventory check", bar: "w-[74%]" },
@@ -50,7 +48,10 @@ export function MoethuzarCheckoutOrder({
     >
       <Container width="wide" className="relative lg:px-[8.5rem]">
         <div className="grid grid-cols-1 gap-y-12 lg:grid-cols-12 lg:gap-x-6 lg:gap-y-0">
-          <div className="lg:col-start-1 lg:col-end-9" data-moethuzar-checkout-phase="phase1">
+          <div
+            className="lg:col-start-1 lg:col-end-9 lg:row-start-1"
+            data-moethuzar-checkout-phase="phase1"
+          >
             <p className="text-[0.75rem] uppercase leading-[1.2] tracking-[0.1em] text-[#74706A]">
               {label}
             </p>
@@ -63,16 +64,15 @@ export function MoethuzarCheckoutOrder({
           </div>
 
           <div
-            className="lg:col-start-1 lg:col-end-6 lg:pt-[3.5rem]"
+            className="lg:col-start-1 lg:col-end-6 lg:row-start-2 lg:pt-[3.5rem]"
             data-moethuzar-checkout-phase="phase2"
           >
-            <div className="max-w-[33rem] space-y-8 text-[1.125rem] leading-[1.6] tracking-[-0.02em] text-[#7C8A9A]">
+            <div className="max-w-[32rem] text-[1.125rem] leading-[1.6] tracking-[-0.02em] text-[#7C8A9A]">
               <p>{summary}</p>
-              <p className="text-[#CFC8BE]">{detail}</p>
             </div>
           </div>
 
-          <div className="lg:col-start-1 lg:col-end-8 lg:pt-[4rem]">
+          <div className="lg:col-start-1 lg:col-end-8 lg:row-start-3 lg:pt-[4rem]">
             <div
               className="border border-[#20242B] bg-[#14161A] p-5 sm:p-6 lg:p-7"
               data-moethuzar-checkout-phase="phase3"
@@ -138,7 +138,7 @@ export function MoethuzarCheckoutOrder({
             </div>
           </div>
 
-          <aside className="lg:col-start-9 lg:col-end-13 lg:pt-[4rem]">
+          <aside className="lg:col-start-9 lg:col-end-13 lg:row-start-3 lg:pt-[4rem]">
             <div className="h-px w-full bg-[#20242B]" />
             <div className="mt-12 h-px w-full bg-[#20242B]" />
 
@@ -153,15 +153,6 @@ export function MoethuzarCheckoutOrder({
                   body={point.body}
                 />
               ))}
-            </div>
-
-            <div className="mt-12 border-l border-[#20242B] pl-5" data-moethuzar-checkout-phase="phase4">
-              <p className="text-[0.625rem] uppercase leading-[1.2] tracking-[0.1em] text-[#74706A]">
-                Why it matters
-              </p>
-              <p className="mt-4 max-w-[17rem] text-[1rem] leading-[1.6] tracking-[-0.015em] text-[#7C8A9A]">
-                {whyItMatters}
-              </p>
             </div>
           </aside>
         </div>

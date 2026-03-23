@@ -190,7 +190,17 @@
       {
         "label": "Deep dive",
         "title": "Replay safe wishlist architecture",
-        "body": "The wishlist pipeline was one of the strongest architecture stories in the codebase because it moved beyond simple CRUD. I treated wishlist actions as a domain that justified asynchronous projection and durable delivery design.\n\nWhen wishlist writes occur, the system updates canonical data and records a durable outbox event in the same transactional boundary. Delivery to the projection path is then handled asynchronously through QStash. If queue delivery fails or needs to be retried, the source of truth still exists in the database, and the derived view can be replayed or rebuilt safely.\n\nThis is a strong example of using more advanced architecture only where the problem actually justified it.",
+        "body": "Leveraging a transactional outbox pattern to achieve absolute eventual consistency. User interactions are committed as durable outbox events within the same transaction as the canonical write model.\n\nThe wishlist pipeline was one of the strongest architecture stories in the codebase because it moved beyond simple CRUD. When wishlist writes occur, the system updates canonical data and records a durable outbox event in the same transactional boundary. Delivery to the projection path is then handled asynchronously through QStash, while the derived view can still be replayed safely from the canonical source.",
+        "logic_points": [
+          {
+            "title": "Transactional outbox",
+            "body": "Ensures atomicity between business state and event propagation."
+          },
+          {
+            "title": "Replay safety",
+            "body": "Decoupled read models allow for full state projection at any point."
+          }
+        ],
         "points": [
           "WishlistItem as canonical write model",
           "WishlistItemView as derived read model",
