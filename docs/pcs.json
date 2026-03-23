@@ -52,25 +52,25 @@
       ]
     },
     "what_i_built": {
-      "label": "What I built",
-      "title": "A complete commerce system organized around business capabilities",
-      "intro": "I built Moethuzar as a complete commerce system organized around business capabilities rather than isolated pages or generic CRUD layers.",
+      "label": "Capabilities",
+      "title": "Organized around business capabilities rather than isolated pages",
+      "intro": "Moethuzar was built as a full commerce product system organized around business capabilities rather than isolated pages or generic CRUD layers.",
       "pillars": [
         {
-          "title": "Customer storefront",
-          "body": "A customer facing shopping experience covering product listing, product detail, cart, checkout, wishlist, and account flows. The frontend was designed to feel refined and calm while keeping interactions practical and predictable."
+          "title": "Customer\nstorefront",
+          "body": "A refined shopping environment covering product discovery, refined detail views, and seamless cart interactions. Built for clarity and a calm browsing pace."
         },
         {
-          "title": "Checkout and payment workflow",
-          "body": "A full checkout flow that handled cart validation, stock checks, shipping resolution, promo application, and idempotent order creation. This was one of the strongest backend parts of the project because it required multiple business rules to work together safely."
+          "title": "Checkout &\npayment workflow",
+          "body": "A mission-critical orchestration handling real-time stock verification, shipping resolution, and idempotent order creation with manual payment reconciliation."
         },
         {
-          "title": "Admin operations and catalog tooling",
-          "body": "An internal admin surface for managing products, variants, inventory, promotions, payment methods, and broader operations. I treated these tools as first class product surfaces rather than afterthoughts."
+          "title": "Admin operations",
+          "body": "Internal management surface for catalog control and promotion logic. Treated as a first-class product interface, not a utility afterthought."
         },
         {
-          "title": "Async wishlist system",
-          "body": "A replay safe wishlist architecture built around canonical write data, a derived read model, durable outbox events, and queue based delivery using QStash. This part of the system showed how I approached asynchronous workflows and production reliability."
+          "title": "Async wishlist",
+          "body": "A replay-safe architecture built around canonical write data and queue-based delivery using QStash for production-grade reliability."
         }
       ]
     },
@@ -161,7 +161,21 @@
       {
         "label": "Deep dive",
         "title": "Checkout and order creation",
-        "body": "Checkout was one of the most important backend workflows in the platform because it had to coordinate multiple domain rules safely. This was not a simple form submission that saved an order row. The flow had to validate the cart, confirm stock availability, resolve shipping logic, apply promotions correctly, determine payment rules by zone, and create the order in an idempotent way.\n\nThat made checkout one of the clearest examples of fullstack engineering in the project. The experience had to feel clean and straightforward to the customer, while the backend handled the complexity required to make it dependable.",
+        "body": "Architecture focused on rigorous backend orchestration. We ensure transactional dependability through strict cart validation, inventory integrity, and pricing snapshots within a unified transaction boundary.\n\nCheckout was one of the most important backend workflows in the platform because it had to coordinate multiple domain rules safely. The flow had to validate the cart, confirm stock availability, resolve shipping logic, apply promotions correctly, determine payment rules by zone, and create the order in an idempotent way.",
+        "logic_points": [
+          {
+            "title": "State resolution",
+            "body": "Concurrent resolution of customer identity, session context, and promo evaluation before commit."
+          },
+          {
+            "title": "Integrity guards",
+            "body": "Synchronous inventory checks and payment policy verification within the atomic transaction boundary."
+          },
+          {
+            "title": "Snapshot persistence",
+            "body": "Capturing a point-in-time pricing and tax record to ensure auditability and long-term order accuracy."
+          }
+        ],
         "points": [
           "Guest and signed in customer handling",
           "Cart validation before order creation",
@@ -176,7 +190,17 @@
       {
         "label": "Deep dive",
         "title": "Replay safe wishlist architecture",
-        "body": "The wishlist pipeline was one of the strongest architecture stories in the codebase because it moved beyond simple CRUD. I treated wishlist actions as a domain that justified asynchronous projection and durable delivery design.\n\nWhen wishlist writes occur, the system updates canonical data and records a durable outbox event in the same transactional boundary. Delivery to the projection path is then handled asynchronously through QStash. If queue delivery fails or needs to be retried, the source of truth still exists in the database, and the derived view can be replayed or rebuilt safely.\n\nThis is a strong example of using more advanced architecture only where the problem actually justified it.",
+        "body": "Leveraging a transactional outbox pattern to achieve absolute eventual consistency. User interactions are committed as durable outbox events within the same transaction as the canonical write model.\n\nThe wishlist pipeline was one of the strongest architecture stories in the codebase because it moved beyond simple CRUD. When wishlist writes occur, the system updates canonical data and records a durable outbox event in the same transactional boundary. Delivery to the projection path is then handled asynchronously through QStash, while the derived view can still be replayed safely from the canonical source.",
+        "logic_points": [
+          {
+            "title": "Transactional outbox",
+            "body": "Ensures atomicity between business state and event propagation."
+          },
+          {
+            "title": "Replay safety",
+            "body": "Decoupled read models allow for full state projection at any point."
+          }
+        ],
         "points": [
           "WishlistItem as canonical write model",
           "WishlistItemView as derived read model",
