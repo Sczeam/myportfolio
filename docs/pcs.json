@@ -161,7 +161,21 @@
       {
         "label": "Deep dive",
         "title": "Checkout and order creation",
-        "body": "Checkout was one of the most important backend workflows in the platform because it had to coordinate multiple domain rules safely. This was not a simple form submission that saved an order row. The flow had to validate the cart, confirm stock availability, resolve shipping logic, apply promotions correctly, determine payment rules by zone, and create the order in an idempotent way.\n\nThat made checkout one of the clearest examples of fullstack engineering in the project. The experience had to feel clean and straightforward to the customer, while the backend handled the complexity required to make it dependable.",
+        "body": "Architecture focused on rigorous backend orchestration. We ensure transactional dependability through strict cart validation, inventory integrity, and pricing snapshots within a unified transaction boundary.\n\nCheckout was one of the most important backend workflows in the platform because it had to coordinate multiple domain rules safely. The flow had to validate the cart, confirm stock availability, resolve shipping logic, apply promotions correctly, determine payment rules by zone, and create the order in an idempotent way.",
+        "logic_points": [
+          {
+            "title": "State resolution",
+            "body": "Concurrent resolution of customer identity, session context, and promo evaluation before commit."
+          },
+          {
+            "title": "Integrity guards",
+            "body": "Synchronous inventory checks and payment policy verification within the atomic transaction boundary."
+          },
+          {
+            "title": "Snapshot persistence",
+            "body": "Capturing a point-in-time pricing and tax record to ensure auditability and long-term order accuracy."
+          }
+        ],
         "points": [
           "Guest and signed in customer handling",
           "Cart validation before order creation",
