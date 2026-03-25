@@ -3,6 +3,8 @@ import { MoethuzarOpeningFrame } from "@/components/projects/moethuzar-opening-f
 import { MoethuzarOpeningFrameMotion } from "@/components/projects/moethuzar-opening-frame-motion";
 import { MoethuzarOverview } from "@/components/projects/moethuzar-overview";
 import { MoethuzarOverviewMotion } from "@/components/projects/moethuzar-overview-motion";
+import { MoethuzarVisualStory } from "@/components/projects/moethuzar-visual-story";
+import { MoethuzarVisualStoryMotion } from "@/components/projects/moethuzar-visual-story-motion";
 import { MoethuzarArchitecture } from "@/components/projects/moethuzar-architecture";
 import { MoethuzarArchitectureMotion } from "@/components/projects/moethuzar-architecture-motion";
 import { MoethuzarCheckoutOrder } from "@/components/projects/moethuzar-checkout-order";
@@ -31,6 +33,7 @@ export default function MoethuzarPage() {
     <main className="flex-1 bg-[#0E0F11]">
       <MoethuzarOpeningFrameMotion />
       <MoethuzarOverviewMotion />
+      <MoethuzarVisualStoryMotion />
       <MoethuzarWhatIBuiltMotion />
       <MoethuzarArchitectureMotion />
       <MoethuzarCheckoutOrderMotion />
@@ -50,6 +53,11 @@ export default function MoethuzarPage() {
         label={project_case_study.overview.label}
         title={project_case_study.overview.title}
         body={project_case_study.overview.body}
+      />
+      <MoethuzarVisualStory
+        label={project_case_study.visual_story.label}
+        title={project_case_study.visual_story.title}
+        images={project_case_study.visual_story.images}
       />
       <MoethuzarWhatIBuilt
         label={project_case_study.what_i_built.label}
