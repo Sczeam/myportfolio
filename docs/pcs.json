@@ -145,6 +145,22 @@
         "Schema supports both customer experience and internal operations"
       ]
     },
+    "commerce_domain_model": {
+      "label": "Commerce domain model",
+      "title": "Real commerce lifecycles, modeled with precision.",
+      "body": "Moving beyond simple CRUD patterns to a domain-oriented service architecture. We built a system that separates canonical write data from derived view models, ensuring that variant-level inventory and order lifecycle states remain immutable and auditable.",
+      "subchapter_title": "A schema shaped by commerce behavior",
+      "subchapter_points": [
+        {
+          "title": "Inventory architecture",
+          "body": "Variant-level inventory modeling tailored for apparel commerce, supporting complex SKU hierarchies and real-time availability locks."
+        },
+        {
+          "title": "Durable ledger",
+          "body": "An event-based outbox pattern ensures wishlist replay safety and async read/write separation via a durable system ledger."
+        }
+      ]
+    },
     "frontend_architecture": {
       "label": "Frontend architecture",
       "title": "Server first, feature first, progressively interactive",
