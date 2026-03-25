@@ -252,8 +252,8 @@
     ],
     "engineering_principles": {
       "label": "Engineering principles",
-      "title": "How I approached system design",
-      "body": "I did not try to force one architectural style across the entire system. Instead, I used stronger patterns where the domain actually demanded them and kept simpler flows straightforward where complexity was lower. That balance made the codebase easier to maintain while still supporting more advanced behavior where it mattered.",
+      "title": "How the system was shaped",
+      "body": "I did not try to force one architectural style across the entire system. Instead, I used stronger patterns where the domain actually demanded them and kept simpler flows straightforward where complexity was lower.",
       "items": [
         "Canonical truth over duplicated state",
         "Patterns only where complexity justifies them",
