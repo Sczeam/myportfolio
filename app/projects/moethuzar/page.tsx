@@ -23,6 +23,8 @@ import { MoethuzarEngineeringPrinciples } from "@/components/projects/moethuzar-
 import { MoethuzarEngineeringPrinciplesMotion } from "@/components/projects/moethuzar-engineering-principles-motion";
 import { MoethuzarDeliveryMethodology } from "@/components/projects/moethuzar-delivery-methodology";
 import { MoethuzarDeliveryMethodologyMotion } from "@/components/projects/moethuzar-delivery-methodology-motion";
+import { MoethuzarFinalFrame } from "@/components/projects/moethuzar-final-frame";
+import { MoethuzarFinalFrameMotion } from "@/components/projects/moethuzar-final-frame-motion";
 
 const { project_case_study } = pcs;
 
@@ -41,6 +43,7 @@ export default function MoethuzarPage() {
       <MoethuzarReliabilitySecurityMotion />
       <MoethuzarEngineeringPrinciplesMotion />
       <MoethuzarDeliveryMethodologyMotion />
+      <MoethuzarFinalFrameMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -119,6 +122,11 @@ export default function MoethuzarPage() {
         title={project_case_study.challenges_and_solutions.title}
         body={project_case_study.challenges_and_solutions.body}
         items={project_case_study.challenges_and_solutions.items}
+      />
+      <MoethuzarFinalFrame
+        label={project_case_study.final_frame.label}
+        title={project_case_study.final_frame.title}
+        body={project_case_study.final_frame.body}
       />
     </main>
   );
