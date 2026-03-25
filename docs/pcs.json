@@ -161,6 +161,43 @@
         }
       ]
     },
+    "challenges_and_solutions": {
+      "label": "Challenges and solutions",
+      "title": "Where the project became difficult",
+      "body": "The project included several challenges that pushed it beyond simple ecommerce implementation. The most important ones were about identity, backend workflow complexity, and system stability.",
+      "items": [
+        {
+          "challenge_label": "Challenge 01",
+          "challenge": "Supporting both guest and authenticated user journeys cleanly.",
+          "resolution_label": "Resolution",
+          "resolution": "Implementation of unified service boundaries that treat the user context as a transient property rather than a hard database divide."
+        },
+        {
+          "challenge_label": "Challenge 02",
+          "challenge": "Handling localized payment flows across varied providers.",
+          "resolution_label": "Resolution",
+          "resolution": "Utilization of canonical database models to normalize heterogeneous provider responses into a stable internal contract."
+        },
+        {
+          "challenge_label": "Challenge 03",
+          "challenge": "Keeping wishlist updates durable without coupling reads to writes.",
+          "resolution_label": "Resolution",
+          "resolution": "Transactional outbox records with projector-driven read models preserved eventual consistency without losing replay safety."
+        },
+        {
+          "challenge_label": "Challenge 04",
+          "challenge": "Extending admin capability without damaging maintainability.",
+          "resolution_label": "Resolution",
+          "resolution": "Operational surfaces were treated as bounded product areas with explicit service ownership rather than generic dashboard utilities."
+        },
+        {
+          "challenge_label": "Challenge 05",
+          "challenge": "Improving account UX without redesigning the underlying auth foundations.",
+          "resolution_label": "Resolution",
+          "resolution": "A staged interface layer was added above stable backend contracts so the customer flow could improve without destabilizing identity logic."
+        }
+      ]
+    },
     "frontend_architecture": {
       "label": "Frontend architecture",
       "title": "Server first, feature first, progressively interactive.",
