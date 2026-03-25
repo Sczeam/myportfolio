@@ -266,15 +266,29 @@
     },
     "delivery_methodology": {
       "label": "Delivery methodology",
-      "title": "How the project was developed",
-      "body": "This project was developed as a set of vertical slices rather than as separate frontend and backend tracks. That kept product features coherent and helped ensure that interface decisions, backend contracts, and operational workflows evolved together.\n\nI also used architecture documents and QA notes to keep implementation grounded as the system grew. Testing was focused around service logic, failure prone boundaries, and security sensitive flows rather than trying to test everything superficially.",
+      "title": "How the work moved forward",
+      "body": "This project was developed as a set of vertical slices rather than as separate frontend and backend tracks. That kept product features coherent and helped ensure that interface decisions and operational workflows evolved together.",
       "items": [
-        "Vertical slice delivery by business capability",
-        "Risk first design for critical workflows",
-        "Documentation backed implementation",
-        "Business critical testing over shallow coverage",
-        "Infrastructure decisions made pragmatically from actual platform constraints",
-        "Rollback and replay paths preserved for async features"
+        {
+          "title": "Vertical slice delivery by business capability",
+          "body": "Focusing on delivering end-to-end features rather than technical layers, ensuring value is visible early."
+        },
+        {
+          "title": "Risk first design for critical workflows",
+          "body": "Tackling the most complex and high-risk integrations first to stabilize the core architecture."
+        },
+        {
+          "title": "Documentation backed implementation",
+          "body": "Maintaining live architectural documents and QA notes to guide implementation as the system scaled."
+        },
+        {
+          "title": "Business critical testing over shallow coverage",
+          "body": "Deeply testing service logic and security-sensitive flows instead of superficial metric chasing."
+        },
+        {
+          "title": "Rollback and replay paths preserved",
+          "body": "Designing asynchronous features with built-in recovery paths and operational visibility."
+        }
       ]
     },
     "reliability_security": {
