@@ -17,6 +17,8 @@ import { MoethuzarCommerceDomainModel } from "@/components/projects/moethuzar-co
 import { MoethuzarCommerceDomainModelMotion } from "@/components/projects/moethuzar-commerce-domain-model-motion";
 import { MoethuzarFrontendArchitecture } from "@/components/projects/moethuzar-frontend-architecture";
 import { MoethuzarFrontendArchitectureMotion } from "@/components/projects/moethuzar-frontend-architecture-motion";
+import { MoethuzarReliabilitySecurity } from "@/components/projects/moethuzar-reliability-security";
+import { MoethuzarReliabilitySecurityMotion } from "@/components/projects/moethuzar-reliability-security-motion";
 
 const { project_case_study } = pcs;
 
@@ -32,6 +34,7 @@ export default function MoethuzarPage() {
       <MoethuzarAdminToolsMotion />
       <MoethuzarCommerceDomainModelMotion />
       <MoethuzarFrontendArchitectureMotion />
+      <MoethuzarReliabilitySecurityMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -84,6 +87,14 @@ export default function MoethuzarPage() {
         title={project_case_study.frontend_architecture.title}
         body={project_case_study.frontend_architecture.body}
         principles={project_case_study.frontend_architecture.principles}
+      />
+      <MoethuzarReliabilitySecurity
+        label={project_case_study.reliability_security.label}
+        title={project_case_study.reliability_security.title}
+        body={project_case_study.reliability_security.body}
+        securityPoints={project_case_study.reliability_security.security_points}
+        reliabilityPoints={project_case_study.reliability_security.reliability_points}
+        closing={project_case_study.reliability_security.closing}
       />
     </main>
   );
