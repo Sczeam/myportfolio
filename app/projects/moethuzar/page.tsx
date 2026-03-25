@@ -13,6 +13,8 @@ import { MoethuzarWhatIBuilt } from "@/components/projects/moethuzar-what-i-buil
 import { MoethuzarWhatIBuiltMotion } from "@/components/projects/moethuzar-what-i-built-motion";
 import { MoethuzarAdminTools } from "@/components/projects/moethuzar-admin-tools";
 import { MoethuzarAdminToolsMotion } from "@/components/projects/moethuzar-admin-tools-motion";
+import { MoethuzarCommerceDomainModel } from "@/components/projects/moethuzar-commerce-domain-model";
+import { MoethuzarCommerceDomainModelMotion } from "@/components/projects/moethuzar-commerce-domain-model-motion";
 
 const { project_case_study } = pcs;
 
@@ -26,6 +28,7 @@ export default function MoethuzarPage() {
       <MoethuzarCheckoutOrderMotion />
       <MoethuzarWishlistArchitectureMotion />
       <MoethuzarAdminToolsMotion />
+      <MoethuzarCommerceDomainModelMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -65,6 +68,13 @@ export default function MoethuzarPage() {
         title={project_case_study.deep_dives[2].title}
         body={project_case_study.deep_dives[2].body}
         logicPoints={project_case_study.deep_dives[2].logic_points}
+      />
+      <MoethuzarCommerceDomainModel
+        label={project_case_study.commerce_domain_model.label}
+        title={project_case_study.commerce_domain_model.title}
+        body={project_case_study.commerce_domain_model.body}
+        subchapterTitle={project_case_study.commerce_domain_model.subchapter_title}
+        subchapterPoints={project_case_study.commerce_domain_model.subchapter_points}
       />
     </main>
   );
