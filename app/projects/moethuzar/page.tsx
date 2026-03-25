@@ -85,21 +85,21 @@ export default function MoethuzarPage() {
         label={project_case_study.commerce_domain_model.label}
         title={project_case_study.commerce_domain_model.title}
         body={project_case_study.commerce_domain_model.body}
-        subchapterTitle={project_case_study.commerce_domain_model.subchapter_title}
-        subchapterPoints={project_case_study.commerce_domain_model.subchapter_points}
-      />
-      <MoethuzarChallengesSolutions
-        label={project_case_study.challenges_and_solutions.label}
-        title={project_case_study.challenges_and_solutions.title}
-        body={project_case_study.challenges_and_solutions.body}
-        items={project_case_study.challenges_and_solutions.items}
+        subchapterTitle={
+          project_case_study.commerce_domain_model.subchapter_title
+        }
+        subchapterPoints={
+          project_case_study.commerce_domain_model.subchapter_points
+        }
       />
       <MoethuzarReliabilitySecurity
         label={project_case_study.reliability_security.label}
         title={project_case_study.reliability_security.title}
         body={project_case_study.reliability_security.body}
         securityPoints={project_case_study.reliability_security.security_points}
-        reliabilityPoints={project_case_study.reliability_security.reliability_points}
+        reliabilityPoints={
+          project_case_study.reliability_security.reliability_points
+        }
         closing={project_case_study.reliability_security.closing}
       />
       <MoethuzarEngineeringPrinciples
@@ -113,6 +113,12 @@ export default function MoethuzarPage() {
         title={project_case_study.delivery_methodology.title}
         body={project_case_study.delivery_methodology.body}
         items={project_case_study.delivery_methodology.items}
+      />
+      <MoethuzarChallengesSolutions
+        label={project_case_study.challenges_and_solutions.label}
+        title={project_case_study.challenges_and_solutions.title}
+        body={project_case_study.challenges_and_solutions.body}
+        items={project_case_study.challenges_and_solutions.items}
       />
     </main>
   );
