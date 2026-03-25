@@ -11,6 +11,8 @@ import { MoethuzarWishlistArchitecture } from "@/components/projects/moethuzar-w
 import { MoethuzarWishlistArchitectureMotion } from "@/components/projects/moethuzar-wishlist-architecture-motion";
 import { MoethuzarWhatIBuilt } from "@/components/projects/moethuzar-what-i-built";
 import { MoethuzarWhatIBuiltMotion } from "@/components/projects/moethuzar-what-i-built-motion";
+import { MoethuzarAdminTools } from "@/components/projects/moethuzar-admin-tools";
+import { MoethuzarAdminToolsMotion } from "@/components/projects/moethuzar-admin-tools-motion";
 
 const { project_case_study } = pcs;
 
@@ -23,6 +25,7 @@ export default function MoethuzarPage() {
       <MoethuzarArchitectureMotion />
       <MoethuzarCheckoutOrderMotion />
       <MoethuzarWishlistArchitectureMotion />
+      <MoethuzarAdminToolsMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -56,6 +59,12 @@ export default function MoethuzarPage() {
         title={project_case_study.deep_dives[1].title}
         body={project_case_study.deep_dives[1].body}
         logicPoints={project_case_study.deep_dives[1].logic_points}
+      />
+      <MoethuzarAdminTools
+        label={project_case_study.deep_dives[2].label}
+        title={project_case_study.deep_dives[2].title}
+        body={project_case_study.deep_dives[2].body}
+        logicPoints={project_case_study.deep_dives[2].logic_points}
       />
     </main>
   );
