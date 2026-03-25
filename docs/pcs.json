@@ -23,6 +23,27 @@
       "title": "A fullstack commerce system, not just a storefront",
       "body": "Moethuzar was designed as a production oriented ecommerce platform with both customer and operational workflows in mind. On the frontend, it needed to feel clear, premium, and easy to navigate. On the backend, it needed to support the realities of commerce, including product variants, inventory, promotions, guest and authenticated users, manual payment flows, order tracking, and admin operations.\n\nRather than treating the project as a collection of pages and forms, I approached it as a full product system. That meant designing the customer experience, shaping internal tools, and building the backend architecture that made the whole platform stable, maintainable, and ready for real usage."
     },
+    "visual_story": {
+      "label": "Visual story",
+      "title": "Selected frames",
+      "images": [
+        {
+          "src": "/images/projects/moesilkandcotton.png",
+          "alt": "Moethuzar visual campaign frame",
+          "caption": "Editorial Hero frame"
+        },
+        {
+          "src": "/images/projects/PLP.png",
+          "alt": "Moethuzar product listing interface",
+          "caption": "Listing surface"
+        },
+        {
+          "src": "/images/projects/PDP.png",
+          "alt": "Moethuzar product detail interface",
+          "caption": "Product detail"
+        }
+      ]
+    },
     "my_role": {
       "label": "My role",
       "title": "Fullstack ownership across the product surface",
