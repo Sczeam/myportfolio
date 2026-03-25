@@ -163,14 +163,13 @@
     },
     "frontend_architecture": {
       "label": "Frontend architecture",
-      "title": "Server first, feature first, progressively interactive",
-      "body": "On the frontend, I used Next.js App Router with Server Components by default and Client Components only where interaction state truly required them. This helped keep route composition and data loading server side while isolating client interactivity into focused areas.\n\nI also organized the frontend in a feature first way rather than letting everything collapse into one large components folder. Shared UI primitives, layout shell pieces, and feature specific logic each had their own role. This made the product easier to evolve while keeping the user experience clean and consistent.\n\nA good example of this approach was the account registration flow. I redesigned the journey into a more refined staged experience without destabilizing the backend auth foundation underneath it. That is the kind of fullstack product work I care about, improving UX while preserving stable contracts behind it.",
+      "title": "Server first, feature first, progressively interactive.",
+      "body": "Moethuzar utilizes the Next.js App Router to minimize client-side weight. Server Components handle route composition and data loading by default, while Client Components are strictly isolated for specific interactions like cart management and wishlist updates.\n\nOur feature-first organization separates shared UI primitives from business-specific logic. This allowed us to build the staged account registration flow as a refined UX layer on top of stable backend contracts.",
       "principles": [
         "Server Components by default",
         "Client interactivity only where needed",
-        "Feature first structure",
-        "Progressive enhancement without unnecessary rewrites",
-        "UX evolution built on stable backend contracts"
+        "Feature-first structure",
+        "Progressive hydration strategy"
       ]
     },
     "deep_dives": [

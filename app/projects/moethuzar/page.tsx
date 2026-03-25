@@ -15,6 +15,8 @@ import { MoethuzarAdminTools } from "@/components/projects/moethuzar-admin-tools
 import { MoethuzarAdminToolsMotion } from "@/components/projects/moethuzar-admin-tools-motion";
 import { MoethuzarCommerceDomainModel } from "@/components/projects/moethuzar-commerce-domain-model";
 import { MoethuzarCommerceDomainModelMotion } from "@/components/projects/moethuzar-commerce-domain-model-motion";
+import { MoethuzarFrontendArchitecture } from "@/components/projects/moethuzar-frontend-architecture";
+import { MoethuzarFrontendArchitectureMotion } from "@/components/projects/moethuzar-frontend-architecture-motion";
 
 const { project_case_study } = pcs;
 
@@ -29,6 +31,7 @@ export default function MoethuzarPage() {
       <MoethuzarWishlistArchitectureMotion />
       <MoethuzarAdminToolsMotion />
       <MoethuzarCommerceDomainModelMotion />
+      <MoethuzarFrontendArchitectureMotion />
       <MoethuzarOpeningFrame
         title={project_case_study.hero.title}
         summary={project_case_study.hero.summary}
@@ -75,6 +78,12 @@ export default function MoethuzarPage() {
         body={project_case_study.commerce_domain_model.body}
         subchapterTitle={project_case_study.commerce_domain_model.subchapter_title}
         subchapterPoints={project_case_study.commerce_domain_model.subchapter_points}
+      />
+      <MoethuzarFrontendArchitecture
+        label={project_case_study.frontend_architecture.label}
+        title={project_case_study.frontend_architecture.title}
+        body={project_case_study.frontend_architecture.body}
+        principles={project_case_study.frontend_architecture.principles}
       />
     </main>
   );
