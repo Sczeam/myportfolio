@@ -214,13 +214,23 @@
       {
         "label": "Deep dive",
         "title": "Admin tools as product surfaces",
-        "body": "Many portfolio ecommerce projects focus almost entirely on the storefront and treat internal tools as an afterthought. I wanted Moethuzar to feel more complete than that.\n\nThe admin side of the platform covered catalog authoring, inventory updates, dashboard visibility, promo management, and operations. I designed those tools as real product surfaces because they shape how the business actually runs, not just how the customer browses.\n\nThis was important both technically and product wise. It meant the codebase had to support not only customer interaction but also operator workflows in a maintainable way.",
+        "body": "Internal tooling designed with the same performance and aesthetic rigor as the primary storefront.\n\nWe build bespoke administration interfaces that move beyond generic SaaS templates. This custom cockpit gives curators direct control over complex business logic.",
         "points": [
           "Catalog and product variant management",
           "Inventory updates and visibility",
           "Promo management",
           "Transfer method and payment configuration",
           "Dashboard and operations support"
+        ],
+        "logic_points": [
+          {
+            "title": "Observation",
+            "body": "Real-time telemetry for monitoring checkout throughput."
+          },
+          {
+            "title": "Governance",
+            "body": "Role-based access control and audit logs."
+          }
         ],
         "why_it_matters": "This broadens the project from a frontend storefront into a real fullstack product. It also shows that I can design for internal operators, not only customer facing UI."
       }
