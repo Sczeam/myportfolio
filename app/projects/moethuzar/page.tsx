@@ -15,8 +15,8 @@ import { MoethuzarAdminTools } from "@/components/projects/moethuzar-admin-tools
 import { MoethuzarAdminToolsMotion } from "@/components/projects/moethuzar-admin-tools-motion";
 import { MoethuzarCommerceDomainModel } from "@/components/projects/moethuzar-commerce-domain-model";
 import { MoethuzarCommerceDomainModelMotion } from "@/components/projects/moethuzar-commerce-domain-model-motion";
-import { MoethuzarFrontendArchitecture } from "@/components/projects/moethuzar-frontend-architecture";
-import { MoethuzarFrontendArchitectureMotion } from "@/components/projects/moethuzar-frontend-architecture-motion";
+import { MoethuzarChallengesSolutions } from "@/components/projects/moethuzar-challenges-solutions";
+import { MoethuzarChallengesSolutionsMotion } from "@/components/projects/moethuzar-challenges-solutions-motion";
 import { MoethuzarReliabilitySecurity } from "@/components/projects/moethuzar-reliability-security";
 import { MoethuzarReliabilitySecurityMotion } from "@/components/projects/moethuzar-reliability-security-motion";
 import { MoethuzarEngineeringPrinciples } from "@/components/projects/moethuzar-engineering-principles";
@@ -35,7 +35,7 @@ export default function MoethuzarPage() {
       <MoethuzarWishlistArchitectureMotion />
       <MoethuzarAdminToolsMotion />
       <MoethuzarCommerceDomainModelMotion />
-      <MoethuzarFrontendArchitectureMotion />
+      <MoethuzarChallengesSolutionsMotion />
       <MoethuzarReliabilitySecurityMotion />
       <MoethuzarEngineeringPrinciplesMotion />
       <MoethuzarOpeningFrame
@@ -85,11 +85,11 @@ export default function MoethuzarPage() {
         subchapterTitle={project_case_study.commerce_domain_model.subchapter_title}
         subchapterPoints={project_case_study.commerce_domain_model.subchapter_points}
       />
-      <MoethuzarFrontendArchitecture
-        label={project_case_study.frontend_architecture.label}
-        title={project_case_study.frontend_architecture.title}
-        body={project_case_study.frontend_architecture.body}
-        principles={project_case_study.frontend_architecture.principles}
+      <MoethuzarChallengesSolutions
+        label={project_case_study.challenges_and_solutions.label}
+        title={project_case_study.challenges_and_solutions.title}
+        body={project_case_study.challenges_and_solutions.body}
+        items={project_case_study.challenges_and_solutions.items}
       />
       <MoethuzarReliabilitySecurity
         label={project_case_study.reliability_security.label}
