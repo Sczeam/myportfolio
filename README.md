@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zaw Htike Aung | Personal Portfolio
 
-## Getting Started
+Personal portfolio built with Next.js, React, and TypeScript. It presents selected work through reusable sections, dedicated project pages, and motion built with GSAP.
 
-First, run the development server:
+## Highlights
+
+1. Component based homepage covering an introduction, selected work, development approach, and contact links.
+2. Project content defined in `data/projects.ts`, with a featured Moethuzar project.
+3. Separate motion components for individual homepage sections.
+4. Shared layout components and Tailwind CSS styling.
+
+## Technology
+
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, and GSAP.
+
+## Run locally
+
+This repository includes a pnpm lockfile. With Node.js and pnpm installed:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Available commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`pnpm dev` starts the development server.
 
-## Learn More
+`pnpm lint` runs ESLint.
 
-To learn more about Next.js, take a look at the following resources:
+`pnpm build` creates a production build.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`pnpm start` serves the production build.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Code guide
 
-## Deploy on Vercel
+`app/page.tsx` composes the homepage.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`components/home/` contains homepage sections and their motion components.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`components/ui/` contains shared interface components.
+
+`data/projects.ts` defines the featured project entries.
+
+`public/` contains static assets.
+
+## Contact
+
+[GitHub profile](https://github.com/Sczeam) · [LinkedIn](https://www.linkedin.com/in/zaw-htike-aung)
