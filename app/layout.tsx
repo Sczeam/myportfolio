@@ -1,40 +1,62 @@
-import type { Metadata } from "next";
-import { Manrope, Newsreader } from "next/font/google";
-import "./globals.css";
-
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-newsreader",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-});
+import type { Metadata, Viewport } from 'next';
+import { BookNote } from '@/components/BookNote';
+import { Colophon } from '@/components/Colophon';
+import { Header } from '@/components/Header';
+import { Motion } from '@/components/Motion';
+import { site } from '@/data/site';
+import { archivo, literata } from './fonts';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "Zaw Htike Aung",
-  description: "Premium cinematic portfolio for Zaw Htike Aung.",
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name}, full stack developer in Manchester`, template: `%s | ${site.name}` },
+  description: site.description,
+  alternates: { canonical: './' },
+  openGraph: { type: 'website', siteName: site.name, locale: 'en_GB', images: [{ url: '/og.png', width: 1200, height: 630, alt: `${site.name}, full stack developer` }] },
+  twitter: { card: 'summary_large_image' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = { themeColor: '#F2F2EE' };
+
+// Runs before first paint: hidden-until-revealed styles only apply when JS and motion are on.
+const flags = `document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: 'Full stack developer',
+  url: site.url,
+  email: `mailto:${site.email}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Manchester', addressCountry: 'GB' },
+  sameAs: [site.github, site.linkedin],
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'University of Portsmouth' },
+    { '@type': 'CollegeOrUniversity', name: 'Edinburgh Napier University' },
+  ],
+  knowsAbout: ['Laravel', 'React', 'TypeScript', 'Next.js', 'PostgreSQL'],
+};
+
+export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html
-      lang="en"
-      className={`${newsreader.variable} ${manrope.variable} h-full antialiased`}
-    >
-      <body className="flex min-h-full flex-col bg-canvas font-sans text-text-primary">
-        <Navbar />
-        {children}
-        <Footer />
+    <html lang="en-GB" className={`${archivo.variable} ${literata.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: flags }} />
+      </head>
+      <body>
+        <a className="skip-link" href="#main">Skip to content</a>
+        <div id="curtain" aria-hidden="true">
+          <div className="curtain__panel">
+            <span className="curtain__title" />
+            <span className="curtain__shade" />
+          </div>
+        </div>
+        <Header />
+        <main id="main" tabIndex={-1}>{children}</main>
+        <Colophon />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
+        <BookNote />
+        <Motion />
       </body>
     </html>
   );
