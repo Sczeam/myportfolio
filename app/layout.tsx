@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { BookNote } from '@/components/BookNote';
-import { Colophon } from '@/components/Colophon';
+import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
 import { Motion } from '@/components/Motion';
 import { site } from '@/data/site';
-import { archivo, literata } from './fonts';
+import { mono, sans } from './fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 };
 
-export const viewport: Viewport = { themeColor: '#F2F2EE' };
+export const viewport: Viewport = { themeColor: '#F4F5F3' };
 
 // Runs before first paint: hidden-until-revealed styles only apply when JS and motion are on.
 const flags = `document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('motion')`;
@@ -39,7 +39,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en-GB" className={`${archivo.variable} ${literata.variable}`} suppressHydrationWarning>
+    <html lang="en-GB" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: flags }} />
       </head>
@@ -47,13 +47,14 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <a className="skip-link" href="#main">Skip to content</a>
         <div id="curtain" aria-hidden="true">
           <div className="curtain__panel">
+            <span className="curtain__bar" />
+            <span className="curtain__name" />
             <span className="curtain__title" />
-            <span className="curtain__shade" />
           </div>
         </div>
         <Header />
         <main id="main" tabIndex={-1}>{children}</main>
-        <Colophon />
+        <Footer />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
         <BookNote />
         <Motion />

@@ -1,161 +1,133 @@
-# DESIGN.md: Zaw Htike Aung, portfolio redesign (Oct 2026)
+# DESIGN.md: Zaw Htike Aung, portfolio (v3, Oct 2026)
+
+v2 (the bookcase) is retired at Zaw's request: the site's job is to get him hired as an engineer,
+so engineering leads and the reading list becomes a short secondary section.
 
 ## Brief
 
-- **Subject:** Zaw Htike Aung, full stack developer in Manchester, UK. Designs and builds; cares how
-  a product feels as much as how it works. Full UK right to work.
-- **Audience:** hiring managers, engineering leads and recruiters at product companies.
-- **Job of the site:** get him hired full-time. In 3 seconds: name, "full stack developer,
-  Manchester", proof he ships (One Click AI, 3,600+ users), how to email him.
-- **Assets:** real screenshots of oneclickai.studio, moesilkandcotton.com, avenora.co.uk (captured
-  Oct 2026), the Moethuzar admin screenshot, a real portrait. Facts from the CV, the One Click AI
-  Confluence knowledge base and Jira, `docs/pcs.json` (Moethuzar), GitHub.
-- **Language:** English, British spelling.
+- **Subject:** Zaw Htike Aung, full stack developer in Manchester (Laravel, React, TypeScript).
+  Builds One Click AI, a live AI video product with 3,600+ users. Full UK right to work.
+- **Audience:** engineering managers, tech leads and recruiters at product companies.
+- **Job:** get hired full-time. In 3 seconds: name, role, location, and proof that he builds
+  systems that hold up in production. Then: the work, the decisions behind it, how to email him.
+- **Secondary:** what he reads, compact, below the engineering.
 
 ## Concepts considered
 
-| | A. The shelf (personal) | B. The recap (material) | C. Checkpoints (process) |
+| | A. Checkpoints (material) | B. Design doc (formal) | C. Commit log (process) |
 |---|---|---|---|
-| Idea | The portfolio is his bookcase: the three products he built stand as volumes beside the 17 books that taught him, filed by library call number | The site is a narrated recap of his work, with a Burmese/English subtitle track and a scroll timecode, like the videos One Click AI makes | Every section is a checkpointed pipeline stage that resumes where you left it, like his crash-safe video jobs |
-| Anchor | his own reading list (he asked for it to be shown) + his three real products | One Click AI's core feature (voice-over + subtitles) | One Click AI's checkpoint recovery |
-| Signature | spines lean with scroll and lift under the pointer; a project spine opens into its cover, which becomes the case page | subtitle bar narrates as you scroll, timecode ticks | stage stamps resolving as sections complete |
-| Screenshot | a full bookcase of coloured cloth spines, three black volumes marked as his | subtitle over a frozen frame | pipeline diagram |
-| O / F / Fe / P | 4 / 5 / 4 / 2 | 4 / 3 / 4 / 2 | 3 / 3 / 3 / 3 |
+| Idea | The hero runs his real system: a simulated One Click AI job you can crash, and it resumes from its last checkpoint | The site is set as an RFC with diagrams that draw on scroll | His career as a git history you scrub through |
+| Anchor | One Click AI's crash-safe, checkpointed pipeline with provider fallback | how he documents systems | his commit history |
+| Signature | "Crash the worker": the run fails mid-stage, then resumes, redoing nothing | sequence diagrams drawing | commit scrubber |
+| O / F / Fe / P | 4 / 5 / 4 / 2 | 3 / 4 / 4 / 3 | 3 / 3 / 4 / 4 |
 
-**Pick A.** It is the one thing he asked to show, it is impossible to move to another person
-(his exact shelf, his exact products), and it yields a full rule system: spines, call numbers,
-catalogue cards, contents pages, indexes, colophons. Steal from B for one detail: the One Click
-AI case page quotes the product's own Burmese line in Myanmar script, with its English gloss.
+**Pick A.** It shows, rather than claims, the engineering a hiring manager cares about, and it is
+his actual design: no other portfolio can carry this demo.
 
 ## Concept card
 
 ```
-Idea:        Zaw's portfolio is his bookcase: the products he built stand beside the books that taught him.
-Metaphor:    a personal library: cloth spines, Dewey call numbers, catalogue cards, title pages,
-             contents, a back-of-book index, a colophon.
-Signature:   The shelf. Spines lean with scroll velocity (heavier books lean less) and rise under
-             the pointer; pulling a black project volume opens its spine into a full-screen cover
-             that becomes the case study (shared-element transition, motion.md).
-Emotion:     standing at someone's bookcase and learning who they are from it. Curious, warm, exact.
-Motion verb: "pulled from the shelf": tilt from the base, slide out upward, settle back upright.
-Screenshot:  the hero bookcase: 20 real spines filed by call number, three black volumes
-             under "Built", one blue book leaning out with a red ribbon, "Reading now".
+Idea:        A portfolio that proves its claim: the hero runs a simulation of Zaw's job pipeline,
+             and you can break it.
+Metaphor:    a job runner's console: stages, checkpoints, retries, a log.
+Signature:   "Crash the worker" and "Take a provider down" on a live pipeline. The run fails,
+             logs why, and resumes from the last checkpoint (or falls back to another provider)
+             without redoing finished work. Built as one driver (components/Pipeline.tsx).
+Emotion:     the calm of a system that keeps working while you try to break it.
+Motion verb: "step and lock": things advance in discrete steps and lock into place, like stages
+             completing. Fills sweep left to right like progress.
+Screenshot:  the hero mid-recovery: a red failed stage, green checkpoints before it, and the log
+             line "resuming from checkpoint".
 ```
 
 ## System
 
-### Palette (named by role)
+### Palette
 
-| Role | Hex | Notes |
+| Role | Hex | Use |
 |---|---|---|
-| ground (paper) | `#F2F2EE` | cool neutral paper, deliberately not cream |
-| ink | `#121212` | text, his own volumes' cloth, the shelf plank |
-| muted | `#5C5C57` | 6.0:1 on ground |
-| line | `rgb(18 18 18 / 0.14)` | hairlines |
-| accent (ribbon) | `#C8102E` | ONLY the bookmark ribbon and the focus ring |
-| curtain | `#121212` | the cover in transitions |
+| ground | `#F4F5F3` | page |
+| ink | `#0E0F12` | text, dark sections |
+| muted | `#585B61` | secondary text (6.4:1 on ground) |
+| line | `rgb(14 15 18 / 0.12)` | hairlines |
+| signal | `#2448F5` | running state, primary actions, focus |
+| done | `#14804F` | checkpoints saved |
+| fail | `#D7362B` | failed stage, crash button |
 
-Spines are the real books. Each spine takes its colour, lettering colour and lettering style
-(sans or spaced serif capitals) from that book's real cover (Open Library, Manning for one), and
-each book carries its real front cover, hinged on the spine, shown when the book is pulled. His
-three volumes are ink cloth with paper lettering; their covers are phone screenshots of the
-live products. (Revised Oct 2026 at Zaw's request: real books replaced the Dewey colour key.)
-
-The site itself stays paper and ink. Colour lives on the books, like a real room.
+Status colours only appear where they carry state (the pipeline, decisions). The page is ink on
+ground with one signal blue.
 
 ### Type
 
-- **Archivo** (Google, variable `wdth` 62 to 125, `wght` 100 to 900): display and UI. Display is
-  condensed (`wdth` 68, `wght` 760) like spine lettering; UI is normal width 400/500.
-- **Literata** (Google, variable `opsz`, italic): the reading voice. Long-form case-study text,
-  and every book title in italics, the way citations set titles.
-- Scale: tokens `--t-mega` to `--t-xs` (globals.css). Display tracking -0.035em at xl, -0.045em
-  at mega; leading 0.86 to 0.92. Body 17 to 18 px, leading 1.55, measure 62ch.
+- **Instrument Sans** (Google, variable `wght` 400 to 700, `wdth` 75 to 100): display and text.
+  Display at `wdth` 75, weight 650, tracking -0.04em, leading 0.88.
+- **Martian Mono** (Google, 400/500): only for machine output: the job log, stage timings,
+  status chips, and code identifiers. Never for general labels.
 
 ### Grid and rhythm
 
-12 columns, gutter `clamp(16px, 2.2vw, 40px)`, outer margin = gutter. Three hang lines: col 1,
-col 5, col 9. Section spacing moods: tight (hero to work), airy (about), full (case covers).
+12 columns, gutter `clamp(16px, 2vw, 32px)`. Hang lines: col 1, col 5, col 9. Section spacing
+varies: tight after the hero, airy around the work, dense for skills.
 
 ### Shape
 
-Radius 0 everywhere. Books are rectangles; so is everything else.
+Radius 4px on interactive controls and the console; 0 on images and layout.
 
 ### Motion language
 
-- Eases: engine `ease.out` (expo.out) for entrances, `ease.inOut` for covers, `power3.out`
-  for hover.
-- Verb in practice: hover pulls the target up a few pixels and tilts it 1 to 2 degrees from its
-  base; release settles it back. Catalogue cards slide up out of their drawer. Nav labels roll.
-- Page transition: a cover swings shut over the page from the left edge (rotateY about the
-  spine, with shading), then swings open on the new page. Project links use the spine-to-cover
-  shared element instead.
-- Idle: the shelf is the driver. Scroll velocity leans the books; pointer x lifts nearby spines;
-  after 2.5 s with no input the shelf browses itself, lifting one book at a time in filing order
-  while the caption names it; the red ribbon sways. Everything stops under reduced motion.
-- Pull: on hover (tap on touch, focus for his volumes) a book slides up and turns 64 degrees to
-  show its real front cover.
+- Entrances: short left-to-right clip wipes (progress-like), 0.9 to 1.1 s, `expo.out`.
+- Hover: primary buttons fill left to right; nav and inline links draw an underline left to right;
+  work rows advance their arrow and fill a progress line.
+- Page transition: a progress bar runs across the top while a panel wipes left to right with the
+  route being loaded; then it wipes off to the right.
+- Idle: the pipeline keeps running jobs on a loop, paused off screen and stopped under reduced
+  motion (where it shows a finished run with every checkpoint saved).
 
 ### Composition plan
 
 ```
 HOME
-[1 Poster + shelf]   name (t-mega, condensed)        | statement + email CTA (cols 9-12)
-                     ||| |||||||||||||||||||||||  (20 spines, Dewey order)
-                     ===================================== plank
-                     Built 3          Read 16 · reading 1          caption of hovered spine
-[2 Asymmetric pairs] "Built"  cover screenshot (cols 1-7) + catalogue card (cols 9-12), x3 alternating
-[3 Statement]        portrait (cols 1-4) | statement t-l (cols 5-12) + facts in tabular figures
-[4 Contents + Index] Contents (experience, dot leaders, years) | Index (skills -> volume numbers)
-[5 Index list]       Reading: bibliography rows by call number, "Reading now" first
-[6 Colophon finale]  "Email me" giant link, links, colophon small print
+[Hero: poster + console] name (display), role line, statement, CTAs | full-width pipeline console
+[Proof: data]            four real numbers in tabular figures
+[Work: feature + index]  One Click AI as a large feature (screenshot + highlights);
+                         Moethuzar and Avenora as large index rows with screenshot
+[Decisions: sticky]      sticky heading left; problem / decision / result entries right
+[Skills: table]          five groups, dense
+[Experience: list]       role rows with years
+[Reading: strip]         small covers row, opens notes (secondary)
+[Contact: finale]        big "Email me", links, colophon
 
-CASE /work/[slug]
-[Cover]      full-viewport ink cover: call number, title (t-mega), subtitle (Literata italic)
-[Title page] catalogue card: role, years, subjects (stack), live link
-[Figure]     hero screenshot, full width
-[Chapters]   sticky chapter number (cols 1-3) | text (cols 4-9) | margin notes (cols 10-12)
-[Figures]    two or three screenshots with "Fig." captions
-[Further reading] spines from the shelf
-[Next volume] full-width band in ink, next title, spine-to-cover again
+CASE
+[Header] title, one-line summary, meta row, live link
+[Hero image]
+[Highlights] engineering bullets
+[Chapters] sticky chapter number | text | margin notes; figures
+[Related reading] small covers
+[Next project] full-width band
 
-404: a shelf with one empty slot. "Nothing is filed at this call number."
+404: a failed job: "Page not found. Nothing to resume." with a retry link home.
 ```
 
 ### Genericness test
 
-- A generic build would put a dark hero with a gradient and a 3-card project grid. Replaced by a
-  bookcase whose colours are Dewey classes, which nobody else's shelf matches.
-- A generic "books" idea would use cream paper and a serif (AI tell #1). Replaced with cool paper,
-  a condensed grotesk for spines and Literata only where a reader would expect a book face.
-- A generic case study uses eyebrow labels on every heading. Replaced by real book furniture:
-  call numbers, contents, chapter numbers, figures, an index.
+- A generic developer portfolio is a dark hero, a gradient, "Hi, I'm…", and a grid of project
+  cards with tech logos. Here the hero is a working demo of his real architecture, the projects
+  lead with engineering decisions, and the palette is light with status colours that mean
+  something.
+- Mono is limited to machine output, so it reads as a log, not as a "developer aesthetic".
 
-### The books are content, not decoration (Oct 2026, at Zaw's request)
+## Decisions
 
-- Hover (or keyboard focus) pulls a book and turns it to show its real cover. Click, Enter or a
-  tap opens it as a two-page spread: cover on the left page, a short note in Zaw's voice on the
-  right (what the book taught him, and where it shows up in his work, linked to the exact
-  case-study chapter). Previous and Next turn through the whole shelf; arrow keys do too.
-- The reading list rows open the same notes, so every note is reachable without the 3D shelf.
-- The shelf is one tab stop; arrow keys move along the spines. The dialog is a native
-  `<dialog>`: focus is trapped, Escape closes it and returns focus to the book.
-- Covers load after the page load event, so they never compete with the first paint.
-- Books on the right half of the screen turn the other way, so a cover never leaves the screen.
-
-### Decisions
-
-- No loader and no WebGL: the content is type and screenshots; the shelf intro is the first
-  moment. Keeps mobile LCP on the h1 text.
-- The h1 is never hidden for an intro (LCP). The spines rise; the name does not.
-- Case pages are reading pages: their covers stay still at rest by decision. The shelf at the
-  foot of each case page browses itself when idle.
+- No loader, no WebGL. LCP is the h1 text.
+- The pipeline is a labelled simulation of One Click AI's stages, not live data.
+- Reading stays on the home page as a compact strip and opens the same notes dialog; it is the
+  last content section before contact.
+- Case pages and the 404 may be still at rest by decision; their life is in hovers and the
+  transitions. (The One Click AI case page runs the pipeline demo inside chapter 3.)
 
 ## Assumptions to confirm with Zaw
 
-1. Dewey call numbers are class-level (3 digits) and chosen by me; the page counts behind spine
-   thickness are approximate and never displayed.
-2. "Further reading" on each case page pairs books from his shelf with the project. It says
-   "related", not "this book shaped the project". He should confirm or edit the pairs.
-3. Avenora is described as "a web design and development studio". Confirm the relationship.
-4. One Click AI copy makes no "solo" claim (removed at Zaw's request, Oct 2026).
+1. Pipeline stages are a simplified model of One Click AI (upload, transcribe, script, voice,
+   cut, subtitles, deliver).
+2. "13 months at Kewordal" counts Sep 2025 to Oct 2026.
+3. Avenora is described as a web design and development studio.

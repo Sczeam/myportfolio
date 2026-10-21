@@ -5,7 +5,7 @@ import { site } from '@/data/site';
 
 const links = [
   { href: '/#work', label: 'Work', match: '/work' },
-  { href: '/#reading', label: 'Reading' },
+  { href: '/#engineering', label: 'Engineering' },
   { href: '/#about', label: 'About' },
   { href: '/#contact', label: 'Contact' },
 ];

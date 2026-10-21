@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { MiniShelf } from '@/components/Shelf';
-import { projects, site } from '@/data/site';
+import { Pipeline } from '@/components/Pipeline';
+import { books, projects, site } from '@/data/site';
 
 export const dynamicParams = false;
 
@@ -28,6 +28,7 @@ export default async function Work({ params }: PageProps<'/work/[slug]'>) {
   if (i < 0) notFound();
   const p = projects[i];
   const next = projects[(i + 1) % projects.length];
+  const related = p.related.map((id) => books.find((b) => b.id === id)!).filter(Boolean);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -40,40 +41,43 @@ export default async function Work({ params }: PageProps<'/work/[slug]'>) {
 
   return (
     <article className="case">
-      {/* The cover: the same ink as the spine you pulled. */}
-      <header className="case-cover" data-tone="ink">
-        <p className="case-cover__call"><span>ZHA v.{p.vol}</span><span>{p.years}</span></p>
-        <h1 className="case-cover__title">{p.title}</h1>
-        <p className="case-cover__sub" data-split="lines" data-intro data-delay="0.15">{p.subtitle}</p>
-        <p className="case-cover__by"><span>by {site.name}</span><span>{p.client}</span></p>
-      </header>
-
-      {/* Title page, set as the catalogue card. */}
-      <section className="case-title" aria-label="About this project">
-        <dl className="case-title__card">
+      <header className="case-head" data-tone="ink">
+        <p className="case-head__crumb mono"><Link href="/#work" className="u-link">Work</Link><span aria-hidden="true">/</span><span>{p.slug}</span></p>
+        <h1 className="case-head__title">{p.title}</h1>
+        <p className="case-head__sub" data-split="lines" data-intro data-delay="0.15">{p.subtitle}</p>
+        <dl className="case-head__meta">
           <div><dt>Role</dt><dd>{p.role}</dd></div>
           <div><dt>For</dt><dd>{p.client}</dd></div>
-          <div><dt>Years</dt><dd>{p.years}</dd></div>
-          <div><dt>Live</dt><dd><a className="u-link" href={p.url} target="_blank" rel="noopener noreferrer">{p.urlLabel}</a></dd></div>
-          <div className="case-title__subjects"><dt>Subjects</dt><dd>{p.subjects.map((s, n) => <span key={s}>{n + 1}. {s} </span>)}</dd></div>
+          <div><dt>When</dt><dd>{p.years}</dd></div>
+          <div><dt>Live</dt><dd><a className="u-link" href={p.url} target="_blank" rel="noopener noreferrer">{p.urlLabel} <span aria-hidden="true">↗</span></a></dd></div>
         </dl>
-        <dl className="case-title__facts">
+      </header>
+
+      <section className="case-key" aria-labelledby="key-title">
+        <div className="case-key__facts">
           {p.facts.map((f) => (
-            <div key={f.label}><dt>{f.label}</dt><dd>{f.value}</dd></div>
+            <div key={f.label}><span className="case-key__value">{f.value}</span><span className="case-key__label">{f.label}</span></div>
           ))}
-        </dl>
+        </div>
+        <div className="case-key__main">
+          <h2 id="key-title" className="case-key__title">The engineering, in short</h2>
+          <ul className="ticks ticks--large">
+            {p.highlights.map((h) => <li key={h}>{h}</li>)}
+          </ul>
+          <p className="case-key__stack">{p.subjects.join(', ')}</p>
+        </div>
       </section>
 
       <figure className="case-hero" data-reveal="clip">
         <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} sizes="100vw" />
-        <figcaption><span className="fig">Fig. 1</span> {p.cover.caption}</figcaption>
+        <figcaption><span className="fig mono">Fig. 1</span> {p.cover.caption}</figcaption>
       </figure>
 
       <nav className="case-toc" aria-label="Chapters">
-        <h2 className="case-toc__head">Contents</h2>
+        <h2 className="case-toc__head">Chapters</h2>
         <ol>
           {p.chapters.map((c, n) => (
-            <li key={c.title}><a href={`#ch-${n + 1}`} data-no-transition className="u-link"><span className="case-toc__n">{n + 1}</span> {c.title}</a></li>
+            <li key={c.title}><a href={`#ch-${n + 1}`} data-no-transition className="u-link"><span className="case-toc__n mono">{n + 1}</span> {c.title}</a></li>
           ))}
         </ol>
       </nav>
@@ -81,9 +85,10 @@ export default async function Work({ params }: PageProps<'/work/[slug]'>) {
       <div className="chapters">
         {p.chapters.map((c, n) => {
           const fig = p.figures[n];
+          const demo = p.slug === 'one-click-ai' && n === 2;
           return (
             <section key={c.title} id={`ch-${n + 1}`} className="chapter" aria-labelledby={`ch-${n + 1}-t`}>
-              <p className="chapter__n" aria-hidden="true">{n + 1}</p>
+              <p className="chapter__n mono" aria-hidden="true">{String(n + 1).padStart(2, '0')}</p>
               <div className="chapter__body">
                 <h2 id={`ch-${n + 1}-t`} className="chapter__title" data-split="lines">{c.title}</h2>
                 {c.text.map((t) => <p key={t.slice(0, 24)} className="chapter__p">{t}</p>)}
@@ -94,14 +99,20 @@ export default async function Work({ params }: PageProps<'/work/[slug]'>) {
                 )}
               </div>
               {c.notes && (
-                <aside className="chapter__notes" aria-label="Margin note">
+                <aside className="chapter__notes" aria-label="Note">
                   {c.notes.map((t) => <p key={t.slice(0, 24)}>{t}</p>)}
                 </aside>
               )}
-              {fig && (
+              {demo && (
+                <div className="chapter__demo">
+                  <Pipeline compact />
+                  <p className="chapter__demo-cap">A simplified model of this pipeline. Crash the worker mid-stage, or take a provider down, and watch it recover.</p>
+                </div>
+              )}
+              {fig && !demo && (
                 <figure className={`chapter__fig${fig.phone ? ' chapter__fig--phone' : ''}`} data-reveal="clip">
                   <Image src={fig.src} alt={fig.alt} width={fig.width} height={fig.height} sizes={fig.phone ? '(max-width: 767px) 70vw, 28vw' : '(max-width: 767px) 100vw, 75vw'} />
-                  <figcaption><span className="fig">Fig. {n + 2}</span> {fig.caption}</figcaption>
+                  <figcaption><span className="fig mono">Fig. {n + 2}</span> {fig.caption}</figcaption>
                 </figure>
               )}
             </section>
@@ -109,15 +120,30 @@ export default async function Work({ params }: PageProps<'/work/[slug]'>) {
         })}
       </div>
 
-      <section className="further" aria-labelledby="further-title">
-        <h2 id="further-title" className="further__title">Further reading from the shelf</h2>
-        <MiniShelf cutters={p.related} label={`Books related to ${p.title}`} />
-      </section>
+      {related.length > 0 && (
+        <section className="related" aria-labelledby="related-title">
+          <h2 id="related-title" className="related__title">Related reading</h2>
+          <ul className="covers covers--small">
+            {related.map((b) => (
+              <li key={b.id} className="cover">
+                <button type="button" className="cover__btn" data-book-open={b.id} aria-haspopup="dialog">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- small static covers */}
+                  <img src={b.cover} alt="" width={Math.round(260 * b.ratio)} height={260} loading="lazy" decoding="async" />
+                  <span className="cover__title">{b.title}</span>
+                  <span className="cover__author">{b.author}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
-      <Link href={`/work/${next.slug}/`} className="next-vol" data-tone="ink" data-volume data-cover={next.title}>
-        <span className="next-vol__label">Next volume, v.{next.vol}</span>
-        <span className="next-vol__title">{next.title}</span>
-        <span className="next-vol__sub">{next.summary}</span>
+      <Link href={`/work/${next.slug}/`} className="next" data-tone="ink" data-volume data-cover={next.title}>
+        <span className="next__label mono">Next project</span>
+        <span className="next__title">{next.title} <span className="arrow" aria-hidden="true">→</span></span>
+        <span className="next__sub">{next.summary}</span>
+        <span className="next__progress" aria-hidden="true" />
+        <span className="next__fill" aria-hidden="true" />
       </Link>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />

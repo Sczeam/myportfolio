@@ -3,13 +3,10 @@
 // docs/pcs.json (Moethuzar), the live sites (screenshots captured Oct 2026) and GitHub.
 //
 // Assumptions (mirrored in DESIGN.md, confirm before launch):
-// - Book call numbers are 3-digit Dewey classes chosen for the shelf; `pages` only sets spine
-//   thickness and is approximate. Nothing on the site displays page counts.
-// - Covers come from Open Library (Manning for Testing JavaScript Applications). Editions chosen
-//   where unknown: Eloquent JavaScript 3rd edition, The Odyssey in Emily Wilson's translation,
-//   The Art of Game Design 3rd edition.
-// - `related` books on each project are suggested pairings ("further reading"), not claims about
-//   how the project was built.
+// - Book covers come from Open Library (Manning for Testing JavaScript Applications). Editions
+//   chosen where unknown: Eloquent JavaScript 3rd edition, The Odyssey in Emily Wilson's
+//   translation, The Art of Game Design 3rd edition.
+// - The job runner in the hero is a simulation of One Click AI's pipeline, labelled as such.
 // - Avenora is described as a web design and development studio.
 
 export const site = {
@@ -26,61 +23,40 @@ export const site = {
   rightToWork: 'Full UK right to work, no sponsorship needed',
 };
 
-// ---------------------------------------------------------------- the shelf
-
-export type DeweyClass = '000' | '100' | '500' | '600' | '700' | '800';
-
-export const classes: Record<DeweyClass, { name: string }> = {
-  '000': { name: 'Computing' },
-  '100': { name: 'Mind' },
-  '500': { name: 'Science' },
-  '600': { name: 'Technology and business' },
-  '700': { name: 'Arts and games' },
-  '800': { name: 'Literature' },
-};
+// ---------------------------------------------------------------- reading (secondary)
 
 export type Book = {
-  call: string; // 3-digit Dewey class
-  cutter: string; // first three letters of the author's surname, as libraries file them
+  id: string;
   title: string;
-  spine: string; // what fits on the spine
   author: string;
-  cls: DeweyClass;
-  subject: string; // the class caption
-  cloth: string; // spine colour, sampled from the real cover
-  ink: string; // spine lettering colour
-  face: 'sans' | 'serif'; // spine lettering style
-  cover: string; // real front cover (Open Library, or the publisher for DAC)
+  subject: string;
+  cover: string; // real front cover (Open Library, or the publisher for Testing JavaScript Applications)
   ratio: number; // cover width / height
-  pages: number; // approximate, drives spine thickness only
-  height: number; // 0..1 of the shelf
   reading?: boolean;
   note: string; // what I took from it, in my words
   usedIn?: { slug: string; chapter: number }; // where the idea shows up in my work
 };
 
-// Filed in call-number order, then by author.
 export const books: Book[] = [
-  { call: '005', cutter: 'DAC', title: 'Testing JavaScript Applications', spine: 'Testing JavaScript Applications', author: 'Lucas da Costa', cls: '000', subject: 'Computer programming', cloth: '#21545a', ink: '#f4f3ee', face: 'sans', cover: '/books/dac.webp', ratio: 0.732, pages: 576, height: 0.93, note: 'Tests exist to make change safe, not to fill a coverage report. Since this book I write the test for the failure I’m most afraid of first: a duplicated upload, a job that dies halfway through.', usedIn: { slug: 'one-click-ai', chapter: 4 } },
-  { call: '005', cutter: 'HAV', title: 'Eloquent JavaScript', spine: 'Eloquent JavaScript', author: 'Marijn Haverbeke', cls: '000', subject: 'Computer programming', cloth: '#f5d11a', ink: '#141414', face: 'sans', cover: '/books/hav.webp', ratio: 0.749, pages: 450, height: 0.9, note: 'The book that made JavaScript feel like a language instead of a bag of browser tricks. Building the small interpreter near the end is where scope and closures stopped being vocabulary and started being tools.' },
-  { call: '005', cutter: 'MAR', title: 'Clean Architecture', spine: 'Clean Architecture', author: 'Robert C. Martin', cls: '000', subject: 'Computer programming', cloth: '#24292e', ink: '#f4f3ee', face: 'sans', cover: '/books/mar.webp', ratio: 0.706, pages: 432, height: 0.88, note: 'The useful idea isn’t the circles diagram. It’s that dependencies should point at the rules that change least. That’s why One Click AI reaches its speech, script and voice providers through adapters: swapping a provider is a new class, not a rewrite.', usedIn: { slug: 'one-click-ai', chapter: 3 } },
-  { call: '005', cutter: 'SIM', title: 'You Don’t Know JS Yet', spine: 'You Don’t Know JS Yet', author: 'Kyle Simpson', cls: '000', subject: 'Computer programming', cloth: '#f7df1e', ink: '#141414', face: 'sans', cover: '/books/sim.webp', ratio: 0.666, pages: 180, height: 0.84, note: 'Simpson won’t let you settle for knowing what JavaScript does without knowing why. The chapters on scope pay off every time I read someone else’s React hooks and need to know exactly what a closure captured.' },
-  { call: '005', cutter: 'SPR', title: 'Think Like a Programmer', spine: 'Think Like a Programmer', author: 'V. Anton Spraul', cls: '000', subject: 'Computer programming', cloth: '#f3dc4a', ink: '#141414', face: 'sans', cover: '/books/spr.webp', ratio: 0.813, pages: 260, height: 0.9, note: 'Problem solving treated as a skill you practise: restate the problem, solve a smaller version, then grow it. It’s still my routine for a bug I don’t understand yet.' },
-  { call: '005', cutter: 'WEN', title: 'A Common-Sense Guide to Data Structures and Algorithms in Python, Volume 1', spine: 'Common-Sense Guide to DSA', author: 'Jay Wengrow', cls: '000', subject: 'Computer programming', cloth: '#1d1b3c', ink: '#f4f3ee', face: 'sans', cover: '/books/wen.webp', ratio: 0.832, pages: 500, height: 0.92, reading: true, note: 'I’m reading it to put names and numbers on things I already do by instinct: why a set lookup beats scanning a list, when recursion is the clearer answer. It has me counting operations before I nest one loop inside another.' },
-  { call: '005', cutter: 'WIN', title: 'Software Engineering at Google', spine: 'Software Engineering at Google', author: 'Titus Winters, Tom Manshreck and Hyrum Wright', cls: '000', subject: 'Computer programming', cloth: '#f5f4f1', ink: '#141414', face: 'sans', cover: '/books/win.webp', ratio: 0.762, pages: 600, height: 0.95, note: 'One line reframed the job for me: software engineering is programming integrated over time. Every shortcut is a bet on who changes the code next. It’s why the risky paths in One Click AI have regression tests running in CI.', usedIn: { slug: 'one-click-ai', chapter: 4 } },
-  { call: '006', cutter: 'FRO', title: 'Atomic Design', spine: 'Atomic Design', author: 'Brad Frost', cls: '000', subject: 'Web design', cloth: '#ece4c8', ink: '#141414', face: 'sans', cover: '/books/fro.webp', ratio: 0.633, pages: 193, height: 0.8, note: 'Interfaces as systems of small parts, from atoms up to pages. On Moethuzar the store and the admin are built from the same parts, so the admin never feels like the cheap side of the product.', usedIn: { slug: 'moethuzar', chapter: 5 } },
-  { call: '153', cutter: 'LEV', title: 'A Field Guide to Lies', spine: 'A Field Guide to Lies', author: 'Daniel J. Levitin', cls: '100', subject: 'Thinking and reasoning', cloth: '#f4f2ee', ink: '#9e1b22', face: 'serif', cover: '/books/lev.webp', ratio: 0.637, pages: 320, height: 0.86, note: 'A habit worth stealing: before believing a number, ask how it was collected and what it leaves out. I read product dashboards, my own included, with more suspicion since.' },
-  { call: '158', cutter: 'VOS', title: 'Never Split the Difference', spine: 'Never Split the Difference', author: 'Chris Voss with Tahl Raz', cls: '100', subject: 'Applied psychology', cloth: '#d32f1e', ink: '#fff4dc', face: 'sans', cover: '/books/vos.webp', ratio: 0.66, pages: 288, height: 0.89, note: 'Labelling (“it sounds like you’re worried about…”) works as well in a requirements call as in a hostage negotiation. Most scope arguments end once the other side feels heard.' },
-  { call: '519', cutter: 'ROW', title: 'Statistics Without Tears', spine: 'Statistics Without Tears', author: 'Derek Rowntree', cls: '500', subject: 'Probability and statistics', cloth: '#e8762b', ink: '#141414', face: 'sans', cover: '/books/row.webp', ratio: 0.646, pages: 200, height: 0.78, note: 'The gentlest way back into statistics I know: sampling, spread and significance without the algebra wall. Enough to tell a real change in a metric from noise.' },
-  { call: '620', cutter: 'BRO', title: 'The Design of Design', spine: 'The Design of Design', author: 'Frederick P. Brooks Jr.', cls: '600', subject: 'Engineering design', cloth: '#1b1b1b', ink: '#e9e9e6', face: 'serif', cover: '/books/bro.webp', ratio: 0.686, pages: 448, height: 0.91, note: 'Brooks takes apart the idea that requirements can be finished before design starts: you find out what you want by designing it. It’s why I build in thin vertical slices and show them early.', usedIn: { slug: 'moethuzar', chapter: 2 } },
-  { call: '650', cutter: 'AAK', title: 'Humor, Seriously: Why Humor Is a Secret Weapon in Business and Life', spine: 'Humor, Seriously', author: 'Jennifer Aaker and Naomi Bagdonas', cls: '600', subject: 'Business', cloth: '#3f8fb4', ink: '#ffe14d', face: 'sans', cover: '/books/aak.webp', ratio: 0.662, pages: 272, height: 0.85, note: 'Its case is that lightness signals confidence, not a lack of seriousness. A team that can laugh at a failed deploy is usually the one that fixes it fastest.' },
-  { call: '794', cutter: 'SCH', title: 'The Art of Game Design', spine: 'The Art of Game Design', author: 'Jesse Schell', cls: '700', subject: 'Games', cloth: '#f4f2ef', ink: '#c8202b', face: 'sans', cover: '/books/sch.webp', ratio: 0.81, pages: 600, height: 0.94, note: 'Schell’s lenses are questions you hold up to a design, like what someone feels in their first minute. I ask that one of every onboarding flow, including the first screen of this site.' },
-  { call: '813', cutter: 'HER', title: 'Dune', spine: 'Dune', author: 'Frank Herbert', cls: '800', subject: 'American fiction', cloth: '#1f1b14', ink: '#eadfc4', face: 'sans', cover: '/books/her.webp', ratio: 0.634, pages: 620, height: 0.83, note: 'A novel about systems: ecology, politics and religion all pulling on each other, where no fix comes without side effects. Surprisingly good preparation for working in a monolith.' },
-  { call: '883', cutter: 'HOM', title: 'The Odyssey', spine: 'The Odyssey', author: 'Homer', cls: '800', subject: 'Classical Greek epic', cloth: '#e9e4d6', ink: '#23395b', face: 'serif', cover: '/books/hom.webp', ratio: 0.688, pages: 540, height: 0.87, note: 'Emily Wilson’s plain, quick translation makes a story nearly 3,000 years old read like it was written last year. Still the best story about taking the long way home.' },
-  { call: '895', cutter: 'LIU', title: 'The Three-Body Problem', spine: 'The Three-Body Problem', author: 'Cixin Liu', cls: '800', subject: 'Chinese fiction', cloth: '#284868', ink: '#f2f2ee', face: 'sans', cover: '/books/liu.webp', ratio: 0.665, pages: 400, height: 0.84, note: 'A physics problem with no stable solution becomes the engine of a story the size of a civilisation. A good reminder that some systems can’t be predicted, only watched closely.' },
+  { id: 'DAC', title: 'Testing JavaScript Applications', author: 'Lucas da Costa', subject: 'Computer programming', cover: '/books/dac.webp', ratio: 0.732, note: 'Tests exist to make change safe, not to fill a coverage report. Since this book I write the test for the failure I’m most afraid of first: a duplicated upload, a job that dies halfway through.', usedIn: { slug: 'one-click-ai', chapter: 4 } },
+  { id: 'HAV', title: 'Eloquent JavaScript', author: 'Marijn Haverbeke', subject: 'Computer programming', cover: '/books/hav.webp', ratio: 0.749, note: 'The book that made JavaScript feel like a language instead of a bag of browser tricks. Building the small interpreter near the end is where scope and closures stopped being vocabulary and started being tools.' },
+  { id: 'MAR', title: 'Clean Architecture', author: 'Robert C. Martin', subject: 'Computer programming', cover: '/books/mar.webp', ratio: 0.706, note: 'The useful idea isn’t the circles diagram. It’s that dependencies should point at the rules that change least. That’s why One Click AI reaches its speech, script and voice providers through adapters: swapping a provider is a new class, not a rewrite.', usedIn: { slug: 'one-click-ai', chapter: 3 } },
+  { id: 'SIM', title: 'You Don’t Know JS Yet', author: 'Kyle Simpson', subject: 'Computer programming', cover: '/books/sim.webp', ratio: 0.666, note: 'Simpson won’t let you settle for knowing what JavaScript does without knowing why. The chapters on scope pay off every time I read someone else’s React hooks and need to know exactly what a closure captured.' },
+  { id: 'SPR', title: 'Think Like a Programmer', author: 'V. Anton Spraul', subject: 'Computer programming', cover: '/books/spr.webp', ratio: 0.813, note: 'Problem solving treated as a skill you practise: restate the problem, solve a smaller version, then grow it. It’s still my routine for a bug I don’t understand yet.' },
+  { id: 'WEN', title: 'A Common-Sense Guide to Data Structures and Algorithms in Python, Volume 1', author: 'Jay Wengrow', subject: 'Computer programming', cover: '/books/wen.webp', ratio: 0.832, reading: true, note: 'I’m reading it to put names and numbers on things I already do by instinct: why a set lookup beats scanning a list, when recursion is the clearer answer. It has me counting operations before I nest one loop inside another.' },
+  { id: 'WIN', title: 'Software Engineering at Google', author: 'Titus Winters, Tom Manshreck and Hyrum Wright', subject: 'Computer programming', cover: '/books/win.webp', ratio: 0.762, note: 'One line reframed the job for me: software engineering is programming integrated over time. Every shortcut is a bet on who changes the code next. It’s why the risky paths in One Click AI have regression tests running in CI.', usedIn: { slug: 'one-click-ai', chapter: 4 } },
+  { id: 'FRO', title: 'Atomic Design', author: 'Brad Frost', subject: 'Web design', cover: '/books/fro.webp', ratio: 0.633, note: 'Interfaces as systems of small parts, from atoms up to pages. On Moethuzar the store and the admin are built from the same parts, so the admin never feels like the cheap side of the product.', usedIn: { slug: 'moethuzar', chapter: 5 } },
+  { id: 'LEV', title: 'A Field Guide to Lies', author: 'Daniel J. Levitin', subject: 'Thinking and reasoning', cover: '/books/lev.webp', ratio: 0.637, note: 'A habit worth stealing: before believing a number, ask how it was collected and what it leaves out. I read product dashboards, my own included, with more suspicion since.' },
+  { id: 'VOS', title: 'Never Split the Difference', author: 'Chris Voss with Tahl Raz', subject: 'Applied psychology', cover: '/books/vos.webp', ratio: 0.66, note: 'Labelling (“it sounds like you’re worried about…”) works as well in a requirements call as in a hostage negotiation. Most scope arguments end once the other side feels heard.' },
+  { id: 'ROW', title: 'Statistics Without Tears', author: 'Derek Rowntree', subject: 'Probability and statistics', cover: '/books/row.webp', ratio: 0.646, note: 'The gentlest way back into statistics I know: sampling, spread and significance without the algebra wall. Enough to tell a real change in a metric from noise.' },
+  { id: 'BRO', title: 'The Design of Design', author: 'Frederick P. Brooks Jr.', subject: 'Engineering design', cover: '/books/bro.webp', ratio: 0.686, note: 'Brooks takes apart the idea that requirements can be finished before design starts: you find out what you want by designing it. It’s why I build in thin vertical slices and show them early.', usedIn: { slug: 'moethuzar', chapter: 2 } },
+  { id: 'AAK', title: 'Humor, Seriously: Why Humor Is a Secret Weapon in Business and Life', author: 'Jennifer Aaker and Naomi Bagdonas', subject: 'Business', cover: '/books/aak.webp', ratio: 0.662, note: 'Its case is that lightness signals confidence, not a lack of seriousness. A team that can laugh at a failed deploy is usually the one that fixes it fastest.' },
+  { id: 'SCH', title: 'The Art of Game Design', author: 'Jesse Schell', subject: 'Games', cover: '/books/sch.webp', ratio: 0.81, note: 'Schell’s lenses are questions you hold up to a design, like what someone feels in their first minute. I ask that one of every onboarding flow, including the first screen of this site.' },
+  { id: 'HER', title: 'Dune', author: 'Frank Herbert', subject: 'American fiction', cover: '/books/her.webp', ratio: 0.634, note: 'A novel about systems: ecology, politics and religion all pulling on each other, where no fix comes without side effects. Surprisingly good preparation for working in a monolith.' },
+  { id: 'HOM', title: 'The Odyssey', author: 'Homer', subject: 'Classical Greek epic', cover: '/books/hom.webp', ratio: 0.688, note: 'Emily Wilson’s plain, quick translation makes a story nearly 3,000 years old read like it was written last year. Still the best story about taking the long way home.' },
+  { id: 'LIU', title: 'The Three-Body Problem', author: 'Cixin Liu', subject: 'Chinese fiction', cover: '/books/liu.webp', ratio: 0.665, note: 'A physics problem with no stable solution becomes the engine of a story the size of a civilisation. A good reminder that some systems can’t be predicted, only watched closely.' },
 ];
 
-export const bookByCutter = (cutter: string) => books.find((b) => b.cutter === cutter)!;
 
 // ---------------------------------------------------------------- the volumes he built
 
@@ -103,8 +79,8 @@ export type Project = {
   cover: Figure;
   chapters: Chapter[];
   figures: Figure[];
-  related: string[]; // book cutters, "further reading"
-  spineHeight: number;
+  related: string[]; // book ids: related reading from the reading list
+  highlights: string[]; // the engineering, one line each
 };
 
 export const projects: Project[] = [
@@ -126,7 +102,7 @@ export const projects: Project[] = [
       { value: '30 min', label: 'longest source video on VVIP' },
       { value: '5', label: 'creator tools shipped' },
     ],
-    cover: { src: '/work/one-click-ai/cover.webp', alt: 'The One Click AI home page: a Burmese headline offering Movie Recap videos with Myanmar voice and subtitles, next to a sample recap with a Burmese subtitle.', caption: 'oneclickai.studio, October 2026.', width: 1440, height: 900 },
+    cover: { src: '/work/one-click-ai/cover.webp', alt: 'The One Click AI home page: a Burmese headline offering Movie Recap videos with Myanmar voice and subtitles, next to a sample recap with a Burmese subtitle.', caption: 'oneclickai.studio, October 2026.', width: 1440, height: 740 },
     chapters: [
       {
         title: 'The problem',
@@ -167,12 +143,17 @@ export const projects: Project[] = [
       },
     ],
     figures: [
-      { src: '/work/one-click-ai/steps.webp', alt: 'Three numbered steps in Burmese: choose a source, upload and pick settings, download and post.', caption: 'The whole workflow, as the product explains it: source, settings, download.', width: 1440, height: 540 },
-      { src: '/work/one-click-ai/tools.webp', alt: 'A grid of tool cards: Movie Recap Generator, Thumbnail Generator, Video Splitter, Knowledge Video and Voice Cloning, each tagged with its plan.', caption: 'The creator tools, each tagged with the plan that includes it.', width: 1440, height: 720 },
+      { src: '/work/one-click-ai/steps.webp', alt: 'Three numbered steps in Burmese: choose a source, upload and pick settings, download and post.', caption: 'The whole workflow, as the product explains it: source, settings, download.', width: 1440, height: 570 },
+      { src: '/work/one-click-ai/tools.webp', alt: 'A grid of tool cards: Movie Recap Generator, Thumbnail Generator, Video Splitter, Knowledge Video and Voice Cloning, each tagged with its plan.', caption: 'The creator tools, each tagged with the plan that includes it.', width: 1440, height: 870 },
       { src: '/work/one-click-ai/phone.webp', alt: 'The One Click AI home page on a phone, with full-width Burmese buttons.', caption: 'Most creators arrive on a phone, from Messenger or TikTok.', width: 780, height: 1688, phone: true },
     ],
+    highlights: [
+      'Crash-safe job pipeline: every stage checkpoints, so an interrupted run resumes instead of starting over',
+      'Speech, script and voice providers behind adapters with automatic fallback',
+      'Signed, de-duplicated payment webhooks tested across renewals, cancellations and late payments',
+      'Filament admin for 3,600+ users, plans, credits and resuming failed runs',
+    ],
     related: ['MAR', 'WIN', 'DAC'],
-    spineHeight: 0.98,
   },
   {
     slug: 'moethuzar',
@@ -235,8 +216,13 @@ export const projects: Project[] = [
       { src: '/work/moethuzar/admin.webp', alt: 'The Moethuzar admin catalogue table listing products with status, category, price and inventory.', caption: 'The admin catalogue: status, price and stock in one table.', width: 1899, height: 905 },
       { src: '/work/moethuzar/phone.webp', alt: 'The Moe Thuzar store on a phone.', caption: 'The store on a phone, where most orders start.', width: 780, height: 1688, phone: true },
     ],
+    highlights: [
+      'Idempotent checkout: one transaction, one order, however many times the button is pressed',
+      'Transactional outbox and an idempotent projector keep the wishlist replayable',
+      'Variant-level inventory and price snapshots on every order',
+      'A modular monolith: thin routes, use-case services, pure domain rules',
+    ],
     related: ['MAR', 'FRO', 'BRO'],
-    spineHeight: 0.9,
   },
   {
     slug: 'avenora',
@@ -277,44 +263,98 @@ export const projects: Project[] = [
       { src: '/work/avenora/process.webp', alt: 'The Our process section: large condensed heading on the left, numbered steps in monospaced type on the right.', caption: 'The process section: the steps a client actually goes through.', width: 1440, height: 900 },
       { src: '/work/avenora/phone.webp', alt: 'The Avenora home page on a phone.', caption: 'The headline recomposed for a phone.', width: 780, height: 1688, phone: true },
     ],
+    highlights: [
+      'Designed and built from first layout to launch, then rebuilt as a redesign',
+      'Next.js and TypeScript with shadcn/ui components',
+      'Scroll-led motion with Framer Motion, kept out of the way of the content',
+    ],
     related: ['FRO', 'BRO', 'AAK'],
-    spineHeight: 0.84,
   },
 ];
 
-// ---------------------------------------------------------------- contents and index
+// ---------------------------------------------------------------- engineering
 
-export const contents = [
-  { title: 'One Click AI', detail: 'Full stack engineer', place: 'oneclickai.studio', years: '2026 to now', href: '/work/one-click-ai/' },
-  { title: 'Kewordal', detail: 'Frontend developer, internship', place: 'Remote', years: '2025 to 2026', note: 'Shipped responsive React interfaces from Figma for customer-facing learning products, wired them to REST APIs with real loading, empty and error states, and wrote Jest and React Testing Library tests.' },
-  { title: 'University of Portsmouth', detail: 'BSc Computer Software Engineering, 2:1', place: 'Portsmouth', years: '2022 to 2024' },
-  { title: 'Edinburgh Napier University', detail: 'BSc Computing', place: 'Edinburgh', years: '2021 to 2022' },
+// The hero runs a simulation of One Click AI's job pipeline (simplified to its main stages).
+export const pipeline = [
+  { id: 'upload', label: 'Upload', detail: 'Source video to storage' },
+  { id: 'transcribe', label: 'Transcribe', detail: 'Speech to text with word timings', ai: true },
+  { id: 'script', label: 'Write script', detail: 'LLM recap script in Burmese', ai: true },
+  { id: 'voice', label: 'Voice-over', detail: 'Text to speech', ai: true },
+  { id: 'cut', label: 'Cut video', detail: 'FFmpeg edit to the narration' },
+  { id: 'subtitles', label: 'Subtitles', detail: 'Timing, SRT and burn-in' },
+  { id: 'deliver', label: 'Deliver', detail: 'Downloadable outputs' },
+] as const;
+
+export const proof = [
+  { value: '3,600+', label: 'registered users on One Click AI, a live product I build end to end' },
+  { value: '5', label: 'creator tools shipped on top of the core recap pipeline' },
+  { value: '13', label: 'months building production React at Kewordal' },
+  { value: '2:1', label: 'BSc Computer Software Engineering, University of Portsmouth' },
 ];
 
-// Back-of-book index: each skill points at the volumes where it was used.
-export const skillIndex: { term: string; vols?: number[]; see?: string }[] = [
-  { term: 'Async job pipelines', vols: [1, 2] },
-  { term: 'Checkpoint recovery', vols: [1] },
-  { term: 'Cloudflare R2', vols: [2] },
-  { term: 'FFmpeg', vols: [1] },
-  { term: 'Filament', vols: [1] },
-  { term: 'Framer Motion', vols: [3] },
-  { term: 'GitHub Actions', vols: [1] },
-  { term: 'GSAP', see: 'this site' },
-  { term: 'Idempotent webhooks', vols: [1] },
-  { term: 'Idempotent order creation', vols: [2] },
-  { term: 'Inertia.js', vols: [1] },
-  { term: 'Jest and React Testing Library', see: 'Kewordal' },
-  { term: 'Laravel and PHP', vols: [1] },
-  { term: 'Multi-provider LLM adapters', vols: [1] },
-  { term: 'Next.js', vols: [2, 3] },
-  { term: 'Pest', vols: [1] },
-  { term: 'PostgreSQL', vols: [1, 2] },
-  { term: 'Prisma', vols: [2] },
-  { term: 'Python', see: 'Reading now' },
-  { term: 'React', vols: [1, 2, 3] },
-  { term: 'Supabase Auth', vols: [2] },
-  { term: 'Tailwind CSS', vols: [3] },
-  { term: 'TypeScript', vols: [1, 2, 3] },
-  { term: 'Upstash QStash', vols: [2] },
+// Decisions: the problems that shaped the systems, each with where to read more.
+export const decisions = [
+  {
+    title: 'Jobs that survive a crash',
+    more: 'How the job runner recovers',
+    problem: 'A recap job runs for minutes across several services, and workers restart.',
+    decision: 'Every stage writes a checkpoint, each run is isolated, and finished outputs are reused.',
+    result: 'An interrupted job resumes from its last checkpoint instead of starting over.',
+    where: { slug: 'one-click-ai', chapter: 3 },
+  },
+  {
+    title: 'No single AI provider can stop a run',
+    more: 'How provider fallback works',
+    problem: 'Speech, script and voice providers time out, rate-limit and change their outputs.',
+    decision: 'Each provider sits behind an adapter with a structured response and automatic fallback routing.',
+    result: 'Swapping or losing a provider is a configuration change, not an outage.',
+    where: { slug: 'one-click-ai', chapter: 3 },
+  },
+  {
+    title: 'Payments that count once',
+    more: 'How payment webhooks are handled',
+    problem: 'Payment webhooks arrive late, twice or out of order.',
+    decision: 'Signed webhook handling with duplicate-event protection, tested across renewals, cancellations and delayed payments.',
+    result: 'A retried event never grants or charges twice.',
+    where: { slug: 'one-click-ai', chapter: 4 },
+  },
+  {
+    title: 'Checkout without duplicate orders',
+    more: 'How checkout stays idempotent',
+    problem: 'Customers double-tap, networks retry, and stock is shared between sizes and colours.',
+    decision: 'Validation, stock checks, promotions and order creation in one transaction behind an idempotency key, with prices snapshotted.',
+    result: 'One order per checkout, and old orders never change when prices do.',
+    where: { slug: 'moethuzar', chapter: 3 },
+  },
+  {
+    title: 'Async work you can replay',
+    more: 'How the outbox and projector work',
+    problem: 'A queue alone loses events when delivery fails.',
+    decision: 'Writes and an outbox event commit together; QStash delivers to an idempotent projector.',
+    result: 'The wishlist read model can be rebuilt from the source of truth at any time.',
+    where: { slug: 'moethuzar', chapter: 4 },
+  },
+  {
+    title: 'Tests where failure hurts',
+    more: 'How releases are tested',
+    problem: 'Coverage numbers say little about the failures users actually hit.',
+    decision: 'Pest and JavaScript regression tests aimed at uploads, duplicate processing and crash recovery, run in GitHub Actions.',
+    result: 'The riskiest paths are checked on every change before release.',
+    where: { slug: 'one-click-ai', chapter: 4 },
+  },
+];
+
+export const skills = [
+  { group: 'Frontend', items: ['React', 'TypeScript', 'JavaScript', 'Next.js', 'Inertia.js', 'Tailwind CSS'] },
+  { group: 'Backend', items: ['PHP', 'Laravel', 'Node.js', 'Python', 'REST APIs', 'Laravel Horizon queues', 'Filament'] },
+  { group: 'Data and DevOps', items: ['PostgreSQL', 'SQL', 'Prisma', 'Git', 'GitHub Actions CI', 'FFmpeg'] },
+  { group: 'Testing', items: ['Pest', 'Jest', 'React Testing Library', 'Vitest'] },
+  { group: 'Architecture', items: ['Async job pipelines', 'Checkpoint recovery', 'Idempotent webhooks', 'Multi-provider LLM adapters', 'Transactional outbox'] },
+];
+
+export const experience = [
+  { org: 'One Click AI', role: 'Full stack engineer', years: '2026 to now', place: 'AI Code Lab', text: 'Building a live AI video product end to end: React and TypeScript on Laravel, an AI pipeline, payments, admin tooling and CI.', href: '/work/one-click-ai/' },
+  { org: 'Kewordal', role: 'Frontend developer, internship', years: '2025 to 2026', place: 'Remote', text: 'Shipped responsive React interfaces from Figma for customer-facing learning products, wired them to REST APIs with real loading, empty and error states, and wrote Jest and React Testing Library tests.' },
+  { org: 'University of Portsmouth', role: 'BSc Computer Software Engineering, 2:1', years: '2022 to 2024', place: 'Portsmouth' },
+  { org: 'Edinburgh Napier University', role: 'BSc Computing', years: '2021 to 2022', place: 'Edinburgh' },
 ];
