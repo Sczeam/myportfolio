@@ -1,5 +1,5 @@
 'use client';
-// Opening a book: any [data-book-open] element (a spine on the shelf, a row in the reading list)
+// Opening a book: any [data-book-open] element (a cover in the reading section)
 // opens that book as a spread. The real cover on the left page, my note on the right. The cover
 // flies in from wherever the book was on screen; Previous and Next turn through the shelf.
 import Link from 'next/link';
@@ -39,10 +39,10 @@ export function BookNote() {
       const el = (e.target as HTMLElement).closest<HTMLElement>('[data-book-open]');
       if (!el || !dialog.current) return;
       e.preventDefault();
-      const i = order.findIndex((b) => b.cutter === el.dataset.bookOpen);
+      const i = order.findIndex((b) => b.id === el.dataset.bookOpen);
       if (i < 0) return;
       opener.current = el;
-      const from = (el.closest('.spine') ?? el).getBoundingClientRect();
+      const from = (el.querySelector('img') ?? el).getBoundingClientRect();
       setIndex(i);
       stopScroll();
       const d = dialog.current;
@@ -108,8 +108,8 @@ export function BookNote() {
             </div>
           </div>
           <div ref={page} className="note__page">
-            <p className="note__call">
-              <span>{book.call} {book.cutter}</span>
+            <p className="note__call mono">
+              <span>{book.subject}</span>
               <span className={book.reading ? 'note__open' : undefined}>{book.reading ? 'Reading now' : 'Read'}</span>
             </p>
             <h2 id="note-title" className="note__title"><cite>{book.title}</cite></h2>
