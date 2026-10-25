@@ -134,7 +134,10 @@ export function Pipeline({ compact = false }: { compact?: boolean }) {
 
   const crash = () => {
     const r = run.current;
-    if (phase !== 'running') return;
+    if (phase !== 'running') {
+      say(phase === 'crashed' ? 'already recovering: the retry is on its way' : 'nothing is running yet: crash lands while a stage runs', 'plain');
+      return;
+    }
     r.call?.kill();
     r.fill?.pause();
     const i = r.i;
@@ -174,11 +177,12 @@ export function Pipeline({ compact = false }: { compact?: boolean }) {
       end: 'bottom top',
       onToggle: (s) => {
         r.visible = s.isActive;
+        // The first job starts when the runner comes into view, so nobody arrives at a finished run.
+        if (s.isActive && r.runs === 0) { gsap.delayedCall(0.35, start); return; }
         if (s.isActive) { r.call?.resume(); r.fill?.resume(); } else { r.call?.pause(); r.fill?.pause(); }
       },
     });
-    const first = gsap.delayedCall(0.35, start);
-    return () => { st.kill(); first.kill(); r.call?.kill(); r.fill?.kill(); };
+    return () => { st.kill(); r.call?.kill(); r.fill?.kill(); };
   }, [start]);
 
   const running = phase === 'running';
@@ -227,7 +231,7 @@ export function Pipeline({ compact = false }: { compact?: boolean }) {
           {reduced && (phase === 'complete' || phase === 'idle') ? (
             <button type="button" className="btn btn--signal" onClick={start}><span className="btn__fill" aria-hidden="true" /><span>Run a job</span></button>
           ) : (
-            <button type="button" className="btn btn--fail" onClick={crash} disabled={!running}>
+            <button type="button" className="btn btn--fail" onClick={crash} aria-disabled={!running || undefined}>
               <span className="btn__fill" aria-hidden="true" /><span>Crash the worker</span>
             </button>
           )}

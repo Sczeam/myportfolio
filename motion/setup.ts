@@ -71,6 +71,16 @@ export function setupMotion() {
     last = y;
   });
   onPage(() => {
+    const items = [...document.querySelectorAll<HTMLElement>('[data-decision]')];
+    const links = [...document.querySelectorAll<HTMLElement>('.decisions__index a')];
+    if (!items.length) return;
+    const triggers = items.map((el, n) => ScrollTrigger.create({
+      trigger: el, start: 'top 45%', end: 'bottom 45%',
+      onToggle: (s) => { if (s.isActive) links.forEach((l, k) => l.toggleAttribute('data-active', k === n)); },
+    }));
+    return () => triggers.forEach((t) => t.kill());
+  });
+  onPage(() => {
     const inks = [...document.querySelectorAll<HTMLElement>('[data-tone="ink"]')];
     const active = new Set<HTMLElement>();
     const sync = () => html.classList.toggle('frame-on-ink', active.size > 0);
