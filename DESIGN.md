@@ -131,3 +131,13 @@ CASE
    cut, subtitles, deliver).
 2. "13 months at Kewordal" counts Sep 2025 to Oct 2026.
 3. Avenora is described as a web design and development studio.
+
+## Jury round 1 (live site, Oct 25 2026)
+
+Blind critic 7.1 (jury estimate about 8.2). Applied: crash control always available and
+explaining itself in the log; lead project title at display size above its image; Engineering
+decisions get a sticky index (active item highlighted) and a two-line log per decision; phone
+name at 26vw and runner controls under the runner header; runners start when they come into
+view; earlier reveals and eager project images; stronger book lift; Related reading across the
+row; larger decision labels; hero note aligned with the buttons; nav roll duplicate moved to
+generated content with empty alt text.

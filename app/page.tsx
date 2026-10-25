@@ -53,14 +53,14 @@ export default function Home() {
         </header>
 
         <article className="feature">
+          <h3 className="feature__title"><Link href={`/work/${lead.slug}/`} data-cover={lead.title} className="title-link">{lead.title}</Link></h3>
           <Link href={`/work/${lead.slug}/`} className="feature__media" data-volume data-cover={lead.title} tabIndex={-1} aria-label={`${lead.title} case study`}>
             <figure data-reveal="clip">
-              <Image src={lead.cover.src} alt={lead.cover.alt} width={lead.cover.width} height={lead.cover.height} sizes="(max-width: 767px) 100vw, 62vw" />
+              <Image src={lead.cover.src} alt={lead.cover.alt} width={lead.cover.width} height={lead.cover.height} sizes="(max-width: 767px) 100vw, 62vw" loading="eager" />
             </figure>
           </Link>
           <div className="feature__text">
             <p className="meta mono"><span>{lead.years}</span><span>{lead.client}</span></p>
-            <h3 className="feature__title"><Link href={`/work/${lead.slug}/`} data-cover={lead.title} className="title-link">{lead.title}</Link></h3>
             <p className="feature__sub">{lead.subtitle}</p>
             <ul className="ticks">
               {lead.highlights.map((h) => <li key={h}>{h}</li>)}
@@ -81,7 +81,7 @@ export default function Home() {
               </Link>
               <Link href={`/work/${p.slug}/`} className="row__media" data-volume data-cover={p.title} tabIndex={-1} aria-label={`${p.title} case study`}>
                 <figure data-reveal="clip">
-                  <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} sizes="(max-width: 767px) 100vw, 40vw" />
+                  <Image src={p.cover.src} alt={p.cover.alt} width={p.cover.width} height={p.cover.height} sizes="(max-width: 767px) 100vw, 40vw" loading="eager" />
                 </figure>
               </Link>
               <ul className="row__ticks ticks">
@@ -97,13 +97,22 @@ export default function Home() {
         <header className="decisions__head">
           <h2 id="eng-title" className="sec-title" data-split="lines">Engineering decisions</h2>
           <p className="sec-lede">The problems that shaped the systems I build, what I decided, and what it bought.</p>
+          <ol className="decisions__index" aria-label="Decisions">
+            {decisions.map((d, n) => (
+              <li key={d.title}><a href={`#decision-${n + 1}`} data-no-transition data-index={n}><span className="mono">{String(n + 1).padStart(2, '0')}</span> {d.title}</a></li>
+            ))}
+          </ol>
         </header>
         <ol className="decisions__list">
-          {decisions.map((d) => {
+          {decisions.map((d, n) => {
             const p = projects.find((x) => x.slug === d.where.slug)!;
             return (
-              <li key={d.title} className="decision" data-reveal="up">
+              <li key={d.title} id={`decision-${n + 1}`} className="decision" data-reveal="up" data-decision={n}>
                 <h3 className="decision__title">{d.title}</h3>
+                <ol className="decision__log mono" aria-label="What it looks like in the log">
+                  <li className="tone-fail">{d.log[0]}</li>
+                  <li className="tone-done">{d.log[1]}</li>
+                </ol>
                 <dl className="decision__body">
                   <div><dt>Problem</dt><dd>{d.problem}</dd></div>
                   <div><dt>Decision</dt><dd>{d.decision}</dd></div>

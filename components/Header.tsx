@@ -12,9 +12,8 @@ const links = [
 
 function Roll({ children }: { children: string }) {
   return (
-    <span className="roll">
+    <span className="roll" data-label={children}>
       <span>{children}</span>
-      <span aria-hidden="true">{children}</span>
     </span>
   );
 }

@@ -296,6 +296,7 @@ export const proof = [
 export const decisions = [
   {
     title: 'Jobs that survive a crash',
+    log: ['worker lost during voice', 'resumed from checkpoint: script'],
     more: 'How the job runner recovers',
     problem: 'A recap job runs for minutes across several services, and workers restart.',
     decision: 'Every stage writes a checkpoint, each run is isolated, and finished outputs are reused.',
@@ -304,6 +305,7 @@ export const decisions = [
   },
   {
     title: 'No single AI provider can stop a run',
+    log: ['speech provider A timed out', 'routed transcribe to provider B'],
     more: 'How provider fallback works',
     problem: 'Speech, script and voice providers time out, rate-limit and change their outputs.',
     decision: 'Each provider sits behind an adapter with a structured response and automatic fallback routing.',
@@ -312,6 +314,7 @@ export const decisions = [
   },
   {
     title: 'Payments that count once',
+    log: ['renewal webhook received twice', 'second copy ignored, nothing charged'],
     more: 'How payment webhooks are handled',
     problem: 'Payment webhooks arrive late, twice or out of order.',
     decision: 'Signed webhook handling with duplicate-event protection, tested across renewals, cancellations and delayed payments.',
@@ -320,6 +323,7 @@ export const decisions = [
   },
   {
     title: 'Checkout without duplicate orders',
+    log: ['POST /checkout retried with the same key', 'one order returned, none created'],
     more: 'How checkout stays idempotent',
     problem: 'Customers double-tap, networks retry, and stock is shared between sizes and colours.',
     decision: 'Validation, stock checks, promotions and order creation in one transaction behind an idempotency key, with prices snapshotted.',
@@ -328,6 +332,7 @@ export const decisions = [
   },
   {
     title: 'Async work you can replay',
+    log: ['QStash delivery failed', 'projector replayed from the outbox'],
     more: 'How the outbox and projector work',
     problem: 'A queue alone loses events when delivery fails.',
     decision: 'Writes and an outbox event commit together; QStash delivers to an idempotent projector.',
@@ -336,6 +341,7 @@ export const decisions = [
   },
   {
     title: 'Tests where failure hurts',
+    log: ['regression: duplicate upload processed', 'CI failed, release blocked'],
     more: 'How releases are tested',
     problem: 'Coverage numbers say little about the failures users actually hit.',
     decision: 'Pest and JavaScript regression tests aimed at uploads, duplicate processing and crash recovery, run in GitHub Actions.',
